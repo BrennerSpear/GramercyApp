@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :leads
+
   devise_for :brands
 
   root 'pages#home'
