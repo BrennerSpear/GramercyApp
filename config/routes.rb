@@ -1,6 +1,27 @@
 Rails.application.routes.draw do
   devise_for :brands
+
   root 'pages#home'
+
+  get 'benefits' => 'pages#benefits'
+
+  get 'payment_model' => 'pages#payment_model'
+
+  get 'platforms' => 'pages#platforms'
+
+  get 'blog' => 'pages#blog'
+
+  get 'faq' => 'pages#faq'
+
+  get 'settings' => 'pages#settings'
+
+  get 'dashboard' => 'pages#dashboard'
+
+  get 'terms_and_conditions' => 'pages#terms_and_conditions'
+
+  get 'privacy_policy' => 'pages#privacy_policy'
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,15 +1,17 @@
-<h2>Log in</h2>
+<div class="containter devise-box">
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: "form-signin log-in well"} ) do |f| %>
+  
+  	<h2 class="text-center gramercy-color">Log in</h2>
+  	<br>
+    <%= f.input :email, required: true, autofocus: true, label: false, placeholder: "Email" %>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
+    <%= f.input :password, required: true, label: false, placeholder: "Password" %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
+    <br>
+    <%= f.button :submit, "Log in", class: "btn btn-primary btn-block gramercy-bg-color" %>
+    <br>
+    <%= render "devise/shared/links" %>
 <% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+

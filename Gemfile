@@ -31,6 +31,10 @@ gem 'devise'
 
 gem 'cancan'
 
+gem 'nav_lynx'
+
+gem 'font-awesome-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,19 +1,20 @@
-<h2>Change your password</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<div class = "container devise-box">
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "form-signin log-in well" }) do |f| %>
   <%= f.error_notification %>
-
   <%= f.input :reset_password_token, as: :hidden %>
   <%= f.full_error :reset_password_token %>
 
-  <div class="form-inputs">
-    <%= f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
-  </div>
-
-  <div class="form-actions">
+  <h2 class="text-center gramercy-color">Change your password</h2>
+    <br>
+    <%= f.input :password, label: false, required: true, autofocus: true, placeholder: "New password" %>
+    <br>
+    <%= f.input :password_confirmation, label: false, required: true, placeholder: "Confirm your new password" %>
+    <br>
     <%= f.button :submit, "Change my password" %>
-  </div>
-<% end %>
+    <br>
+    <%= render "devise/shared/links" %>
 
-<%= render "devise/shared/links" %>
+<% end %>
+</div>
+
+

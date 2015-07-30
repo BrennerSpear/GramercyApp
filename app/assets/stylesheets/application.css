@@ -13,3 +13,89 @@
  *= require_tree .
  *= require_self
  */
+
+
+.main {
+	background-color: #F4F4F4;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+
+#header, #header li a {
+	background-color: #DBDBDB;
+	color: #777777;
+}
+
+.header-btn {
+	margin-top: 8px;
+	font-weight: bold;
+	color: #777777;
+	background-color: #86C9D4;
+}
+
+.header-btn a {
+	color: #FEFEFE;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #777777;
+
+}
+
+.footer ul {
+	list-style-type: none;
+}
+
+.footer nav {
+	height: 30px;
+}
+
+.footer ul li {
+	display: inline;
+	color: #DBDBDB;
+}
+
+.footer ul li a {
+	color: #DBDBDB;
+}
+.footer-right {
+	padding-right: 40px;
+	margin-top: 7px;
+}
+
+.fa-stack {
+	margin-left: 7px;
+}
+
+.selected {
+	font-weight: 800;
+}
+
+.log-in {
+	border-style: solid;
+	background-color: #FEFEFE;
+}
+
+.gramercy-color {
+	color: #86C9D4;
+}
+
+.gramercy-bg-color {
+	background-color: #86C9D4;
+}
+
+.devise-box {
+	margin-top: 45px;
+}
