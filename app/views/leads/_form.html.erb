@@ -1,12 +1,30 @@
-<%= simple_form_for(@lead) do |f| %>
+<% @lead = Lead.new %>
+
+<%= simple_form_for(@lead, html: { class: "form-inline", role: "form"}) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email %>
-    <%= f.input :platform %>
+  <div class="form-group">
+    <%= f.label :email, class: 'sr-only' %>
+    <%= f.text_field :email, class: "form-control", placeholder: "Email Address", required: "true" %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-group">
+    <%= f.label :platform, class: 'sr-only' %>
+    <%= f.select(:platform, ([
+        ['Shopify', 'Shopify'],
+        ['BigCommerce', 'BigCommerce'],
+        ['WooCommerce', 'WooCommerce'],
+        ['Etsy','Etsy'],
+        ['Magento','Magento'],
+        ['DemandWare','DemandWare'],
+        ['Prestashop','Prestashop'],
+        ['Opencart','Opencart'],
+        ['Ultracart','Ultracart'],
+        ['Volusion','Volusion'],
+        ['3dcart','3dcart'],
+        ['Wix','Wix'],
+        ['Weebly','Weebly'],
+        ['Custom', 'Custom']
+        ]), {include_blank: 'choose platform'}, required: true, class: 'form-control') %>
   </div>
+    <%= f.submit submit_text, class: "btn btn-primary", style: "background-color: #777777; border-color: #777777" %>
 <% end %>

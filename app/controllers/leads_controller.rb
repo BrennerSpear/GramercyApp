@@ -24,15 +24,15 @@ class LeadsController < ApplicationController
   # POST /leads
   # POST /leads.json
   def create
-    @lead = Lead.new(lead_params)
+    @lead = Lead.where(email: lead_params[:email]).first_or_initialize
+    @lead.assign_attributes(lead_params)
 
     respond_to do |format|
-      if @lead.save
-        format.html { redirect_to @lead, notice: 'Lead was successfully created.' }
-        format.json { render :show, status: :created, location: @lead }
+      if @lead.save(lead_params)
+        #@lead.send_welcome_email
+        format.html { redirect_to controller: "pages", action: "home"}
       else
         format.html { render :new }
-        format.json { render json: @lead.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +43,8 @@ class LeadsController < ApplicationController
     respond_to do |format|
       if @lead.update(lead_params)
         format.html { redirect_to @lead, notice: 'Lead was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lead }
       else
         format.html { render :edit }
-        format.json { render json: @lead.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +55,6 @@ class LeadsController < ApplicationController
     @lead.destroy
     respond_to do |format|
       format.html { redirect_to leads_url, notice: 'Lead was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
