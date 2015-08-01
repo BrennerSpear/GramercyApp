@@ -10,21 +10,22 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require_tree
  *= require_self
  */
 
+$gramercy-color: #86C9D4;
 
 .main {
 	background-color: #F4F4F4;
 }
 
 .gramercy-color {
-	color: #86C9D4;
+	color: $gramercy-color;
 }
 
 .gramercy-bg-color {
-	background-color: #86C9D4;
+	background-color: $gramercy-color;
 }
 
 html {
@@ -36,96 +37,13 @@ body {
   margin-bottom: 40px;
 }
 
-.text-area {
-	width: 900px;
-	margin: 0 auto;
-
-}
-
-.title-section {
-	margin-top: -20px;
-	background-color: #86C9D4;
-	width: auto;
-	height: 300px;
-	text-align: center;
-	padding-top: 40px;
-	color: #FEFEFE;
-	
-}
-
-.title-section .text-area {
-
-}
-
-
-/* Header */
-
-#header, #header li a {
-	background-color: #F8F8F8;
+h1, h2, h3, h4, p {
 	color: #777777;
 }
 
-.header-btn {
-	margin-top: 8px;
-	font-weight: bold;
+a {
 	color: #777777;
-	background-color: #86C9D4;
 }
-
-.header-btn a {
-	color: #FEFEFE;
-}
-
-.selected {
-	font-weight: 800;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 40px;
-  background-color: #777777;
-
-}
-
-
-
-
-
-
-/* Footer */
-
-.footer ul {
-	list-style-type: none;
-}
-
-.footer nav {
-	height: 30px;
-}
-
-.footer ul li {
-	display: inline;
-	color: #DBDBDB;
-}
-
-.footer ul li a {
-	color: #DBDBDB;
-}
-.footer-right {
-	padding-right: 40px;
-	margin-top: 7px;
-}
-
-.fa-stack {
-	margin-left: 7px;
-}
-
-
-
-
-
 
 /* DEVISE PAGES */
 
@@ -137,3 +55,84 @@ body {
 .devise-box {
 	margin-top: 45px;
 }
+
+
+
+/*WEB PAGES*/
+
+
+.text-area {
+	max-width: 900px;
+	margin: 0 auto;
+
+}
+
+.divider {
+	width: 100%;
+	height: 3px;
+	background-color: $gramercy-color;
+}
+
+.divider-dark {
+	width: 100%;
+	height: 3px;
+	background-color: #777777;
+}
+
+.divider-light {
+	width: 100%;
+	height: 3px;
+	background-color: #F4F4F4;
+}
+
+.sign-up-section {
+	background-color: $gramercy-color;
+	width: auto;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 45px;
+	color: #FEFEFE;
+	
+	h4 {
+	color: #FEFEFE;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

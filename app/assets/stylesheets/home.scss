@@ -1,0 +1,200 @@
+$gramercy-color: #86C9D4;
+
+@media (max-width: 767px) {
+
+	.reason {
+		margin-bottom: 5em;
+	}
+
+}
+
+.title-section {
+	margin-top: -20px;
+	background-color: $gramercy-color;
+	width: auto;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 45px;
+	color: #FEFEFE;
+
+	h1, h2, h3, h4 {
+		color: #FEFEFE;
+	}
+}
+
+.title-img {
+	max-width: 600px;
+	width: 100%;
+}
+
+
+
+
+.reason-section {
+	padding-top: 35px;
+	padding-bottom: 40px;
+
+}
+
+.reason {
+	text-align: center;
+
+}
+
+.reason-title {
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.reason-img {
+	width: 170px;
+}
+
+.reason-text {
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 80%;
+}
+
+
+.how-it-works-section{
+	background-color: #fefefe;
+	padding-bottom: 40px;
+}
+
+.how-it-works-img {
+	max-width: 900px;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+.how-it-works-top {
+	max-width: 200px;
+	margin: auto;
+	text-align: center;
+}
+
+.how-it-works-text-1 {
+	bottom: -82px;
+}
+.how-it-works-text-2 {
+	bottom: -43px;
+}
+
+.how-it-works-text-3 {
+	bottom: -115px;
+}
+
+.how-it-works-text-4 {
+	margin: auto;
+	text-align: center;
+	margin-top: -220px;
+}
+
+.how-it-works-text-5 {
+	max-width: 200px;
+	margin: auto;
+	text-align: center;
+	margin-top: -50px;
+}
+
+.how-it-works-text-6 {
+	max-width: 200px;
+	margin: auto;
+	text-align: center;
+	margin-top: -55px;
+}
+
+.how-it-works-list {
+	list-style-type: none;
+	padding: auto;
+	
+	h3 {
+	text-align: center;
+	padding-top: 20px;
+	margin-top: 0;
+	}
+
+	p {
+	padding-left: 20px;
+	padding-right: 20px;
+	}
+}
+
+
+.platform-integrations-section {
+	padding-top: 40px;
+    padding-bottom: 25px;
+	
+	img {
+    height: 100px;
+    width: auto;
+	}
+
+	h3{
+	text-align: center;
+	margin-top: 0;
+	}
+}
+
+
+
+.current-platforms{
+	margin-bottom: 30px;
+	text-align: center;
+	
+	img {
+    margin: 30px;
+    height: 130px;
+    width: auto;
+	}
+}
+
+
+.future-platforms {
+	text-align: center;
+	opacity: 0.5;
+	
+	img {
+	margin: 30px;
+    height: 80px;
+    width: auto;
+	}
+}
+
+.team-section {
+	padding-top: 20px;
+    padding-bottom: 25px;
+	text-align: center;
+
+	.fa-stack {
+		margin-left: 0px;
+	}
+
+	a:hover {
+		color: #86C9D4;
+	}
+
+	ul{
+		padding-left: 0px;
+	}
+}
+
+.team-member-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;  
+  border: 3px solid $gramercy-color;
+}
+
+
+.team-member-contact {
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
