@@ -1,17 +1,79 @@
-<div>
+
+<%= stylesheet_link_tag "platforms", media: "all", "data-turbolinks-track" => true %>
+
+<div class="platforms_page">
+	<div class="divider-top"></div>
+
 	<section class="title-section">
 		<div class="text-area">
-
-
+			<h1>Ecommerce Platforms</h1>
+			<h3>quick and seamless integration</h3>
 		</div>
+	</section>
 
+	<div class="divider-dark"></div>
+
+		<section class="available-section">
+			<div class="text-area">
+				<h2>Gramercy will launch here first:</h2>
+				<div class="row" >
+					<%= link_to "https://apps.shopify.com/" do %>
+					<%= image_tag "shopify-long", class: "launch-first" %>
+					<% end %>
+				</div>
+
+			</div>
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="future-section">
+			<div class="text-area">
+				<h2>Gramercy will be coming to these ecommerce platforms' app stores in the future:</h2>
+				<br>
+				<div class="row future">
+					<%= image_tag "bigcommerce-logo" %>
+					<%= image_tag "etsy-long" %>
+				</div>
+				<div class="row future">
+					<%= image_tag "demandware-long" %>
+					<%= image_tag "prestashop-logo" %>
+					<%= image_tag "woocommerce-long" %>
+				</div>
+				<div class="row future">
+					<%= image_tag "volusion-long", style: "margin-right: 85px;" %>
+					<%= image_tag "magento-long" %>
+				</div>
+
+
+			</div>
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="custom-section">
+			<div class="text-area">
+				<h2>Gramercy will offer custom integration with your online storefront</h2>
+
+			</div>
+		</section>
+
+
+
+	<div class="divider-dark"></div>
+
+
+	<section class="sign-up-section">
+
+		<div class="text-area">
+			<h4> Get notified when Gramercy goes live: </h4>
+			<br>
+			<%= render '/leads/form', submit_text: 'Sign up »' %>
+		</div>
 
 	</section>
 
-
-
-
-
+	<div class="divider-light"></div>
 
 
 </div>
