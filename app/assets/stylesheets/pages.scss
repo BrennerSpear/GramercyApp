@@ -1,3 +1,105 @@
-// Place all the styles related to the pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$gramercy-color: #86C9D4;
+
+.main {
+	background-color: #F4F4F4;
+}
+
+.gramercy-color {
+	color: $gramercy-color;
+}
+
+.gramercy-bg-color {
+	background-color: $gramercy-color;
+}
+
+.dark-grey-color
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+
+h1, h2, h3, h4, p {
+	color: #777777;
+}
+
+a {
+	color: #777777;
+}
+
+/* DEVISE PAGES */
+
+.log-in {
+	border-style: solid;
+	background-color: #FEFEFE;
+}
+
+.devise-box {
+	margin-top: 45px;
+}
+
+
+
+/*WEB PAGES*/
+
+
+.text-area {
+	max-width: 900px;
+	margin: 0 auto;
+
+}
+
+.divider {
+	width: 100%;
+	height: 3px;
+	background-color: $gramercy-color;
+}
+
+.divider-dark {
+	width: 100%;
+	height: 3px;
+	background-color: #777777;
+}
+
+.divider-top {
+	margin-top: -20px;
+	width: 100%;
+	height: 3px;
+	background-color: #777777;
+}
+
+.divider-light {
+	width: 100%;
+	height: 3px;
+	background-color: #F4F4F4;
+}
+
+.sign-up-section {
+	background-color: $gramercy-color;
+	width: auto;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 45px;
+	color: #FEFEFE;
+	
+	h4 {
+	color: #FEFEFE;
+	}
+}
+
+.title-section {
+	margin-top: 0;
+	background-color: $gramercy-color;
+	width: auto;
+	padding-top: 40px;
+	padding-bottom: 45px;
+	color: #FEFEFE;
+
+	h1, h2, h3, h4 {
+		color: #FEFEFE;
+	}
+}

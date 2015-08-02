@@ -8,18 +8,17 @@ $gramercy-color: #86C9D4;
 
 }
 
-.title-section {
-	margin-top: -20px;
-	background-color: $gramercy-color;
-	width: auto;
-	text-align: center;
-	padding-top: 40px;
-	padding-bottom: 45px;
-	color: #FEFEFE;
+.home-page {
 
-	h1, h2, h3, h4 {
-		color: #FEFEFE;
+	.title-section {
+		margin-top: -20px;
+		text-align: center;
+		
+		h1, h2, h3, h4 {
+			color: #FEFEFE;
+		}
 	}
+
 }
 
 .title-img {

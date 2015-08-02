@@ -8,7 +8,7 @@
     <%= f.text_field :email, class: "form-control", placeholder: "Email Address", required: "true" %>
   </div>
   <div class="form-group">
-    <%= f.label :platform, class: 'sr-only' %>
+    <%= f.label :platform, class: 'sr-only'%>
     <%= f.select(:platform, ([
         ['Shopify', 'Shopify'],
         ['BigCommerce', 'BigCommerce'],
@@ -24,7 +24,7 @@
         ['Wix','Wix'],
         ['Weebly','Weebly'],
         ['Custom', 'Custom']
-        ]), {include_blank: 'choose platform'}, required: true, class: 'form-control') %>
+        ]), {include_blank: 'choose platform'}, required: true, class: 'form-control', style: "color: #777777;") %>
   </div>
-    <%= f.submit submit_text, class: "btn btn-primary", style: "background-color: #777777; border-color: #777777" %>
+    <%= f.submit submit_text, class: "btn btn-primary", style: "background-color: #777777; border-color: #777777;" %>
 <% end %>
