@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 # changed to pgsql
 gem 'pg'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -37,6 +36,8 @@ gem 'nav_lynx'
 gem 'font-awesome-rails'
 
 gem 'bootstrap-sass', '~> 3.3.5'
+
+gem 'rails_12factor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
