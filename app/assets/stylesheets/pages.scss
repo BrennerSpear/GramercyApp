@@ -10,7 +10,14 @@ $gramercy-color: #86C9D4;
 
 .gramercy-bg-color {
 	background-color: $gramercy-color;
+	border-color: $gramercy-color;
+
+	&:hover{
+		background-color: #777777;
+		border-color: $gramercy-color;
+	}
 }
+
 
 html {
   position: relative;
@@ -21,12 +28,16 @@ body {
   margin-bottom: 40px;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, h6, p {
 	color: #777777;
 }
 
 a {
-	color: #777777;
+	color: $gramercy-color;
+
+	&:hover{
+		color: #777;
+	}
 }
 
 /* DEVISE PAGES */
@@ -40,7 +51,35 @@ a {
 	margin-top: 45px;
 }
 
+.form-signin {
+  max-width: 290px;
+  padding: 15px;
+  margin: 0 auto;
+}
 
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input {
+  margin-bottom: 10px;
+
+}
 
 /*WEB PAGES*/
 
@@ -93,11 +132,12 @@ a {
 	background-color: $gramercy-color;
 	width: auto;
 	text-align: center;
-	padding-top: 40px;
-	padding-bottom: 45px;
+	padding-top: 15px;
+	padding-bottom: 30px;
 	color: #FEFEFE;
 	
 	h4 {
 	color: #FEFEFE;
+	margin-bottom: 20px;
 	}
 }

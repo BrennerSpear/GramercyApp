@@ -29,7 +29,15 @@ class LeadsController < ApplicationController
 
     respond_to do |format|
       if @lead.save
-        LeadMailer.sign_up_platform_exists(@lead.id).deliver_now
+
+        if (@lead.platform == "Shopify")
+          LeadMailer.sign_up_platform_exists(@lead.id).deliver_now
+        elsif (@lead.platform == "Custom")
+          LeadMailer.sign_up_platform_custom(@lead.id).deliver_now
+        else 
+          LeadMailer.sign_up_platform_does_not_exist(@lead.id).deliver_now
+        end
+        
         format.html { redirect_to controller: "pages", action: "home"}
       else
         format.html { redirect_to :back, notice: "That's not even an email address, is it?"}
