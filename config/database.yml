@@ -16,9 +16,3 @@ test:
   <<: *default
   database: gramercyapp_test
   username: BrennerSpear
-
-
-production:
-  <<: *default
-  database: gramercy_production
-  username: BrennerSpear
