@@ -26,9 +26,10 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 40px;
+
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, ul li {
 	color: #777777;
 }
 
@@ -39,6 +40,7 @@ a {
 		color: #777;
 	}
 }
+
 
 /* DEVISE PAGES */
 
@@ -122,9 +124,11 @@ a {
 	padding-top: 40px;
 	padding-bottom: 45px;
 	color: #FEFEFE;
+	text-align: center;
 
 	h1, h2, h3, h4 {
 		color: #FEFEFE;
+		text-align: center;
 	}
 }
 

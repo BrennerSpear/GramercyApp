@@ -6,7 +6,7 @@
     <%= f.input :email, required: true, autofocus: true, label: false, placeholder: "Email" %>
     <%= f.input :password, required: true, label: false, placeholder: "Password" %>
     <%= f.input :password_confirmation, required: true, label: false, placeholder: "Confirm Password"%>
-    <p>By clicking the "Sign up" button below I agree to the <%= link_to "Terms of Service", terms_and_conditions_path %> and <%= link_to "Privacy Policy", privacy_policy_path %></p>
+    <p>By clicking the "Sign up" button below I agree to the <%= link_to "Terms of Service", terms_of_service_path %> and <%= link_to "Privacy Policy", privacy_policy_path %></p>
     <%= f.button :submit, "Sign up", class: "btn btn-primary btn-block gramercy-bg-color" %>
 
     <br>

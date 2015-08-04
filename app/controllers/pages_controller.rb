@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   def dashboard
   end
   
-  def terms_and_conditions
+  def terms_of_service
   end
 
   def privacy_policy

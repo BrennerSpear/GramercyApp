@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'pages#dashboard'
 
-  get 'terms_and_conditions' => 'pages#terms_and_conditions'
+  get 'terms_of_service' => 'pages#terms_of_service'
 
   get 'privacy_policy' => 'pages#privacy_policy'
 
