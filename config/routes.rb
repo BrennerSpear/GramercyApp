@@ -12,17 +12,19 @@ Rails.application.routes.draw do
 
   get 'platforms' => 'pages#platforms'
 
-  get 'blog' => 'pages#blog'
+  get 'blog' => 'pages#home'
 
   get 'faq' => 'pages#faq'
 
-  get 'settings' => 'pages#settings'
+  get 'settings' => 'pages#home'
 
-  get 'dashboard' => 'pages#dashboard'
+  get 'dashboard' => 'pages#home'
 
   get 'terms_of_service' => 'pages#terms_of_service'
 
   get 'privacy_policy' => 'pages#privacy_policy'
+
+  get 'thank_you' => 'pages#thank_you'
 
   
 

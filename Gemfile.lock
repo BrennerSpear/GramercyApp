@@ -127,6 +127,8 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.1)
     rack (1.6.4)
+    rack-attack (4.3.0)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -221,6 +223,7 @@ DEPENDENCIES
   letter_opener
   nav_lynx
   pg
+  rack-attack
   rails (= 4.2.0)
   rails_12factor
   sass-rails (~> 5.0)

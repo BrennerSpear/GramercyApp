@@ -42,6 +42,8 @@ gem 'rails_12factor'
 gem 'figaro'
 
 gem 'therubyracer'
+
+gem 'rack-attack'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -38,7 +38,7 @@ class LeadsController < ApplicationController
           LeadMailer.sign_up_platform_does_not_exist(@lead.id).deliver_now
         end
         
-        format.html { redirect_to controller: "pages", action: "home"}
+        format.html { redirect_to controller: "pages", action: "thank_you"}
       else
         format.html { redirect_to :back, notice: "That's not even an email address, is it?"}
       end
