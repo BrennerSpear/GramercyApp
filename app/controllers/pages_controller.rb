@@ -1,5 +1,10 @@
 class PagesController < ApplicationController
+  before_action :authenticate_brand!, only: [:dashboard, :test]
+
   def home
+    if current_brand
+      redirect_to dashboard_path
+    end
   end
 
   def benefits
@@ -16,12 +21,6 @@ class PagesController < ApplicationController
 
   def faq
   end
-
-  def settings
-  end
-
-  def dashboard
-  end
   
   def terms_of_service
   end
@@ -30,6 +29,17 @@ class PagesController < ApplicationController
   end
 
   def thank_you
+  end
+
+  def test
+    @brands = Brand.all
+  end
+
+  def settings
+  end
+
+  def dashboard
+    @brand = current_brand
   end
 
 end

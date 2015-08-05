@@ -1,5 +1,6 @@
 class LeadsController < ApplicationController
   before_action :set_lead, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!, only: [:index, :show, :new, :edit]
 
   # GET /leads
   # GET /leads.json
@@ -14,7 +15,7 @@ class LeadsController < ApplicationController
 
   # GET /leads/new
   def new
-    @lead = Lead.new
+
   end
 
   # GET /leads/1/edit

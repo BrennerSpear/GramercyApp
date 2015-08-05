@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   resources :leads
 
   devise_for :brands
@@ -18,13 +19,15 @@ Rails.application.routes.draw do
 
   get 'settings' => 'pages#home'
 
-  get 'dashboard' => 'pages#home'
+  get 'dashboard' => 'pages#dashboard'
 
   get 'terms_of_service' => 'pages#terms_of_service'
 
   get 'privacy_policy' => 'pages#privacy_policy'
 
   get 'thank_you' => 'pages#thank_you'
+
+  get 'test' => 'pages#test'
 
   
 
