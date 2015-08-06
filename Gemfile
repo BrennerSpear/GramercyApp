@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 
+gem 'shopify_app'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # changed to pgsql
