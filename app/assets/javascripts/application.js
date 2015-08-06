@@ -10,13 +10,14 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 
+
+// = require jquery
+// = require jquery.turbolinks
+// = require jquery_ujs
 // = require dataTables/jquery.dataTables
 // = require metisMenu.min
 // = require sb-admin-2
 // = require bootstrap.min
-// = require jquery
-// = require jquery.turbolinks
-// = require jquery_ujs
 // = require twitter/bootstrap
 // = require_tree .
 // = require turbolinks
