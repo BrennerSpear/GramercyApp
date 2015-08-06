@@ -42,4 +42,8 @@ class PagesController < ApplicationController
     @brand = current_brand
   end
 
+  def admin_dashboard
+    @leads = Lead.all
+  end
+
 end

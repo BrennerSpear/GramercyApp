@@ -44,6 +44,14 @@ gem 'figaro'
 gem 'therubyracer'
 
 gem 'rack-attack'
+
+gem 'simple-navigation-bootstrap'
+
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+
+gem 'jquery-turbolinks'
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

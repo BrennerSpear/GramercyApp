@@ -25,5 +25,7 @@ module GramercyApp
 
     config.middleware.use Rack::Attack
     
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    
   end
 end

@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   get 'test' => 'pages#test'
 
+  get 'admin_dashboard' => 'pages#admin_dashboard'
+
   
 
 
