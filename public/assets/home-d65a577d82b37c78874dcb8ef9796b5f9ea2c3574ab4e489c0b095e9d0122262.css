@@ -1,0 +1,198 @@
+@media (max-width: 767px) {
+  /* line 5, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+  .reason {
+    margin-bottom: 5em;
+  }
+}
+/* line 12, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.title-img {
+  max-width: 600px;
+  width: 100%;
+}
+
+/* line 20, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.reason-section {
+  padding-top: 35px;
+  padding-bottom: 40px;
+}
+
+/* line 26, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.reason {
+  text-align: center;
+}
+
+/* line 31, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.reason-title {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* line 36, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.reason-img {
+  width: 170px;
+}
+
+/* line 40, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.reason-text {
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
+}
+
+/* line 48, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-section {
+  background-color: #fefefe;
+  padding-bottom: 40px;
+}
+
+/* line 53, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-img {
+  max-width: 900px;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+/* line 60, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-top {
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+}
+
+/* line 66, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-1 {
+  bottom: -82px;
+}
+
+/* line 69, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-2 {
+  bottom: -43px;
+}
+
+/* line 73, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-3 {
+  bottom: -115px;
+}
+
+/* line 77, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-4 {
+  margin: auto;
+  text-align: center;
+  margin-top: -220px;
+}
+
+/* line 83, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-5 {
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+  margin-top: -50px;
+}
+
+/* line 90, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-text-6 {
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+  margin-top: -55px;
+}
+
+/* line 97, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-list {
+  list-style-type: none;
+  padding: auto;
+}
+/* line 101, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-list h3 {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 0;
+}
+/* line 107, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.how-it-works-list p {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* line 114, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.platform-integrations-section {
+  padding-top: 40px;
+  padding-bottom: 25px;
+}
+/* line 118, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.platform-integrations-section img {
+  height: 100px;
+  width: auto;
+}
+/* line 123, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.platform-integrations-section h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+/* line 131, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.current-platforms {
+  margin-bottom: 30px;
+  text-align: center;
+}
+/* line 135, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.current-platforms img {
+  margin: 30px;
+  height: 130px;
+  width: auto;
+}
+
+/* line 143, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.future-platforms {
+  text-align: center;
+  opacity: 0.5;
+}
+/* line 147, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.future-platforms img {
+  margin: 30px;
+  height: 80px;
+  width: auto;
+}
+
+/* line 154, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section {
+  padding-top: 20px;
+  padding-bottom: 25px;
+  text-align: center;
+}
+/* line 159, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section .fa-stack {
+  margin-left: 0px;
+}
+/* line 163, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section a {
+  color: #777777;
+}
+/* line 166, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section a:hover {
+  color: #86C9D4;
+}
+/* line 169, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section a:visted {
+  color: #777777;
+}
+/* line 174, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-section ul {
+  padding-left: 0px;
+}
+
+/* line 179, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-member-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 3px solid #86C9D4;
+}
+
+/* line 188, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/home.scss */
+.team-member-contact img {
+  width: 24px;
+  height: 24px;
+}

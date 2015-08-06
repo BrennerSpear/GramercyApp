@@ -1,0 +1,13 @@
+/* line 1, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/faq.scss */
+.panel-default > .panel-heading {
+  background-color: rgba(134, 201, 212, 0.5);
+}
+/* line 5, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/faq.scss */
+.panel-default > .panel-heading h5 {
+  color: #666;
+}
+
+/* line 10, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/faq.scss */
+.panel-body {
+  color: #777;
+}

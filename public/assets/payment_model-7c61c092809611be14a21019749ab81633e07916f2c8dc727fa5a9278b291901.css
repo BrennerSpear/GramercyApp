@@ -1,0 +1,56 @@
+/* line 5, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.payment_page .divider {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* line 13, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.title-section,
+.customer-worth-section,
+.example-section,
+.details-section {
+  padding-top: 35px;
+  padding-bottom: 40px;
+}
+/* line 21, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.title-section h1, .title-section h2, .title-section h3, .title-section h4,
+.customer-worth-section h1,
+.customer-worth-section h2,
+.customer-worth-section h3,
+.customer-worth-section h4,
+.example-section h1,
+.example-section h2,
+.example-section h3,
+.example-section h4,
+.details-section h1,
+.details-section h2,
+.details-section h3,
+.details-section h4 {
+  text-align: center;
+}
+/* line 25, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.title-section ul,
+.customer-worth-section ul,
+.example-section ul,
+.details-section ul {
+  color: #777777;
+}
+/* line 29, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.title-section li,
+.customer-worth-section li,
+.example-section li,
+.details-section li {
+  margin-bottom: 25px;
+}
+/* line 33, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.title-section .text-area,
+.customer-worth-section .text-area,
+.example-section .text-area,
+.details-section .text-area {
+  max-width: 700px;
+}
+
+/* line 38, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/payment_model.scss */
+.instagram-img {
+  width: 100%;
+}

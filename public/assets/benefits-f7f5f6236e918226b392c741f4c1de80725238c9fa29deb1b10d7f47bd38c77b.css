@@ -1,0 +1,31 @@
+/* line 4, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+h1 {
+  text-align: center;
+}
+
+/* line 8, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+h3 {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+/* line 16, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+.benefits-page .divider {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+/* line 22, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+.benefits-page .text-area {
+  max-width: 700px;
+}
+/* line 26, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+.benefits-page .title-section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* line 31, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/benefits.scss */
+.benefits-page .title-section h1 {
+  font-size: 4em;
+}

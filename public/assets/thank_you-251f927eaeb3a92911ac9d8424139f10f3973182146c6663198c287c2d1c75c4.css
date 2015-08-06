@@ -1,0 +1,8 @@
+/* line 1, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/thank_you.scss */
+.thank_you_section {
+  margin: 200px 0;
+}
+/* line 4, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/thank_you.scss */
+.thank_you_section h1, .thank_you_section h2, .thank_you_section h3, .thank_you_section h4 {
+  text-align: center;
+}
