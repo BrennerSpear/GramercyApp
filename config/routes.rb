@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     get 'logout' => :destroy, :as => :logout
   end
 
-  root :to => 'home#index'
+  root :to => 'pages#home'
 
-  
+
   devise_for :admins
   resources :leads
 
