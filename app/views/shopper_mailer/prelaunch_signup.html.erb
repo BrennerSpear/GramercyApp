@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Coming Soon</title>
+  <title>Sign up with Gramercy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0;">
@@ -19,17 +19,25 @@
          <td bgcolor="#DBDBDB" style="padding: 40px 30px 40px 30px;">
            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FEFEFE" color="#777777" style= "border: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
             <tr>
-             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
-              Coming to <%= @lead.platform %> ASAP
+             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">Get notified as brands start using Gramercy!
              </td>
             </tr>
             <tr>
              <td style="padding: 20px 30px 15px 30px;">
-               Gramercy’s beta is launching in the Shopify app store soon. When Gramercy becomes available, we will send you an email with a link!
-               <br><br>
-               If you haven’t checked out how you choose the rates you pay out store credit to your shoppers, check out our <%= link_to "payment model", "http://gramercyapp.com/payment_model" %>
-               <br><br>
-               If you have any questions, please don't hesitate to respond to this email!
+               We'll email you when brands start offering store credit in return for an Instagram.
+               <br>
+               Please double check that the Instagram you are authorizing is the account you post from, as this email address will be linked to only this Instagram account.
+               <br>
+             </td>
+           </tr>
+            <tr>
+             <td style="font-weight: bold; color: #86c9d4; padding: 0 30px 0 30px; text-align: center;">
+              <%= link_to "Authorize Instagram", "http://localhost:3000/shoppers/auth/instagram?email=#{@email}", style: "color: #86c9d4;" %>
+             </td>
+           </tr>
+            <tr>
+             <td style="padding: 20px 30px 15px 30px;">
+              If you have any questions, please don't hesitate to respond to this email!
              </td>
             </tr>
            </table>

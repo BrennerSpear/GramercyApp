@@ -34,10 +34,6 @@ class PagesController < ApplicationController
   def thank_you
   end
 
-  def test
-    @brands = Brand.all
-  end
-
   def settings
     @brand = current_brand
   end
@@ -49,6 +45,22 @@ class PagesController < ApplicationController
   def admin_dashboard
     @leads = Lead.all
     @brands = Brand.all
+    @shoppers = Shopper.all
+  end
+
+  def shopper_sign_up
+  end
+
+  def shopper_signup_email
+    if Shopper.where(email: params[:email]).blank?
+
+      ShopperMailer.prelaunch_signup(params[:email]).deliver_now
+      redirect_to thank_you_shopper_path
+
+    else
+      redirect_to(:back)
+      flash[:notice] = "You've already registered that email address to Gramercy"
+    end
   end
 
 end

@@ -1,5 +1,6 @@
 $gramercy-color: #86C9D4;
 
+
 .main {
 	background-color: #F4F4F4;
 }
@@ -145,3 +146,34 @@ a {
 	margin-bottom: 20px;
 	}
 }
+
+.generic-section {
+	margin-top: 125px;
+	text-align: center;
+
+}
+
+.generic-section .text-area {
+		max-width: 500px;
+	}
+
+
+.rounded {
+
+	$corner: 4px;
+
+  -webkit-border-radius: $corner;
+  -moz-border-radius:	 $corner;
+  border-radius:		 $corner;
+
+  border: 1px solid #ccc;
+
+  max-width: 235px;
+  height: 35px;
+  padding: 10px;
+}
+
+
+
+
+

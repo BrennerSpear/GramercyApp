@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806191016) do
+ActiveRecord::Schema.define(version: 20150811032948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,34 @@ ActiveRecord::Schema.define(version: 20150806191016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "shoppers", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "name"
+    t.string   "image"
+    t.string   "bio"
+    t.string   "website"
+    t.string   "token"
+  end
+
+  add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
+  add_index "shoppers", ["provider"], name: "index_shoppers_on_provider", using: :btree
+  add_index "shoppers", ["reset_password_token"], name: "index_shoppers_on_reset_password_token", unique: true, using: :btree
+  add_index "shoppers", ["uid"], name: "index_shoppers_on_uid", using: :btree
 
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false

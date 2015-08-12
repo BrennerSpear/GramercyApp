@@ -55,12 +55,16 @@ gem 'jquery-turbolinks'
 gem 'redis'
 
 gem 'puma'
+gem 'rack-timeout'
+gem 'rack-timeout-puma'
 
 gem 'newrelic_rpm'
 
-gem 'rack-timeout'
-
 gem 'sidekiq'
+
+gem 'instagram'
+
+gem 'omniauth-instagram'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -84,6 +88,8 @@ group :development, :test do
   gem 'better_errors'
 
   gem 'letter_opener'
+
+  gem 'pry'
   
 end
 

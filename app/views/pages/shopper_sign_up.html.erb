@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag "shopper_sign_up", media: "all", "data-turbolinks-track" => true %>
+<div>
+
+	<div class="divider-top"></div>
+
+	<section class="generic-section">
+		<div class="text-area">
+			<h1>sign up here</h1>
+			<p>details about using Gramercy</p>
+
+			<%= form_tag pre_signup_path do %>
+				<%= email_field_tag :email, params[:email], placeholder: "email address", required: true, class: "form-group rounded " %>
+				<%= submit_tag "Sign up", class: "btn btn-primary gramercy-bg-color" %>
+			<% end %>
+		</div>
+	</section>
+
+	
+</div>
