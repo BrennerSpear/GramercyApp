@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module GramercyApp
   class Application < Rails::Application
+    config.eager_load_paths += %W(#{config.root}/lib/workers)
     config.action_dispatch.default_headers['P3P'] = 'CP="Not used"'
     config.action_dispatch.default_headers.delete('X-Frame-Options')
     # Settings in config/environments/* take precedence over those specified here.
@@ -28,6 +29,8 @@ module GramercyApp
     config.middleware.use Rack::Attack
     
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+
     
   end
 end

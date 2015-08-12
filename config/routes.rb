@@ -1,5 +1,6 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
-  
   
   root to: 'pages#home'
 
@@ -11,21 +12,22 @@ Rails.application.routes.draw do
   #   get 'logout'                => :destroy, :as => :logout
   # end 
 
-
-  #For Instagram
-  devise_for :shoppers, skip: [:sessions], controllers: {omniauth_callbacks: "shoppers/omniauth_callbacks"}
-  
-
-  #admin pages
+  #Admin
   devise_for :admins
   get 'admin_dashboard' => 'pages#admin_dashboard'
 
-  #brand pages
+  #Shoppers
+  devise_for :shoppers, skip: [:sessions], controllers: {omniauth_callbacks: "shoppers/omniauth_callbacks"}
+
+  #Brand
   devise_for :brands
   resources :leads
   get 'dashboard' => 'pages#dashboard'
   get 'settings'  => 'pages#home'
   
+  #Instagram
+  post 'omniauth_callbacks/post'
+  get  'omniauth_callbacks/post' => 'omniauth_callbacks#challenge'
 
   #public pages
   get 'benefits'                     => 'pages#benefits'
@@ -40,6 +42,9 @@ Rails.application.routes.draw do
   post 'pre_signup'                  => 'pages#shopper_signup_email' #will reroute to thank_you_shopper
   get 'thank_you_shopper'            => 'pages#thank_you_shopper'
   get 'thank_you_authorized_shopper' => 'pages#thank_you_authorized_shopper'
+
+  # Sidekick
+  mount Sidekiq::Web => '/sidekiq'
 
   get '*path' => redirect('/')
 

@@ -61,6 +61,7 @@ gem 'rack-timeout-puma'
 gem 'newrelic_rpm'
 
 gem 'sidekiq'
+gem 'sinatra', require: false
 
 gem 'instagram'
 
