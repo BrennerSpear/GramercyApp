@@ -67,11 +67,14 @@ gem 'instagram'
 
 gem 'omniauth-instagram'
 
+gem 'pry'
+gem 'pry-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -89,8 +92,6 @@ group :development, :test do
   gem 'better_errors'
 
   gem 'letter_opener'
-
-  gem 'pry'
   
 end
 

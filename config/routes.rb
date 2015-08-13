@@ -26,8 +26,10 @@ Rails.application.routes.draw do
   get 'settings'  => 'pages#home'
   
   #Instagram
-  post 'omniauth_callbacks/post'
-  get  'omniauth_callbacks/post' => 'omniauth_callbacks#challenge'
+  # match "facebook/subscription", :controller => :facebook, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post]
+  match 'omniauth_callbacks/post', controller: :omniauth_callbacks, action: :post, as: 'instagram_subscription', via: [:get, :post]
+  # post 'omniauth_callbacks/post'
+  # get  'omniauth_callbacks/post' => 'omniauth_callbacks#challenge'
 
   #public pages
   get 'benefits'                     => 'pages#benefits'

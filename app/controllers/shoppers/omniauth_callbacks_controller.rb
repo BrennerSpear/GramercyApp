@@ -13,14 +13,21 @@ class Shoppers::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
 	end
 
 	def post
-		flash[:notice] = "something with instagram worked"
+		binding.pry
+		case request.method
+		when "GET"
+			render text: params['hub.challenge']
+		when "POST"
+			flash[:notice] = "something with instagram worked"
+		end
 	end
 
 
-	# DDOS prevention for Instagram
-	def challenge
-		render text: params['hub.challenge']
-	end
+	# # DDOS prevention for Instagram
+	# def challenge
+	# 	binding.pry
+	# 	render text: params['hub.challenge']
+	# end
 
   private
 
