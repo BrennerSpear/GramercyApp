@@ -25,9 +25,12 @@ Rails.application.routes.draw do
   get 'dashboard' => 'pages#dashboard'
   get 'settings'  => 'pages#home'
   
+
   #Instagram
   # match "facebook/subscription", :controller => :facebook, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post]
-  match 'omniauth_callbacks/post', controller: :omniauth_callbacks, action: :post, as: 'instagram_subscription', via: [:get, :post]
+  scope module: 'shoppers' do
+    match 'shoppers/omniauth_callbacks/post', controller: :omniauth_callbacks, action: :post, as: 'instagram_subscription', via: [:get, :post]
+  end
   # post 'omniauth_callbacks/post'
   # get  'omniauth_callbacks/post' => 'omniauth_callbacks#challenge'
 
