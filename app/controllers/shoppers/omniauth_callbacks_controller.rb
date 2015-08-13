@@ -13,12 +13,13 @@ class Shoppers::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
 	end
 
 	def post
-		binding.pry
 		case request.method
 		when "GET"
-			render text: params['hub.challenge']
+			@challenge = params['hub.challenge']
+			render text: @challenge
 		when "POST"
 			flash[:notice] = "something with instagram worked"
+			render nothing: true
 		end
 	end
 
