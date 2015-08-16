@@ -3,7 +3,7 @@ class AddOmniandinfoToShoppers < ActiveRecord::Migration
     add_column :shoppers, :provider, :string
     add_index :shoppers, :provider
     add_column :shoppers, :uid, :string
-    add_index :shoppers, :uid
+    add_index :shoppers, :uid, unique: true
     add_column :shoppers, :nickname, :string
     add_column :shoppers, :name, :string
     add_column :shoppers, :image, :string

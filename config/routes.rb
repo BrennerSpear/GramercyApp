@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   #Shoppers
   devise_for :shoppers, skip: [:sessions], controllers: {omniauth_callbacks: "shoppers/omniauth_callbacks"}
+  get 'new_shopper_session' => 'pages#denied_request'
+
 
   #Brand
   devise_for :brands

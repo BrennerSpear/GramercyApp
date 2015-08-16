@@ -70,6 +70,8 @@ gem 'omniauth-instagram'
 gem 'pry'
 gem 'pry-rails'
 
+gem 'json'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -92,6 +94,10 @@ group :development, :test do
   gem 'better_errors'
 
   gem 'letter_opener'
+
+  gem 'railroady'
+
+  gem 'rails-erd'
   
 end
 
