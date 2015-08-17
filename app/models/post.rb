@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 
 
 		Post.find_or_create_by(media_id: media_id) do |p|
-			p.type		 = media["type"]
+			p.media_type = media["type"]
 			p.caption	 = media["caption"]["text"]
 			p.link		 = media["link"]
 			p.image		 = media["images"]["standard_resolution"]["url"]
