@@ -56,8 +56,8 @@ class CreateFollowerModels < ActiveRecord::Migration
 			t.string  :media_id,			null: false
 			t.text    :tagged_accounts, array: true, default: []
 
-			t.integer :followers_generated, null: false
-			t.integer :likes,               null: false
+			t.integer :followers_generated
+			t.integer :likes
 
 			t.timestamps null: false
 		end

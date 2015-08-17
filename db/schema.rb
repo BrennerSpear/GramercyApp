@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(version: 20150815202553) do
     t.string   "image",                            null: false
     t.string   "media_id",                         null: false
     t.text     "tagged_accounts",     default: [],              array: true
-    t.integer  "followers_generated",              null: false
-    t.integer  "likes",                            null: false
+    t.integer  "followers_generated"
+    t.integer  "likes"                            
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
