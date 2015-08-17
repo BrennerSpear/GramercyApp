@@ -9,10 +9,13 @@ class Post < ActiveRecord::Base
 
 		Post.find_or_create_by(media_id: media_id) do |p|
 			p.media_type = media["type"]
-			p.caption	 = media["caption"]["text"]
 			p.link		 = media["link"]
 			p.image		 = media["images"]["standard_resolution"]["url"]
 
+			if media["caption"].present?
+				p.caption	 = media["caption"]["text"]
+			end
+			
 			media["users_in_photo"].each do |tag|
 				p.tagged_accounts << tag["user"]["id"]
 			end

@@ -24,7 +24,6 @@ class Shopper < ActiveRecord::Base
       shopper.save!
 
       #gets media, follower, following counts
-      binding.pry
       get_counts(shopper)
 
       #get all followers only if there aren't any

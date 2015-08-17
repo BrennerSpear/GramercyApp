@@ -6,7 +6,7 @@ class Shoppers::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
 		#Make sure no one tries to add an email address in the url
 		if Shopper.where(email: email).blank?
 			
-			Shopper.from_omniauth(auth, extras)
+			heroku Shopper.from_omniauth(auth, extras)
 
 			@shopper = Shopper.where(uid: auth.uid).first
 
