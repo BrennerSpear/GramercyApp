@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
 				p.tagged_accounts << tag["user"]["id"]
 			end
 
-			p.shopper_id = shopper_id
+			p.shopper_id = Shopper.find_by_uid(shopper_id).id
 		end
 
 	end
