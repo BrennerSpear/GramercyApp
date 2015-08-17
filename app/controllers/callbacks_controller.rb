@@ -1,5 +1,6 @@
 class CallbacksController < ApplicationController
-
+	skip_before_action :verify_authenticity_token, only: [:post]
+	
 	def post
 		case request.method
 		when "GET"		
