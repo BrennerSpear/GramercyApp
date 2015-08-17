@@ -2,9 +2,9 @@ class Reward < ActiveRecord::Base
 	belongs_to :post
 
 	def self.from_post(post_id)
-		p = Post.find_or_create_by(post_id: post_id)
-		p.total = 0
-		p.save!
+		Reward.find_or_create_by(post_id: post_id) do |r|
+			r.total = 0
+		end
 	end
 
 	#DOTHIS
