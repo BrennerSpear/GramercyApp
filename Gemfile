@@ -62,6 +62,9 @@ gem 'newrelic_rpm'
 
 gem 'sidekiq'
 gem 'sinatra', require: false
+gem 'devise-async'
+gem 'sidekiq_monitor'
+gem 'sidekiq-superworker'
 
 gem 'instagram'
 

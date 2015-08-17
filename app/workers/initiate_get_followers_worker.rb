@@ -2,8 +2,8 @@ class InitiateGetFollowersWorker
 	include Sidekiq::Worker
 
 
-	def perform(shopper, type)
-		@shopper = Shopper.find(shopper)
+	def perform(shopper_id, type)
+		@shopper = Shopper.find(shopper_id)
 		Shopper.initiate_getting_followers(@shopper, type)
 	end
 end

@@ -19,9 +19,16 @@ class PagesController < ApplicationController
   end
 
   def admin_dashboard
-    @leads = Lead.all
-    @brands = Brand.all
-    @shoppers = Shopper.all
+    @leads        = Lead.all
+    @brands       = Brand.all
+    @shops        = Shop.all
+    @shoppers     = Shopper.all
+    @orders       = Order.all
+    @posts        = Post.all
+    @rewards      = Reward.all
+    @followers    = Follower.all
+    @followed_bys = FollowedBy.all
+
   end
 
   def shopper_sign_up
@@ -30,7 +37,7 @@ class PagesController < ApplicationController
   def shopper_signup_email
     if Shopper.where(email: params[:email]).blank?
 
-      ShopperMailer.prelaunch_signup(params[:email]).deliver_now
+      ShopperMailer.delay.prelaunch_signup(params[:email])
       redirect_to thank_you_shopper_path
 
     else

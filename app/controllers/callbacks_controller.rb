@@ -8,7 +8,7 @@ class CallbacksController < ApplicationController
 		when "POST"
 			new_posts = params["_json"] || []
 			new_posts.each do |new_post|
-				ReceiveNewPostWorker.perform_async(new_post)
+				NewPostWorker.perform_async(new_post)
 			end
 			render nothing: true
 		end

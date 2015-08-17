@@ -32,11 +32,11 @@ class LeadsController < ApplicationController
       if @lead.save
 
         if (@lead.platform == "Shopify")
-          LeadMailer.sign_up_platform_exists(@lead.id).deliver_now
+          LeadMailer.delay.sign_up_platform_exists(@lead.id)
         elsif (@lead.platform == "Custom")
-          LeadMailer.sign_up_platform_custom(@lead.id).deliver_now
+          LeadMailer.delay.sign_up_platform_custom(@lead.id)
         else 
-          LeadMailer.sign_up_platform_does_not_exist(@lead.id).deliver_now
+          LeadMailer.delay.sign_up_platform_does_not_exist(@lead.id)
         end
         
         format.html { redirect_to controller: "pages", action: "thank_you"}

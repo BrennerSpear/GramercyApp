@@ -23,6 +23,6 @@ Order.create(
 	shop_id: "1",
 	email: "blspear@gmail.com",
 	cents_per_like: 5,
-	dollars_per_like: 1.50,
+	dollars_per_follow: 1.50,
 	max_total_allowed: 215)
 

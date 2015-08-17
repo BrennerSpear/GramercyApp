@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
   # Sidekick
   mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Monitor::Engine => '/sidekiq-monitor'
 
   get '*path' => redirect('/')
 
