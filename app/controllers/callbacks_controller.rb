@@ -5,8 +5,10 @@ class CallbacksController < ApplicationController
 		when "GET"		
 			render text: params['hub.challenge']
 		when "POST"
-			#DOTHIS get json object of the new media, process it
-			flash[:notice] = "something with instagram worked"
+			new_posts = params["_json"] || []
+			new_posts.each do |new_post|
+				ReceiveNewPostWorker.perform_async(new_post)
+			end
 			render nothing: true
 		end
 	end

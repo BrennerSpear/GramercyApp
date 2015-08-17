@@ -30,6 +30,8 @@ module GramercyApp
     
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
+    config.expire_time = 5.minutes
+
 
     
   end

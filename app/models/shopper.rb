@@ -16,6 +16,7 @@ class Shopper < ActiveRecord::Base
         s.website   = auth.info.website
         s.bio       = auth.info.bio
         s.token     = auth.credentials.token
+        #DOTHIS add follower count, following count, media count
         s.save
       end
 
@@ -25,7 +26,7 @@ class Shopper < ActiveRecord::Base
 
       #get all followers only if there aren't any
       if shopper.followers.empty?
-        initiate_getting_followers(shopper, "Shopper")
+        InitiateGetFollowersWorker.perform_async(shopper.id, "Shopper")
       end
         
   end

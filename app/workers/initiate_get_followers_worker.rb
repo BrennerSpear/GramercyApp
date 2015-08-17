@@ -3,6 +3,7 @@ class InitiateGetFollowersWorker
 
 
 	def perform(shopper, type)
-		Shopper.initiate_getting_followers(shopper, type)
+		@shopper = Shopper.find(shopper)
+		Shopper.initiate_getting_followers(@shopper, type)
 	end
 end

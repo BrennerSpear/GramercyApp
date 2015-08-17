@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   post 'pre_signup'                  => 'pages#shopper_signup_email' #will reroute to thank_you_shopper
   get 'thank_you_shopper'            => 'pages#thank_you_shopper'
   get 'thank_you_authorized_shopper' => 'pages#thank_you_authorized_shopper'
+  get 'denied_request'               => 'pages#denied_request'
 
   # Sidekick
   mount Sidekiq::Web => '/sidekiq'
