@@ -6,20 +6,19 @@ class Post < ActiveRecord::Base
 	def self.from_live_update(shopper_id, media_id)
 		media = media(shopper_id, media_id)
 
-		#can still add variable values if job gets killed by not putting in do|x| loop
-		p = Post.find_or_create_by(media_id: media_id)
 
-		p.shopper_id = shopper_id
-		p.type		 = media["type"]
-		p.caption	 = media["caption"]["text"]
-		p.link		 = media["link"]
-		p.image		 = media["images"]["standard_resolution"]["url"]
+		Post.find_or_create_by(media_id: media_id) do |p|
+			p.type		 = media["type"]
+			p.caption	 = media["caption"]["text"]
+			p.link		 = media["link"]
+			p.image		 = media["images"]["standard_resolution"]["url"]
 
-		media["users_in_photo"].each do |tag|
-			p.tagged_accounts << tag["user"]["id"]
+			media["users_in_photo"].each do |tag|
+				p.tagged_accounts << tag["user"]["id"]
+			end
+
+			p.shopper_id = shopper_id
 		end
-
-		p.save!
 
 	end
 
