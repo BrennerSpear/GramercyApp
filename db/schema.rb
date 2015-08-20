@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817182850) do
+ActiveRecord::Schema.define(version: 20150819112850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20150817182850) do
     t.float    "dollars_per_follow"
     t.integer  "days_to_post"
     t.float    "max_total_allowed"
+    t.string   "follower_count"
+    t.string   "following_count"
+    t.string   "media_count"
   end
 
   add_index "brands", ["email"], name: "index_brands_on_email", unique: true, using: :btree
@@ -96,9 +99,10 @@ ActiveRecord::Schema.define(version: 20150817182850) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "email"
-    t.integer  "days_to_post"
+    t.datetime "expires_at"
   end
 
+  add_index "orders", ["created_at"], name: "index_orders_on_created_at", using: :btree
   add_index "orders", ["shop_id"], name: "index_orders_on_shop_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
@@ -110,12 +114,13 @@ ActiveRecord::Schema.define(version: 20150817182850) do
     t.string   "image",                            null: false
     t.string   "media_id",                         null: false
     t.text     "tagged_accounts",     default: [],              array: true
-    t.integer  "followers_generated"
     t.integer  "likes"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.text     "followers_generated", default: [],              array: true
   end
 
+  add_index "posts", ["created_at"], name: "index_posts_on_created_at", using: :btree
   add_index "posts", ["order_id"], name: "index_posts_on_order_id", using: :btree
   add_index "posts", ["shopper_id"], name: "index_posts_on_shopper_id", using: :btree
 

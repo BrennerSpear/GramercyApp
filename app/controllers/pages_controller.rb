@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_brand!, only: [:dashboard, :test]
+  before_action :authenticate_brand!, only: [:dashboard]
   before_action :authenticate_admin!, only: [:admin_dashboard]
 
   def home
@@ -45,5 +45,12 @@ class PagesController < ApplicationController
       flash[:notice] = "You've already registered that email address to Gramercy"
     end
   end
+
+
+  # def test
+    
+  #   post = Post.find(10)
+  #   ExpirePostWorker.perform_in(Rails.configuration.expire_time, post.id)
+  # end
 
 end

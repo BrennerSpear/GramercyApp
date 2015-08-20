@@ -1,5 +1,5 @@
 class Shopper < ActiveRecord::Base
-  include InstagramMethods
+  include InstagramAccountMethods
 
   has_many :posts
   has_many :rewards, -> {uniq}, through: :posts,  source: :reward
@@ -20,11 +20,11 @@ class Shopper < ActiveRecord::Base
       end
 
       #So shoppers can change their email address by 'signing up' again
-      shopper.email = extras["email"]
+      shopper.email = extras["email"].downcase
       shopper.save!
 
       #gets media, follower, following counts
-      get_counts(shopper)
+      shopper.get_counts
 
       #get all followers only if there aren't any
       if shopper.followers.empty?
@@ -34,12 +34,80 @@ class Shopper < ActiveRecord::Base
   end
 
 
-  def self.get_counts(shopper)
-    client = Instagram.client(access_token: shopper.token)
+  def get_counts
+      client = Instagram.client(access_token: self.token)
 
-    shopper.media_count     = client.user.counts.media
-    shopper.follower_count  = client.user.counts.followed_by
-    shopper.following_count = client.user.counts.follows
-    shopper.save!
+      self.media_count     = client.user.counts.media
+      self.follower_count  = client.user.counts.followed_by
+      self.following_count = client.user.counts.follows
+      self.save!
   end
+
+  def update_followers
+	  client = Instagram.client(access_token: self.token)
+
+	  initial_page = client.user_followed_by
+
+	  #checks deeper for accounts with more followers
+	  follower_count = self.follower_count.to_i
+	  max_count = 3
+	  case 
+	  when follower_count < 10000
+	    max_count = 3
+	  when follower_count < 100000
+	    max_count = 6
+	  when follower_count < 1000000
+	    max_count = 12
+	  when follower_count < 10000000
+	    max_count = 24
+	  when follower_count >=10000000
+	    max_count = 48
+	  end
+
+	  self.check_and_add_followers(initial_page, client, 0, max_count)
+  end
+
+  def check_and_add_followers(page, client, count, max_count)
+      page.each do |f|
+
+        follower = Follower.where(uid: f["id"]).first_or_create do |p|
+            p.username        = f["username"]
+            p.profile_picture = f["profile_picture"]
+            p.name            = f["full_name"]
+            p.save!
+          end
+
+          #check if these are followers we already know about
+        if FollowedBy.exists?(followable_id: self.id, follower_id: follower.id)
+        	count += 1
+        else
+          	count = 0
+        	#Creates the follower - followable relation with timestamp
+	        FollowedBy.where(followable_id: self.id, follower_id: follower.id, followable_type: "Shopper").first_or_create do |p|
+	          p.followable_type = "Shopper"
+	          p.save!
+	        end
+
+        end
+        #Stop checking followers if we hit the max_count
+        break if count > max_count     
+      end
+
+      #If another page exists, and we haven't hit the count
+      #set cursor, get next page, recursively get the next page's followers
+      unless page.pagination.next_cursor.nil? || (count > max_count)
+        cursor = page.pagination.next_cursor
+        next_page = client.user_followed_by(cursor: cursor)
+        self.check_and_add_followers(next_page, client, count, max_count)
+      end
+  end
+
 end 
+
+
+
+
+
+
+
+

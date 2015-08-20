@@ -101,6 +101,8 @@ group :development, :test do
   gem 'railroady'
 
   gem 'rails-erd'
+
+  gem 'pry-remote'
   
 end
 
