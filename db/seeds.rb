@@ -16,8 +16,6 @@ Brand.create(
 			 )
 
 Shop.create(
-	shopify_domain: "place_holder",
-	shopify_token:  "place_holder",
 	brand_id: 		"1")
 
 Order.create(

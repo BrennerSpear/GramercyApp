@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819112850) do
+ActiveRecord::Schema.define(version: 20150820112850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,18 +32,18 @@ ActiveRecord::Schema.define(version: 20150819112850) do
   end
 
   create_table "brands", force: :cascade do |t|
-    t.text     "email",                  default: "", null: false
-    t.text     "encrypted_password",     default: "", null: false
+    t.text     "email",                  default: "",  null: false
+    t.text     "encrypted_password",     default: "",  null: false
     t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.text     "current_sign_in_ip"
     t.text     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "uid"
     t.string   "nickname"
     t.string   "name"
@@ -55,9 +55,9 @@ ActiveRecord::Schema.define(version: 20150819112850) do
     t.float    "dollars_per_follow"
     t.integer  "days_to_post"
     t.float    "max_total_allowed"
-    t.string   "follower_count"
-    t.string   "following_count"
-    t.string   "media_count"
+    t.string   "follower_count",         default: "0", null: false
+    t.string   "following_count",        default: "0", null: false
+    t.string   "media_count",            default: "0", null: false
   end
 
   add_index "brands", ["email"], name: "index_brands_on_email", unique: true, using: :btree
@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(version: 20150819112850) do
   add_index "brands", ["uid"], name: "index_brands_on_uid", unique: true, using: :btree
 
   create_table "followed_bys", force: :cascade do |t|
-    t.integer  "followable_id"
-    t.string   "followable_type"
-    t.integer  "follower_id"
+    t.integer  "followable_id",   null: false
+    t.string   "followable_type", null: false
+    t.integer  "follower_id",     null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150819112850) do
   create_table "followers", force: :cascade do |t|
     t.string   "username"
     t.string   "profile_picture"
-    t.string   "uid"
+    t.string   "uid",             null: false
     t.string   "name"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20150819112850) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "email"
-    t.datetime "expires_at"
+    t.datetime "expires_at",         null: false
   end
 
   add_index "orders", ["created_at"], name: "index_orders_on_created_at", using: :btree
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20150819112850) do
     t.string   "image",                            null: false
     t.string   "media_id",                         null: false
     t.text     "tagged_accounts",     default: [],              array: true
-    t.integer  "likes"
+    t.integer  "likes",               default: 0,  null: false
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.text     "followers_generated", default: [],              array: true
@@ -125,27 +125,33 @@ ActiveRecord::Schema.define(version: 20150819112850) do
   add_index "posts", ["shopper_id"], name: "index_posts_on_shopper_id", using: :btree
 
   create_table "rewards", force: :cascade do |t|
-    t.integer  "post_id",    null: false
-    t.float    "total",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "post_id",             null: false
+    t.float    "payable_total",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.float    "calculated_total"
+    t.integer  "followers_generated"
+    t.integer  "likes"
+    t.integer  "cents_per_like"
+    t.float    "dollars_per_follow"
+    t.float    "max_total_allowed"
   end
 
   add_index "rewards", ["post_id"], name: "index_rewards_on_post_id", using: :btree
 
   create_table "shoppers", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",  null: false
+    t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "provider"
     t.string   "uid"
     t.string   "nickname"
@@ -154,9 +160,9 @@ ActiveRecord::Schema.define(version: 20150819112850) do
     t.string   "bio"
     t.string   "website"
     t.string   "token"
-    t.string   "follower_count"
-    t.string   "following_count"
-    t.string   "media_count"
+    t.string   "follower_count",         default: "0", null: false
+    t.string   "following_count",        default: "0", null: false
+    t.string   "media_count",            default: "0", null: false
   end
 
   add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
@@ -165,15 +171,12 @@ ActiveRecord::Schema.define(version: 20150819112850) do
   add_index "shoppers", ["uid"], name: "index_shoppers_on_uid", unique: true, using: :btree
 
   create_table "shops", force: :cascade do |t|
-    t.string   "shopify_domain", null: false
-    t.string   "shopify_token",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "brand_id",       null: false
+    t.integer  "brand_id",   null: false
   end
 
   add_index "shops", ["brand_id"], name: "index_shops_on_brand_id", using: :btree
-  add_index "shops", ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true, using: :btree
 
   create_table "sidekiq_jobs", force: :cascade do |t|
     t.string   "jid"

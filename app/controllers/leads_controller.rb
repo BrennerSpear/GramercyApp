@@ -31,7 +31,7 @@ class LeadsController < ApplicationController
     respond_to do |format|
       if @lead.save
 
-        if (@lead.platform == "Shopify")
+        if (@lead.platform == "Bigcommerce")
           LeadMailer.delay.sign_up_platform_exists(@lead.id)
         elsif (@lead.platform == "Custom")
           LeadMailer.delay.sign_up_platform_custom(@lead.id)

@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
 			p.media_type = media["type"]
 			p.link		 = media["link"]
 			p.image		 = media["images"]["standard_resolution"]["url"]
+			p.likes 	 = 0
 
 			if media["caption"].present?
 				p.caption	 = media["caption"]["text"]
@@ -28,7 +29,6 @@ class Post < ActiveRecord::Base
 
 	end
 
-	#DOTHIS
 	def connect_to_order
 
 		brand = nil
@@ -57,6 +57,13 @@ class Post < ActiveRecord::Base
 		self.save!
 	end
 
+	def update_likes
+		shopper_uid = self.shopper.uid
+		media = media(shopper_uid, self.media_id)
+		
+		self.likes = media["likes"]["count"].to_i
+		self.save
+	end
 
 
 

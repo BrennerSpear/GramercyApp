@@ -8,7 +8,7 @@ class ReceiveNewPostWorker
 
 		#create new post
 		post = Post.from_live_update(shopper_uid, media_id)
-		
+
 		#connect it to an order if one exists
 		post.connect_to_order
 

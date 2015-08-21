@@ -1,5 +1,4 @@
 class Shop < ActiveRecord::Base
-  include ShopifyApp::Shop
 
   	belongs_to :brand, inverse_of: :shop
 

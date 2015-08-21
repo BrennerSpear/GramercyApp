@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-
-gem 'shopify_app'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 # changed to pgsql
@@ -70,8 +68,6 @@ gem 'instagram'
 
 gem 'omniauth-instagram'
 
-gem 'pry'
-gem 'pry-rails'
 
 gem 'json'
 
@@ -103,6 +99,9 @@ group :development, :test do
   gem 'rails-erd'
 
   gem 'pry-remote'
+
+  gem 'pry'
+  gem 'pry-rails'
   
 end
 

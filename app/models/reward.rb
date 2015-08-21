@@ -8,8 +8,22 @@ class Reward < ActiveRecord::Base
 	end
 
 	#DOTHIS
-	def update_total
+	def calculate_total
+		self.followers_generated = self.post.tagged_accounts.count
+		self.likes 				 = self.post.likes
+		self.cents_per_like		 = self.post.order.cents_per_like
+		self.dollars_per_follow  = self.post.order.dollars_per_follow
+		self.max_total_allowed   = self.post.order.max_total_allowed
 
+		self.calculated_total = ((self.followers_generated * self.dollars_per_follow) + (self.likes * self.cents_per_like / 100.0))
+
+		totals = []
+		totals << self.calculated_total
+		totals << self.max_total_allowed
+
+		self.payable_total = totals.min.round(2)
+
+		self.save
 	end
-	
+
 end

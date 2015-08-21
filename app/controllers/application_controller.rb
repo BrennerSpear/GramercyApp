@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-	include ShopifyApp::Controller
 	# Prevent CSRF attacks by raising an exception.
 	# For APIs, you may want to use :null_session instead.
 	protect_from_forgery with: :exception
@@ -18,8 +17,5 @@ class ApplicationController < ActionController::Base
 		media  = client.media_item(media_id)
 		media
 	end
-
-
-
 
 end
