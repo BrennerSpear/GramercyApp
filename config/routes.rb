@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'thank_you_shopper'            => 'pages#thank_you_shopper'
   get 'thank_you_authorized_shopper' => 'pages#thank_you_authorized_shopper'
   get 'denied_request'               => 'pages#denied_request'
+  get 'dashboard_test'               => 'pages#dashboard_test'
   # get 'test'                         => 'pages#test'
 
   # Sidekick

@@ -17,6 +17,7 @@
 // = require dataTables/jquery.dataTables
 // = require metisMenu.min
 // = require sb-admin-2
+// = require local_time
 // = require bootstrap.min
 // = require twitter/bootstrap
 // = require_tree .

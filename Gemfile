@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 # changed to pgsql
@@ -68,9 +69,10 @@ gem 'instagram'
 
 gem 'omniauth-instagram'
 
-
+gem 'celluloid', '0.16.0'
 gem 'json'
 
+gem 'local_time'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

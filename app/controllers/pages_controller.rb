@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   # end
 
   def dashboard
-    @brand = current_brand
+    
   end
 
   def admin_dashboard
@@ -47,10 +47,17 @@ class PagesController < ApplicationController
   end
 
 
-  # def test
+  def test
+    
+  end
 
-  #   post = Post.find(10)
-  #   ExpirePostWorker.perform_in(Rails.configuration.expire_time, post.id)
-  # end
+  def dashboard_test
+    @brand       = Brand.first
+    @shop        = Brand.first.shop
+    @orders      = Brand.first.orders
+    @posts        = Brand.first.posts
+    @rewards      = Brand.first.rewards
+    @followers    = Brand.first.followers
+  end
 
 end
