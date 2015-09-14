@@ -2,25 +2,35 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  root to: 'pages#home'
+  root to: 'brands#initial_settings'
 
-  #Admin
+  #Admins
   devise_for :admins
-  get 'admin_dashboard' => 'pages#admin_dashboard'
+  get 'admin_dashboard' => 'admins#admin_dashboard'
 
   #Shoppers
-  devise_for :shoppers, skip: [:sessions], controllers: {omniauth_callbacks: "shoppers/omniauth_callbacks"}
+  devise_for :shoppers
   get 'new_shopper_session' => 'pages#denied_request'
 
 
-  #Brand
+  #Brands
   devise_for :brands
   resources :leads
-  get 'dashboard' => 'pages#dashboard'
-  get 'settings'  => 'pages#home'
+  get 'load'             => 'callbacks#load'
+  post 'webhook'         => 'callbacks#webhook'
+  get 'dashboard'        => 'brands#dashboard'
+  get 'dashboard_test'   => 'brands#dashboard_test'
+  get 'instagram_auth'   => 'brands#instagram_auth'
+  get 'initial_settings' => 'brands#initial_settings'
+  post 'initialize_settings' => 'brands#initialize_settings'
+  get 'set_up_stripe'     => 'brands#set_up_stripe'
 
 
-  #Instagram
+
+  #Oauth routes for both shoppers & brands 
+  get "/auth/:action/callback" => "callbacks", constraints: {action: /instagram|bigcommerce/}
+
+  #Instagram subscriptions
   match "callbacks/post", controller: :callbacks, action: :post, as: 'callbacks_post', via: [:get,:post]
 
   #public pages
@@ -37,8 +47,7 @@ Rails.application.routes.draw do
   get 'thank_you_shopper'            => 'pages#thank_you_shopper'
   get 'thank_you_authorized_shopper' => 'pages#thank_you_authorized_shopper'
   get 'denied_request'               => 'pages#denied_request'
-  get 'dashboard_test'               => 'pages#dashboard_test'
-  # get 'test'                         => 'pages#test'
+
 
   # Sidekick
   mount Sidekiq::Web => '/sidekiq'

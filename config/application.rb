@@ -32,6 +32,8 @@ module GramercyApp
 
     config.expire_time = 3.days
 
+    config.action_dispatch.default_headers = {'X-Frame-Options' => 'ALLOWALL'}
+
     
   end
 end

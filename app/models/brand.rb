@@ -11,7 +11,36 @@ class Brand < ActiveRecord::Base
 	devise :database_authenticatable, :async, :registerable,
 	:recoverable, :rememberable, :trackable, :validatable
 
+	def self.from_bc_omniauth(auth)
 
+		brand = Brand.find_or_create_by(provider: auth.provider, email: auth.info.email) do |b|
+			b.password = Devise.friendly_token[0,20]
+			b.email    = auth.info.email
+			b.name 	   = auth.info.name
+			b.save!
+		end
+
+		brand
+	end
+
+	def add_instagram_info(auth)
+		self.nickname = auth.info.nickname
+		self.image	  = auth.info.image
+		self.bio	  = auth.info.bio
+		self.token 	  = auth.credentials.token
+		self.uid	  = auth.uid
+		self.save!
+
+	end
+
+	def add_settings_info(params)
+		self.cents_per_like		 = params.brand.cents_per_like
+		self.dollars_per_follow  = params.brand.dollars_per_follow
+		self.max_total_allowed	 = params.brand.max_total_allowed
+		self.days_to_post 		 = params.brand.days_to_post
+		self.save!
+ 	
+ 	end
 
 	def get_active_posts_shoppers
 		posts = self.posts.where('posts.created_at > :three_days_ago',

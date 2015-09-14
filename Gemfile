@@ -69,6 +69,10 @@ gem 'instagram'
 
 gem 'omniauth-instagram'
 
+gem 'omniauth-bigcommerce'
+
+gem 'bigcommerce'
+
 gem 'celluloid', '0.16.0'
 gem 'json'
 

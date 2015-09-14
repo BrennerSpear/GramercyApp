@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-  before_action :authenticate_brand!, only: [:dashboard]
-  before_action :authenticate_admin!, only: [:admin_dashboard]
 
   def home
     if current_brand
@@ -8,27 +6,6 @@ class PagesController < ApplicationController
     elsif current_admin
       redirect_to admin_dashboard_path
     end
-  end
-
-  # def settings
-  #   @brand = current_brand
-  # end
-
-  def dashboard
-    
-  end
-
-  def admin_dashboard
-    @leads        = Lead.all
-    @brands       = Brand.all
-    @shops        = Shop.all
-    @shoppers     = Shopper.all
-    @orders       = Order.all
-    @posts        = Post.all
-    @rewards      = Reward.all
-    @followers    = Follower.all
-    @followed_bys = FollowedBy.all
-
   end
 
   def shopper_sign_up
@@ -44,20 +21,6 @@ class PagesController < ApplicationController
       redirect_to(:back)
       flash[:notice] = "You've already registered that email address to Gramercy"
     end
-  end
-
-
-  def test
-    
-  end
-
-  def dashboard_test
-    @brand       = Brand.first
-    @shop        = Brand.first.shop
-    @orders      = Brand.first.orders
-    @posts        = Brand.first.posts
-    @rewards      = Brand.first.rewards
-    @followers    = Brand.first.followers
   end
 
 end

@@ -5,9 +5,9 @@ class Shopper < ActiveRecord::Base
   has_many :rewards, -> {uniq}, through: :posts,  source: :reward
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :async, :omniauthable, omniauth_providers: [:instagram]
+  devise :database_authenticatable, :async
 
-  def self.from_omniauth(auth, extras)
+  def self.from_ig_omniauth(auth, extras)
 
       shopper = Shopper.find_or_create_by(provider: auth.provider, uid: auth.uid) do |s|
         s.password  = Devise.friendly_token[0,20]
