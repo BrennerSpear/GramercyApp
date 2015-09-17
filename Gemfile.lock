@@ -66,10 +66,10 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
-    bigcommerce (0.10.0)
-      activesupport
-      json
-      rest-client
+    bigcommerce (1.0.0.beta)
+      faraday
+      faraday_middleware
+      hashie
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.5.1)
@@ -198,6 +198,8 @@ GEM
       pry (~> 0.9)
       slop (~> 3.0)
     puma (2.13.4)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-attack (4.3.0)
       rack
@@ -305,6 +307,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    stripe (1.23.0)
+      json (~> 1.8.1)
+      rest-client (~> 1.4)
     temple (0.7.6)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -337,7 +342,7 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
-  bigcommerce
+  bigcommerce (>= 1.0.0.beta)
   bootstrap-sass (~> 3.3.5)
   byebug
   cancan
@@ -364,6 +369,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   puma
+  quiet_assets
   rack-attack
   rack-timeout
   rack-timeout-puma
@@ -381,6 +387,7 @@ DEPENDENCIES
   simple_form
   sinatra
   spring
+  stripe
   therubyracer
   turbolinks
   twitter-bootstrap-rails!

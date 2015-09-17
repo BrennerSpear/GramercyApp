@@ -6,16 +6,20 @@ class ExpirePostWorker
 		post = Post.find(post_id)
 		post.update_likes
 
-		brand = post.order.shop.brand
-		brand.update_followers(post_id)
-		
+		shop = post.order.shop
 
+		brand = shop.brand
+		brand.update_followers(post_id)
 
 		reward = post.reward
 		reward.calculate_total
 
-
-		#Send Email to shopper
+		if reward.payable_total > 0
+			shop.create_coupon(reward)
+			#TODO Send Email to shopper
+		else
+			#TODO Send Email to shopper apologizing that they got 0likes
+		end
 
 	end
 end

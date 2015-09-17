@@ -24,59 +24,37 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-
 gem 'simple_form'
-
 gem 'devise'
-
 gem 'cancan'
-
 gem 'nav_lynx'
-
 gem 'font-awesome-rails'
-
 gem 'bootstrap-sass', '~> 3.3.5'
-
 gem 'rails_12factor'
-
 gem 'figaro'
-
 gem 'therubyracer'
-
 gem 'rack-attack'
-
 gem 'simple-navigation-bootstrap'
-
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-
 gem 'jquery-turbolinks'
-
 gem 'redis'
-
 gem 'puma'
 gem 'rack-timeout'
 gem 'rack-timeout-puma'
-
 gem 'newrelic_rpm'
-
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'devise-async'
 gem 'sidekiq_monitor'
 gem 'sidekiq-superworker'
-
 gem 'instagram'
-
 gem 'omniauth-instagram'
-
 gem 'omniauth-bigcommerce'
-
-gem 'bigcommerce'
-
+gem 'bigcommerce', '>= 1.0.0.beta'
 gem 'celluloid', '0.16.0'
 gem 'json'
-
 gem 'local_time'
+gem 'stripe'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -89,26 +67,19 @@ gem 'local_time'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
   gem 'better_errors'
-
   gem 'letter_opener'
-
   gem 'railroady'
-
   gem 'rails-erd'
-
   gem 'pry-remote'
-
   gem 'pry'
   gem 'pry-rails'
-  
+  gem 'quiet_assets'
+
 end
 
 

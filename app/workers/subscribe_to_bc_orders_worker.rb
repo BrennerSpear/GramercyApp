@@ -1,6 +1,5 @@
-class SubscribeToOrdersWorker
+class SubscribeToBcOrdersWorker
 	include Sidekiq::Worker
-
 
 	def perform(token, store_hash)
 
@@ -9,7 +8,7 @@ class SubscribeToOrdersWorker
 			config.client_id    = ENV['BC_CLIENT_ID']
 			config.access_token = token
 		end
-		
+
 		Bigcommerce::Webhook.create(
 			scope: 'store/order/*',
 			destination: ENV['BC_SUBSCRIBE_URL']

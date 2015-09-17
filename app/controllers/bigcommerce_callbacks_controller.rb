@@ -1,6 +1,6 @@
-class CallbacksController < ApplicationController
+class BigcommerceCallbacksController < ApplicationController
 	include Devise::Controllers::Rememberable
-	skip_before_action :verify_authenticity_token, only: [:post, :webhook]
+	skip_before_action :verify_authenticity_token, only: [:receive_order]
 
 
 	def bigcommerce
@@ -10,7 +10,9 @@ class CallbacksController < ApplicationController
 		shop = Shop.from_bc_omniauth(auth, @brand.id)
 
 		if shop.present?
-			SubscribeToOrdersWorker.perform_async(shop.token, shop.store_hash)
+
+			SubscribeToBcOrdersWorker.perform_async(shop.token, shop.store_hash)
+			GetBcStoreInfoWorker.perform_async(shop.token, shop.store_hash)
 		end
 
 		if @brand.persisted?
@@ -21,8 +23,22 @@ class CallbacksController < ApplicationController
 
 	end
 
-	def webhook
-		render status: :ok
+	def receive_order		
+
+		if params[:data][:type] == "order"
+			case params[:scope]
+			when "store/order/created"
+				ReceiveNewBcOrderWorker.perform_async(params)
+			when "store/order/updated"
+
+			when "store/order/statusUpdated"
+
+			else
+			end
+
+		end
+
+		render nothing: true, status: :ok
 
 	end
 
@@ -32,7 +48,7 @@ class CallbacksController < ApplicationController
 
 			current_store_hash = payload[:store_hash]
 
-			@store = Store.find_by store_hash: current_store_hash
+			@shop = Shop.find_by(provider: "bigcommerce", store_hash: current_store_hash)
 
 			remember_me(@shop.brand)
 
@@ -43,62 +59,6 @@ class CallbacksController < ApplicationController
 
 		redirect_to dashboard_path
 	end
-
-
-
-	#Subscribe to Shopper's Instagram
-	def post
-		case request.method
-		when "GET"
-			render text: params['hub.challenge']
-		when "POST"
-			binding.pry
-			new_posts = params["_json"] || [] # need to parse the json?
-
-			#do all logic after getting all data from instagram
-			new_posts.each do |new_post|
-				NewPostWorker.perform_async(new_post)
-			end
-
-			render nothing: true
-
-		end
-	end
-
-	#handle Instagram Auth (both shopper & brand)
-	def instagram
-		binding.pry
-		email = extras["email"]
-
-		if extras["type"] == "shopper"
-			#Make sure no one tries to add an email address in the url
-			if Shopper.where(email: email).blank?
-
-				shopper = Shopper.from_ig_omniauth(auth, extras)
-
-				if shopper.present?
-					SubscribeToShopperWorker.perform_async(shopper.token)
-					redirect_to thank_you_authorized_shopper_path
-
-					#this should never happen, but just in case
-				else
-					flash[:notice] = "You were not registered correctly. Try again"
-					redirect_to denied_request_path
-				end
-			else
-				flash[:notice] = "That email is already taken and you knew it!"
-				redirect_to denied_request_path
-			end
-		elsif extras["type"] == "brand"
-
-			current_brand.add_instagram_info(auth)
-
-		else
-			flash[:notice] = "You're not a brand OR a shopper...?"
-			redirect_to denied_request_path
-		end
-	end
-
 
 	private
 	def auth
@@ -142,5 +102,6 @@ class CallbacksController < ApplicationController
 		b.each_byte { |byte| res |= byte ^ l.shift }
 		res == 0
 	end
+
 
 end

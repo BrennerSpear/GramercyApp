@@ -1,0 +1,28 @@
+
+<div>
+
+	<div class="divider-top"></div>
+
+	<section class="generic-section">
+		<div class="text-area">
+			<h1>Step 3 of 3</h1>
+			<p>We are not charging your card. During the next 30 days, Gramercy will not charge a fee on your coupons! After that, at the end of each month, we will add up our total fee and charge your card.</p>
+			<% if current_brand %>
+				<%= form_tag send_stripe_info_path do %>
+					<script
+					    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+					    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+					    data-label="Link Card"
+					    data-name="Gramercy"
+					    data-description="<%= 'First Month Free!' %>"
+					    data-panel-label="Link Card (No Charge)"
+					    data-email="<%= current_brand.email %>">
+					</script>
+				<% end %>
+			<% else %>
+				<p>You're not suppose to be here. I hope that doesn't excite you.</p>
+			<% end %>
+		</div>
+	</section>
+</div>
+

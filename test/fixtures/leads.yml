@@ -4,6 +4,3 @@ one:
   email: MyString
   platform: MyString
 
-two:
-  email: MyString
-  platform: MyString

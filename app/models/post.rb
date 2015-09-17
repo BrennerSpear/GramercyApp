@@ -59,7 +59,7 @@ class Post < ActiveRecord::Base
 
 	def update_likes
 		shopper_uid = self.shopper.uid
-		media = media(shopper_uid, self.media_id)
+		media = Post.media(shopper_uid, self.media_id)
 		
 		self.likes = media["likes"]["count"].to_i
 		self.save

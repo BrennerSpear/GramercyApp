@@ -13,9 +13,8 @@ class Brand < ActiveRecord::Base
 
 	def self.from_bc_omniauth(auth)
 
-		brand = Brand.find_or_create_by(provider: auth.provider, email: auth.info.email) do |b|
+		brand = Brand.find_or_create_by(email: auth.info.email) do |b|
 			b.password = Devise.friendly_token[0,20]
-			b.email    = auth.info.email
 			b.name 	   = auth.info.name
 			b.save!
 		end
@@ -27,17 +26,25 @@ class Brand < ActiveRecord::Base
 		self.nickname = auth.info.nickname
 		self.image	  = auth.info.image
 		self.bio	  = auth.info.bio
+		s.website     = auth.info.website
 		self.token 	  = auth.credentials.token
 		self.uid	  = auth.uid
 		self.save!
 
+		binding.remote_pry
+		if self.followers.empty?
+			InitiateGetFollowersWorker.perform_async(self.id, "Brand")
+		end
+
+		self
+
 	end
 
 	def add_settings_info(params)
-		self.cents_per_like		 = params.brand.cents_per_like
-		self.dollars_per_follow  = params.brand.dollars_per_follow
-		self.max_total_allowed	 = params.brand.max_total_allowed
-		self.days_to_post 		 = params.brand.days_to_post
+		self.cents_per_like		 = params[:brand][:cents_per_like]
+		self.dollars_per_follow  = params[:brand][:dollars_per_follow]
+		self.max_total_allowed	 = params[:brand][:max_total_allowed]
+		self.days_to_post 		 = params[:brand][:days_to_post]
 		self.save!
  	
  	end
@@ -61,8 +68,7 @@ class Brand < ActiveRecord::Base
 	end
 
 	def update_followers(post_id)
-
-		client = Instagram.client(access_token: self.token)
+		client = self.get_counts_and_return_ig_client
 
 		initial_page = client.user_followed_by
 
@@ -70,8 +76,6 @@ class Brand < ActiveRecord::Base
 		post = Post.find(post_id)
 
 		active_posts_shoppers = self.get_active_posts_shoppers
-
-		binding.remote_pry
 
 		#checks deeper for accounts with more followers
 		follower_count = self.follower_count.to_i
@@ -110,7 +114,6 @@ class Brand < ActiveRecord::Base
 				end
 			end
 
-			binding.remote_pry
 			#if they already follow the brand, skip it
 			if FollowedBy.exists?(followable_id: self.id, follower_id: follower.id)
 				count += 1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913012850) do
+ActiveRecord::Schema.define(version: 20150916012850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,18 +92,42 @@ ActiveRecord::Schema.define(version: 20150913012850) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "shop_id",            null: false
-    t.integer  "cents_per_like",     null: false
-    t.float    "dollars_per_follow", null: false
-    t.float    "max_total_allowed",  null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "shop_id",                 null: false
+    t.integer  "cents_per_like",          null: false
+    t.float    "dollars_per_follow",      null: false
+    t.float    "max_total_allowed",       null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "email"
-    t.datetime "expires_at",         null: false
+    t.datetime "expires_at",              null: false
+    t.integer  "shopper_id",              null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "status"
+    t.datetime "date_shipped"
+    t.float    "subtotal"
+    t.float    "discount_amount"
+    t.float    "coupon_amount"
+    t.float    "store_credit_amount"
+    t.float    "gift_certificate_amount"
+    t.float    "total"
+    t.integer  "item_count"
+    t.string   "payment_method"
+    t.string   "payment_status"
+    t.text     "notes"
+    t.text     "message"
+    t.string   "source"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
+    t.string   "country_code"
+    t.string   "uid"
   end
 
   add_index "orders", ["created_at"], name: "index_orders_on_created_at", using: :btree
   add_index "orders", ["shop_id"], name: "index_orders_on_shop_id", using: :btree
+  add_index "orders", ["shopper_id"], name: "index_orders_on_shopper_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.integer  "shopper_id",                       null: false
@@ -126,7 +150,7 @@ ActiveRecord::Schema.define(version: 20150913012850) do
 
   create_table "rewards", force: :cascade do |t|
     t.integer  "post_id",             null: false
-    t.float    "payable_total",       null: false
+    t.string   "payable_total"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.float    "calculated_total"
@@ -135,6 +159,7 @@ ActiveRecord::Schema.define(version: 20150913012850) do
     t.integer  "cents_per_like"
     t.float    "dollars_per_follow"
     t.float    "max_total_allowed"
+    t.string   "code"
   end
 
   add_index "rewards", ["post_id"], name: "index_rewards_on_post_id", using: :btree
@@ -163,6 +188,14 @@ ActiveRecord::Schema.define(version: 20150913012850) do
     t.string   "follower_count",         default: "0", null: false
     t.string   "following_count",        default: "0", null: false
     t.string   "media_count",            default: "0", null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
+    t.string   "country_code"
+    t.string   "address_type"
   end
 
   add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
@@ -179,6 +212,8 @@ ActiveRecord::Schema.define(version: 20150913012850) do
     t.string   "token"
     t.string   "store_hash"
     t.string   "stripe_id"
+    t.string   "url"
+    t.string   "plan"
   end
 
   add_index "shops", ["brand_id"], name: "index_shops_on_brand_id", using: :btree

@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  root to: 'brands#initial_settings'
+  root to: 'pages#home'
 
   #Admins
   devise_for :admins
@@ -16,22 +16,27 @@ Rails.application.routes.draw do
   #Brands
   devise_for :brands
   resources :leads
-  get 'load'             => 'callbacks#load'
-  post 'webhook'         => 'callbacks#webhook'
-  get 'dashboard'        => 'brands#dashboard'
-  get 'dashboard_test'   => 'brands#dashboard_test'
-  get 'instagram_auth'   => 'brands#instagram_auth'
-  get 'initial_settings' => 'brands#initial_settings'
+  get 'load'                 => 'bigcommerce_callbacks#load'
+  post 'webhook'             => 'bigcommerce_callbacks#webhook'
+  get 'instagram_auth'       => 'brands#instagram_auth'
+  get 'initial_settings'     => 'brands#initial_settings'
   post 'initialize_settings' => 'brands#initialize_settings'
-  get 'set_up_stripe'     => 'brands#set_up_stripe'
+  get 'set_up_stripe'        => 'brands#set_up_stripe'
+  post 'send_stripe_info'    => 'brands#send_stripe_info'
+  get 'dashboard'            => 'brands#dashboard'
+  get 'dashboard_test'       => 'brands#dashboard_test'
 
 
+  #Oauth instagram & Bigcommerce
+  get "/auth/instagram/callback"   => 'instagram_callbacks#instagram'
+  get "/auth/bigcommerce/callback" => "bigcommerce_callbacks#bigcommerce"
 
-  #Oauth routes for both shoppers & brands 
-  get "/auth/:action/callback" => "callbacks", constraints: {action: /instagram|bigcommerce/}
+  #subscription to Shoppers' instagrams
+  get  "instagram/receive_post" => 'instagram_callbacks#challenge'
+  post "instagram/receive_post" => 'instagram_callbacks#receive_post'
 
-  #Instagram subscriptions
-  match "callbacks/post", controller: :callbacks, action: :post, as: 'callbacks_post', via: [:get,:post]
+  #subscription to Brands' orders
+  post "bigcommerce/receive_order" => 'bigcommerce_callbacks#receive_order'
 
   #public pages
   get 'benefits'                     => 'pages#benefits'
