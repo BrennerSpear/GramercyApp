@@ -63,7 +63,7 @@ class Shop < ActiveRecord::Base
             f_g = " followers generated)"
         end
 
-        coupon_name = reward.post.shopper.nickname + " via Gramercy (" + reward.likes.to_s + likes + reward.followers_generated.to_s + f_g
+        coupon_name = "#{reward.post.shopper.nickname} via Gramercy (#{reward.likes.to_s} #{likes} #{reward.followers_generated.to_s} #{f_g}"
 
         code = SecureRandom.hex
 

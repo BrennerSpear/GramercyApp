@@ -1,7 +1,7 @@
 class BrandsController < ApplicationController
-	# before_action :authenticate_brand!
+	before_action :authenticate_brand!
 
-	def dashboard
+	def dashboard_test
 		if current_brand.nil?
 			redirect_to load_path
 
@@ -13,12 +13,182 @@ class BrandsController < ApplicationController
 
 		elsif current_brand.shop.stripe_id.nil?
 			redirect_to set_up_stripe_path
+		else
+			@brand = current_brand
+			@shop  = current_brand.shop
+			@order = current_brand.orders[0]
 		end
 
-		@brand = current_brand
-		@shop  = current_brand.shop
-		@order = current_brand.orders[0]
 	end
+
+	def dashboard
+		@brand       = current_brand
+		@shop        = current_brand.shop
+		@posts       = current_brand.posts
+		@followers   = current_brand.followers
+
+		#shoppers that have ordered from this store
+		@shoppers = Shopper.joins(:orders).where(orders: {shop_id: @shop.id}).uniq
+
+		#shoppers that have ordered from this store that have auth'd their IG
+		@auth_shoppers = @shoppers.where('shoppers.uid IS NOT NULL')
+
+
+		@total_likes = 0
+		@total_new_follows = 0
+
+		@posts.each do |p|
+			@total_likes += p.likes
+			@total_new_follows += p.followers_generated.count
+		end
+
+		#Set defaults
+		@date_sort 	    = 'date_desc'
+		@like_sort      = 'like_desc'
+		@follower_sort  = 'follower_desc'
+		@coupon_sort    = 'coupon_desc'
+		@date_name	    = 'Date'
+		@like_name 	    = 'Likes'
+		@follower_name  = 'Followers Generated'
+		@coupon_name    = 'Coupon Amount'
+		@length_of_time = 'all_posts'
+
+		# used for the graphs, which I can't get to work...
+		# #get this brand's order ids
+		# @order_ids = @orders.pluck(:id)
+
+		# #shoppers that have ordered from this store that have auth'd their IG that have posted for this brand
+		# @posters = @shoppers.joins(:posts).where(posts: {order_id: @order_ids})
+
+		# @test = [
+		# 	{period: '2010 Q1',
+		# 		iphone: 10,
+		# 		ipad: 20,
+		# 	itouch: 30},
+		# 	{period: '2010 Q2',
+		# 		iphone: 20,
+		# 		ipad: 50,
+		# 	itouch: 100} ]
+	end
+
+	def filter_dashboard
+		@posts = current_brand.posts
+		@followers = current_brand.followers
+
+		#filter by date
+		if params[:length_of_time] == "all_posts"
+			@length_of_time = "all_posts"
+		else
+			@length_of_time = params[:length_of_time].to_i
+			days = @length_of_time.days
+			@posts = @posts.where("posts.created_at >= :date", date: (DateTime.now - days))
+		end
+
+		#Set defaults
+		@date_sort 	    = 'date_desc'
+		@like_sort      = 'like_desc'
+		@follower_sort  = 'follower_desc'
+		@coupon_sort    = 'coupon_desc'
+		@date_name	    = 'Date'
+		@like_name 	    = 'Likes'
+		@follower_name  = 'Followers Generated'
+		@coupon_name    = 'Coupon Amount'
+
+		#calculate likes based on filtered posts
+		@total_likes = 0
+		@total_new_follows = 0
+
+		@posts.each do |p|
+			@total_likes += p.likes
+			@total_new_follows += p.followers_generated.count
+		end
+
+		@shop = current_brand.shop
+		#This doesn't change, but needs to be recalculated so it has a value
+		@shoppers = Shopper.joins(:orders).where(orders: {shop_id: @shop.id}).uniq
+		@auth_shoppers = @shoppers.where('shoppers.uid IS NOT NULL')
+
+		respond_to do |format|
+			format.js
+		end
+
+	end
+
+	def sort_dashboard
+
+		@posts = current_brand.posts
+		@followers = current_brand.followers
+
+
+		#Filter First
+		if params[:length_of_time] == "all_posts"
+			@length_of_time = "all_posts"
+		else
+			@length_of_time = params[:length_of_time].to_i
+			days = @length_of_time.days
+			@posts = @posts.where("posts.created_at >= :date", date: (DateTime.now - days))
+		end
+
+		@date_sort = 'date_desc'
+		@like_sort = 'like_desc'
+		@follower_sort = 'follower_desc'
+		@coupon_sort	= 'coupon_desc'
+
+		@date_name = 'Date'
+		@like_name = 'Likes'
+		@follower_name = 'Followers Generated'
+		@coupon_name = 'Coupon Amount'
+
+		case params[:name]
+
+		when "date_desc"
+			@posts = @posts.order(created_at: :desc)
+			@date_sort = 'date_asc'
+			@date_name = 'Date <i class="fa fa-sort-up"></i>'.html_safe
+
+		when "date_asc"
+			@posts = @posts.order(created_at: :asc)
+			@date_sort = 'date_desc'
+			@date_name = 'Date <i class="fa fa-sort-down"></i>'.html_safe
+
+		when "like_desc"
+			@posts = @posts.order(likes: :desc)
+			@like_sort = 'like_asc'
+			@like_name = 'Likes <i class="fa fa-sort-up"></i>'.html_safe
+
+		when "like_asc"
+			@posts = @posts.order(likes: :asc)
+			@like_sort = 'like_desc'
+			@like_name = 'Likes <i class="fa fa-sort-down"></i>'.html_safe
+
+		when "follower_desc"
+			@posts = @posts.select("posts.*, array_length(followers_generated, 1) AS f").order("f DESC")
+			@follower_sort = 'follower_asc'
+			@follower_name = 'Followers Generated <i class="fa fa-sort-up"></i>'.html_safe
+
+		when "follower_asc"
+			@posts = @posts.select("posts.*, array_length(followers_generated, 1) AS f").order("f ASC")
+			@follower_sort = 'follower_desc'
+			@follower_name = 'Followers Generated <i class="fa fa-sort-down"></i>'.html_safe
+
+		when "coupon_desc"
+			@posts = @posts.select('posts.*, payable_total').joins(:reward).order("payable_total DESC")
+			@coupon_sort = 'coupon_asc'
+			@coupon_name = 'Coupon Amount <i class="fa fa-sort-up"></i>'.html_safe
+
+		when "coupon_asc"
+			@posts = @posts.select('posts.*, payable_total').joins(:reward).order("payable_total ASC")
+			@coupon_sort = 'coupon_desc'
+			@coupon_name = 'Coupon Amount <i class="fa fa-sort-down"></i>'.html_safe
+
+		end
+
+		respond_to do |format|
+			format.js
+		end
+
+	end
+
 
 	def instagram_auth
 		if current_brand.nil?
@@ -51,7 +221,7 @@ class BrandsController < ApplicationController
 
 	def send_stripe_info
 		token = params[:stripeToken]
-		desc  = current_brand.name + " (" + current_brand.nickname + ") via " + current_brand.shop.provider
+		desc  = " #{current_brand.name} (#{current_brand.nickname}) via #{current_brand.shop.provider}"
 		email = current_brand.email
 
 		begin
@@ -73,16 +243,6 @@ class BrandsController < ApplicationController
 
 		redirect_to dashboard_path
 
-	end
-
-
-	def dashboard_test
-		@brand       = Brand.first
-		@shop        = Brand.first.shop
-		@orders      = Brand.first.orders
-		@posts        = Brand.first.posts
-		@rewards      = Brand.first.rewards
-		@followers    = Brand.first.followers
 	end
 
 end

@@ -1,18 +1,66 @@
-<%= link_to "IG Auth", instagram_auth_path %>
-<br><br>
-<%= link_to "initial settings", initial_settings_path %>
-<br><br>
-<%= link_to "stripe", set_up_stripe_path %>
-<br><br><br><br>
+<%= stylesheet_link_tag "dashboard_test", media: "all", "data-turbolinks-track" => true %>
 
 
-<% @brand.attributes.each_pair do |n, v|%>
-<%= "#{n} = #{v}" %>
-<br>
-<% end %>
-<br>
-<% @shop.attributes.each_pair do |n, v|%>
-<%= "#{n} = #{v}" %>
-<br>
-<% end %>
-<br>
+<div class="dashboard-page">
+
+    <div id="page-wrapper">
+        <div class="row page-header">
+            <div class="col-xs-4">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="col-xs-8">
+                <%= form_tag(filter_dashboard_path(format: :js), method: 'get', remote: true, id: 'filter_form', class: 'form-inline pull-right') do %>
+                <div class="form-group">
+                    <%= select_tag(:length_of_time,
+                        options_for_select([
+                            ["All Posts", "all_posts"],
+                            ["Last 30 Days", "30"],
+                            ["Last 14 Days", "14"],
+                            ["Last 7 Days", "7"],
+                            ["Last 24 Hours", "1"]]),
+                        onchange: "$('#filter_form').submit();", class: 'form-control select-filter'
+                        ) %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+        <div class="row" id="colored-panels">
+            <%= render "/brands/dashboard_partials/colored_panels" %>
+        </div>
+        <!-- <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Area Chart Example
+                    </div>
+                    <div class="panel-body">
+                        <%# content_tag(:div, "", id: "shoppers_chart", data: {shoppers_data: @test}) %>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+
+                            <div class="col-xs-12 text-center page-header" style="line-height: 3em; margin-top: 10px;">
+                                <h4 style="display: inline-block;">Sort By:</h4>&nbsp;&nbsp;
+                                <%= link_to @date_name, sort_dashboard_path(format: :js, name: @date_sort, length_of_time: @length_of_time), method: "get", remote: true, class: "btn btn-primary", id: "date-sort", style: "display: inline-block;" %>
+                                <%= link_to @like_name, sort_dashboard_path(format: :js, name: @like_sort, length_of_time: @length_of_time), method: "get", remote: true, class: "btn btn-primary", id: "like-sort", style: "display: inline-block;" %>
+                                <%= link_to @follower_name, sort_dashboard_path(format: :js, name: @follower_sort, length_of_time: @length_of_time), method: "get", remote: true, class: "btn btn-primary", id: "follower-sort", style: "display: inline-block;" %>
+                                <%= link_to @coupon_name, sort_dashboard_path(format: :js, name: @coupon_sort, length_of_time: @length_of_time), method: "get", remote: true, class: "btn btn-primary", id: "coupon-sort", style: "display: inline-block;" %>
+                            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-0" >
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12" id="post_list">
+                <%= render @posts %>
+            </div>
+            <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-0" ></div>
+        </div>
+        <div class="row">
+            <div class="text-center" id="empty-posts">
+                <%= render "/brands/dashboard_partials/empty_post" %>
+            </div>
+        </div>
+    </div>
+</div>

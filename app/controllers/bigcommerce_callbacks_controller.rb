@@ -52,12 +52,12 @@ class BigcommerceCallbacksController < ApplicationController
 
 			remember_me(@shop.brand)
 
+			redirect_to dashboard_path
 		else
 			redirect_to denied_request_path
-			flash[:notice] = "How'd you get here? You must not be logging in through Bigcommerce..."
+			flash[:notice] = "How'd you get here? You must not be logging in through an ecommerce portal..."
 		end
 
-		redirect_to dashboard_path
 	end
 
 	private

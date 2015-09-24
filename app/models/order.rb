@@ -64,5 +64,10 @@ class Order < ActiveRecord::Base
 
 			o.save!
 		end
+
+		# if shopper.uid.nil?
+		# 	ShopperMailer.delay.authorize_shopper_instagram(
+		# 		shopper.email,
+		# 		)
 	end
 end

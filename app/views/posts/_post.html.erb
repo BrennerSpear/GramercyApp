@@ -1,0 +1,129 @@
+<% if post.created_at + 3.days <= Time.now %>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-8 bigger">
+                    <%= post.shopper.name %> (<%= link_to post.shopper.nickname, post.link, target: "_blank" %>)
+                </div>
+                <div class="col-xs-4">
+                    <div class="pull-right smaller time-left">
+                        Coupon Amount: $<%= sprintf('%.2f' % post.reward.payable_total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-8 give">
+                    <%= image_tag post.image, width: "100%" %><br>
+                </div>
+                <div class="col-xs-4">
+                    <div class="bigger">
+                        <strong>Likes: <%= post.likes %></strong> <br><br>
+                          New Followers:
+                        <% post.followers_generated.first(3).each do |f| %>
+                        <!-- @TODO this is expensive - find a better way -->
+                        <%= link_to @followers.find(f).username, "https://instagram.com/#{@followers.find(f).username}", target: '_blank' %>
+                        <br>
+                        <% end %>
+                        <% if post.followers_generated.count > 3 %>
+                            <button type="button" class="" data-toggle="modal" data-target="#modal_<%= post.media_id %>" style="border:none; background:none; padding: 0px;">
+                                . . .
+                            </button>
+                        <% end %>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-xs-8">
+                    <%= post.caption %>
+                </div>
+                <div class="col-xs-4">
+                    <div style="position: absolute; bottom: 0;">
+                        Location: <%= post.order.city + ", " + post.order.state %> <br>
+                        Order Total:  $ <%= sprintf('%.2f' % post.order.total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer smaller">
+            <div class="row">
+                <div class="col-xs-6">
+                    Rate: <%= post.order.cents_per_like %>¢/like & $<%= sprintf('%.2f' % post.order.dollars_per_follow) %>/follow
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right"><%= local_time(post.created_at, "Posted on %a, %b %d at %I:%M %p") %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% else %>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-8 bigger">
+                    <%= post.shopper.name %> (<%= link_to post.shopper.nickname, post.link, target: "_blank" %>)
+                </div>
+                <div class="col-xs-4">
+                    <div class="pull-right smaller time-left">
+                        Time left: <%= distance_of_time_in_words(post.created_at + 3.days, Time.now)%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-8 give">
+                    <%= image_tag post.image, width: "100%" %><br>
+                </div>
+                <div class="col-xs-4">
+                    <div class="bigger">
+                        <strong>Likes: <%= post.likes %></strong> <br><br>
+                        New followers:
+                        <br>
+                        <i>Pending</i>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-xs-8">
+                    <%= post.caption %>
+                </div>
+                <div class="col-xs-4">
+                    <div style="position: absolute; bottom: 0;">
+                        Location: <%= post.order.city + ", " + post.order.state %> <br>
+                        Order Total:  $ <%= sprintf('%.2f' % post.order.total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer smaller">
+            <div class="row">
+                <div class="col-xs-6">
+                    Rate: <%= post.order.cents_per_like %>¢/like & $<%= sprintf('%.2f' % post.order.dollars_per_follow) %>/follow
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right"><%= local_time(post.created_at, "Posted on %a, %b %d at %I:%M %p") %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+<!-- Modal -->
+<div class="modal fade" id="modal_<%= post.media_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Followers (<%= post.followers_generated.count %>)</h4>
+      </div>
+      <div class="modal-body">
+        <% post.followers_generated.each do |f| %>
+            <!-- @TODO this is expensive - find a better way -->
+            <%= link_to @followers.find(f).username, "https://instagram.com/#{@followers.find(f).username}", target: '_blank' %>
+            <br>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

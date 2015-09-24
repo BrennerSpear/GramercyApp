@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   #Shoppers
   devise_for :shoppers
-  get 'new_shopper_session' => 'pages#denied_request'
+  get 'new_shopper_session'          => 'pages#denied_request'
+  get 'shopper_sign_up'              => 'shoppers#shopper_sign_up'
+  post 'pre_signup'                  => 'shoppers#shopper_signup_email' #will reroute to thank_you_shopper
+  get 'thank_you_shopper'            => 'shoppers#thank_you_shopper'
+  get 'thank_you_authorized_shopper' => 'shoppers#thank_you_authorized_shopper'
 
 
   #Brands
@@ -24,7 +28,12 @@ Rails.application.routes.draw do
   get 'set_up_stripe'        => 'brands#set_up_stripe'
   post 'send_stripe_info'    => 'brands#send_stripe_info'
   get 'dashboard'            => 'brands#dashboard'
+  get 'settings'             => 'brands#settings'
   get 'dashboard_test'       => 'brands#dashboard_test'
+
+  #dashboard UJS
+  get 'sort_dashboard'       => 'brands#sort_dashboard'
+  get 'filter_dashboard'     => 'brands#filter_dashboard'
 
 
   #Oauth instagram & Bigcommerce
@@ -47,10 +56,6 @@ Rails.application.routes.draw do
   get 'terms_of_service'             => 'pages#terms_of_service'
   get 'privacy_policy'               => 'pages#privacy_policy'
   get 'thank_you'                    => 'pages#thank_you' #after lead sign up
-  get 'shopper_sign_up'              => 'pages#shopper_sign_up'
-  post 'pre_signup'                  => 'pages#shopper_signup_email' #will reroute to thank_you_shopper
-  get 'thank_you_shopper'            => 'pages#thank_you_shopper'
-  get 'thank_you_authorized_shopper' => 'pages#thank_you_authorized_shopper'
   get 'denied_request'               => 'pages#denied_request'
 
 

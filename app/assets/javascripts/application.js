@@ -19,6 +19,5 @@
 // = require sb-admin-2
 // = require local_time
 // = require bootstrap.min
-// = require twitter/bootstrap
-// = require_tree .
 // = require turbolinks
+// = require_tree .

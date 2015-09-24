@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
 		media
 	end
 
+	def after_sign_out_path_for(brand)
+		load_path
+	end
+
 end
