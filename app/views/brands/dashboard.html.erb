@@ -1,4 +1,4 @@
-<%= stylesheet_link_tag "dashboard_test", media: "all", "data-turbolinks-track" => true %>
+<%= stylesheet_link_tag "dashboard", media: "all", "data-turbolinks-track" => true %>
 
 
 <div class="dashboard-page">
@@ -6,7 +6,18 @@
     <div id="page-wrapper">
         <div class="row page-header">
             <div class="col-xs-4">
-                <h1>Dashboard</h1>
+                <span>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-3x"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><%= link_to "<i class='fa fa-gear fa-fw'></i> Settings".html_safe, settings_path %>
+                        </li>
+                        <li class="divider"></li>
+                        <li><%= link_to "<i class='fa fa-external-link fa-fw'></i> gramercyapp.com".html_safe, "http://www.gramercyapp.com", target: "_blank" %>
+                    </ul>
+                </span>
+                <h1 style="display:inline-block;">Dashboard</h1>
             </div>
             <div class="col-xs-8">
                 <%= form_tag(filter_dashboard_path(format: :js), method: 'get', remote: true, id: 'filter_form', class: 'form-inline pull-right') do %>
@@ -22,6 +33,8 @@
                         ) %>
                     </div>
                 <% end %>
+                
+                    <!-- /.dropdown-user -->
             </div>
         </div>
         <div class="row" id="colored-panels">

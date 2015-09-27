@@ -9,7 +9,7 @@ class Reward < ActiveRecord::Base
 
 	#DOTHIS
 	def calculate_total
-		self.followers_generated = self.post.tagged_accounts.count
+		self.followers_generated = self.post.followers_generated.count
 		self.likes 				 = self.post.likes
 		self.cents_per_like		 = self.post.order.cents_per_like
 		self.dollars_per_follow  = self.post.order.dollars_per_follow
@@ -24,6 +24,8 @@ class Reward < ActiveRecord::Base
 		self.payable_total = totals.min.round(2)
 
 		self.save
+
+		binding.remote_pry
 	end
 
 end

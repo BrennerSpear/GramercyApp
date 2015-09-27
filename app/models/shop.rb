@@ -36,6 +36,10 @@ class Shop < ActiveRecord::Base
             s.plan = info.plan_name
             s.save!
         end
+
+        brand = self.brand
+        brand.name = info.name
+        brand.save!
     end
 
 
@@ -58,12 +62,15 @@ class Shop < ActiveRecord::Base
             likes = " likes & "
         end
         if reward.followers_generated == 1
-            f_g = " follower generated)"
+            f_g = " follower generated) "
         else
-            f_g = " followers generated)"
+            f_g = " followers generated) "
         end
 
-        coupon_name = "#{reward.post.shopper.nickname} via Gramercy (#{reward.likes.to_s} #{likes} #{reward.followers_generated.to_s} #{f_g}"
+        #Coupon names can't be the same - adding this prevents that
+        random_3 = Devise.friendly_token[0,3]
+
+        coupon_name = "#{reward.post.shopper.nickname} via Gramercy (#{reward.likes.to_s} #{likes} #{reward.followers_generated.to_s} #{f_g} #{random_3}"
 
         code = SecureRandom.hex
 

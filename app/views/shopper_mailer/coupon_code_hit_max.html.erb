@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Coming Soon</title>
+  <title>Your coupon to <%= @brand_name %> ($<%= sprintf('%.2f' % @payable_total) %>)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0;">
@@ -19,19 +19,38 @@
          <td bgcolor="#DBDBDB" style="padding: 40px 30px 40px 30px;">
            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FEFEFE" color="#777777" style= "border: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
             <tr>
-             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
-              Coming to <%= @lead.platform %> Soon
+             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">Your coupon to <%= @brand_name %>
              </td>
             </tr>
             <tr>
-             <td style="padding: 20px 30px 15px 30px;">
-               Gramercy’s beta is launching in the Bigcommerce app store first. Once we get any kinks out, we will be integrating into other ecommerce platforms, including yours! If you haven’t checked out how you choose the rates you pay out store credit to your shoppers, check out our <%= link_to "payment model", "http://www.gramercyapp.com/payment_model" %>.
-               <br><br>           
-               we will send you an email as soon as Gramercy goes live on your ecommerce platform.
-               <br><br>
-               If you believe many brands on your ecommerce platform would use Gramercy, reply to this email as to why, and we will consider bumping your platform to the top of our priority list.
+             <td style="padding: 20px 30px 10px 30px;" align="center">
+                <%= @brand_name %> has sent you a coupon for $<%= sprintf('%.2f' % @payable_total) %>!
              </td>
-            </tr>
+           </tr>
+           <tr>
+             <td style="padding: 10px 30px 10px 30px;" align="center">
+                <a href="<%= @ig_link %>" target="_blank"><img src="<%= @ig_image %>" alt="Instagram Picture" width="360" height="auto" style="display: block;" /></a>
+             </td>
+           </tr>
+           <tr>
+             <td style="padding: 10px 30px 15px 30px;">
+                Here's the breakdown:
+                <br><br>
+                <%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100)) %>
+                <br>
+                <%= @followers_generated %> new followers at $<%= sprintf('%.2f' % @dpf) %> per follower = $<%= sprintf('%.2f' % (@followers_generated*@dpf)) %>
+                <br><br>
+                <strong>Total Store Credit = $<%= sprintf('%.2f' % @payable_total) %></strong>
+                <br><br>
+                You hit <%= @brand_name %>'s max coupon amount of $<%= sprintf('%.2f' % @payable_total)%>! In the future, Gramercy will be creating a program that will enable some influential Instagrammers to get part of their coupon in cash. Since you are obviously influential, we will make sure to reach out to you about how you think that program should work. For now though, happy shopping!
+                <br><br><br><br>
+                Coupon code:
+                <br>
+                <%= @code %>
+                <br><br><br><br>
+                <%= @brand_name %> appreciates your support!
+             </td>
+           </tr>
            </table>
          </td>
        </tr>

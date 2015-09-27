@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Coming Soon</title>
+  <title>You're all set up with Gramercy!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0;">
@@ -19,19 +19,18 @@
          <td bgcolor="#DBDBDB" style="padding: 40px 30px 40px 30px;">
            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FEFEFE" color="#777777" style= "border: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
             <tr>
-             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
-              Coming to <%= @lead.platform %> ASAP
+             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">You're all set up with Gramercy!
              </td>
             </tr>
             <tr>
              <td style="padding: 20px 30px 15px 30px;">
-               Gramercy’s beta is launching in the Bigcommerce app store soon. When Gramercy becomes available, we will send you an email with a link!
-               <br><br>
-               If you haven’t checked out how you choose the rates you pay out store credit to your shoppers, check out our <%= link_to "payment model", "http://gramercyapp.com/payment_model" %>
-               <br><br>
-               If you have any questions, please don't hesitate to respond to this email!
+                Your Instagram account, @<%= @shopper_ig %>, has been connected to Gramercy! The associated email address is <%= @email %>.
+                <br><br>
+                More and more brands will start to offer store credit in exchange for Instagram posts using Gramercy. We will let you know when other brands start using Gramercy!
+                <br><br>
+                Feel free to let your favorite brands about Gramercy by sending them an email directing them to <%= link_to "Gramercyapp.com!", "www.gramercyapp.com" %>
              </td>
-            </tr>
+           </tr>
            </table>
          </td>
        </tr>

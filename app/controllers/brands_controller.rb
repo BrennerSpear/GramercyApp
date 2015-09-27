@@ -1,9 +1,9 @@
 class BrandsController < ApplicationController
-	before_action :authenticate_brand!
 
-	def dashboard_test
+	def dashboard
+
 		if current_brand.nil?
-			redirect_to load_path
+			redirect_to home_path
 
 		elsif current_brand.uid.nil?
 			redirect_to instagram_auth_path
@@ -14,61 +14,57 @@ class BrandsController < ApplicationController
 		elsif current_brand.shop.stripe_id.nil?
 			redirect_to set_up_stripe_path
 		else
-			@brand = current_brand
-			@shop  = current_brand.shop
-			@order = current_brand.orders[0]
+				
+
+			@brand       = current_brand
+			@shop        = current_brand.shop
+			@posts       = current_brand.posts
+			@followers   = current_brand.followers
+
+			#shoppers that have ordered from this store
+			@shoppers = Shopper.joins(:orders).where(orders: {shop_id: @shop.id}).uniq
+
+			#shoppers that have ordered from this store that have auth'd their IG
+			@auth_shoppers = @shoppers.where('shoppers.uid IS NOT NULL')
+
+
+			@total_likes = 0
+			@total_new_follows = 0
+
+			@posts.each do |p|
+				@total_likes += p.likes
+				@total_new_follows += p.followers_generated.count
+			end
+
+			#Set defaults
+			@date_sort 	    = 'date_desc'
+			@like_sort      = 'like_desc'
+			@follower_sort  = 'follower_desc'
+			@coupon_sort    = 'coupon_desc'
+			@date_name	    = 'Date'
+			@like_name 	    = 'Likes'
+			@follower_name  = 'Followers Generated'
+			@coupon_name    = 'Coupon Amount'
+			@length_of_time = 'all_posts'
+
+			# used for the graphs, which I can't get to work...
+			# #get this brand's order ids
+			# @order_ids = @orders.pluck(:id)
+
+			# #shoppers that have ordered from this store that have auth'd their IG that have posted for this brand
+			# @posters = @shoppers.joins(:posts).where(posts: {order_id: @order_ids})
+
+			# @test = [
+			# 	{period: '2010 Q1',
+			# 		iphone: 10,
+			# 		ipad: 20,
+			# 	itouch: 30},
+			# 	{period: '2010 Q2',
+			# 		iphone: 20,
+			# 		ipad: 50,
+			# 	itouch: 100} ]
+
 		end
-
-	end
-
-	def dashboard
-		@brand       = current_brand
-		@shop        = current_brand.shop
-		@posts       = current_brand.posts
-		@followers   = current_brand.followers
-
-		#shoppers that have ordered from this store
-		@shoppers = Shopper.joins(:orders).where(orders: {shop_id: @shop.id}).uniq
-
-		#shoppers that have ordered from this store that have auth'd their IG
-		@auth_shoppers = @shoppers.where('shoppers.uid IS NOT NULL')
-
-
-		@total_likes = 0
-		@total_new_follows = 0
-
-		@posts.each do |p|
-			@total_likes += p.likes
-			@total_new_follows += p.followers_generated.count
-		end
-
-		#Set defaults
-		@date_sort 	    = 'date_desc'
-		@like_sort      = 'like_desc'
-		@follower_sort  = 'follower_desc'
-		@coupon_sort    = 'coupon_desc'
-		@date_name	    = 'Date'
-		@like_name 	    = 'Likes'
-		@follower_name  = 'Followers Generated'
-		@coupon_name    = 'Coupon Amount'
-		@length_of_time = 'all_posts'
-
-		# used for the graphs, which I can't get to work...
-		# #get this brand's order ids
-		# @order_ids = @orders.pluck(:id)
-
-		# #shoppers that have ordered from this store that have auth'd their IG that have posted for this brand
-		# @posters = @shoppers.joins(:posts).where(posts: {order_id: @order_ids})
-
-		# @test = [
-		# 	{period: '2010 Q1',
-		# 		iphone: 10,
-		# 		ipad: 20,
-		# 	itouch: 30},
-		# 	{period: '2010 Q2',
-		# 		iphone: 20,
-		# 		ipad: 50,
-		# 	itouch: 100} ]
 	end
 
 	def filter_dashboard
@@ -193,14 +189,20 @@ class BrandsController < ApplicationController
 	def instagram_auth
 		if current_brand.nil?
 			redirect_to load_path
+		elsif current_brand.uid.present?
+			redirect_to initial_settings_path
 		end
 
 	end
 
 	def initial_settings
-		if current_brand.uid.nil?
+		if current_brand.nil?
+			redirect_to home_path
+		elsif current_brand.uid.nil?
 			flash[:notice] = "You haven't authorized your Brand's Instagram yet"
 			redirect_to(:back)
+		elsif current_brand.cents_per_like.present?
+			redirect_to set_up_stripe_path
 		end
 
 	end
@@ -213,9 +215,14 @@ class BrandsController < ApplicationController
 		redirect_to set_up_stripe_path
 	end
 
+
 	def set_up_stripe
-		if current_brand.cents_per_like.nil?
+		if current_brand.nil?
+			redirect_to home_path
+		elsif current_brand.cents_per_like.nil?
 			redirect_to initial_settings_path
+		elsif current_brand.shop.stripe_id.present?
+			redirect_to dashboard_path
 		end
 	end
 
@@ -243,6 +250,18 @@ class BrandsController < ApplicationController
 
 		redirect_to dashboard_path
 
+	end
+
+	def settings
+		if current_brand.nil?
+			redirect_to home_path
+		end
+	end
+
+	def update_settings
+		current_brand.add_settings_info(params)
+		flash[:notice] = "Your Rates and Settings have been updated!"
+		redirect_to dashboard_path
 	end
 
 end

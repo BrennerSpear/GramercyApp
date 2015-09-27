@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>get store credit to <%=@brand_name%></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin: 0; padding: 0;">
+ <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Avenir Next; font-weight: 300;">
+  <tr>
+   <td>
+     <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+       <tr>
+         <td align="center" bgcolor="#86C9D4" style="padding: 15px 0 12px 0;">
+          <img src="https://s3-us-west-2.amazonaws.com/gramercy-app-prod/email-images/g-logo-off-white-m.png" alt="Gramercy" width="250" height="auto" style="display: block;" />
+         </td>
+       </tr>
+       <tr>
+         <td bgcolor="#DBDBDB" style="padding: 40px 30px 40px 30px;">
+           <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FEFEFE" color="#777777" style= "border: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
+            <tr>
+             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">Get store credit to <%= @brand_name %>!
+             </td>
+            </tr>
+            <tr>
+             <td style="padding: 20px 30px 15px 30px;">
+                <%= @brand_name %> would like to send you a coupon for store credit when you Instagram the product you just bought from them!
+                <br><br>
+                <%= @brand_name %> is offering you:
+                <br><br>
+                <%= @cpl %>¢ per like you get on the post
+                <br>
+                and
+                <br>
+                $<%= @dpf %> per new follower you refer to their Instagram from your post
+                <br><br>
+                You will have <%= @dtp %> days from your date of purchase to post the Instagram.
+                <br><br>
+                <%= @brand_name %>’s Instagram username is @<%= @brand_ig %>.
+                <br><br>
+                <%= @brand_name %> has set the maximum for a single coupon at $<%= sprintf('%.2f' % @max_coupon) %>. No matter the amount of engagement you get on your Instagram post, the coupon amount will not exceed $<%= sprintf('%.2f' % @max_coupon) %>.
+             </td>
+           </tr>
+            <tr>
+             <td style="padding: 20px 30px 0 30px;">
+                A few things to remember:
+             </td>
+            </tr>
+             <tr>
+               <td style="padding: 0 30px 15px 30px; font-size: 13px;">
+                  -You will need to tag @<%= @brand_ig %> in your post to receieve the coupon. (This means in the photo itself, not in the caption. Only the photo’s tags will be checked)
+                  <br>
+                  -72 hours after you post the Instagram, we will send you the coupon.
+                  <br>
+                  -You may only receive a coupon from your the first Instagram you post that tags <%= @brand_name %>. you may only receive one coupon per online purchase from <%= @brand_name %>.
+                  <br>
+                  - You must have a product(s) from <%= @brand_name %> in your Instagram post, and the post must be in favorable light. The photo must be taken by you or a friend, meaning that you must have permission to use the photo.
+                  <br>
+                  - <%= @brand_name %> reserves the right to revoke coupon for reasons including but not limited to: belief the photo and its origins were not posted in good faith.
+                  <br>
+                  - You may not buy or acquire likes on your photo in any non-organic way, including but not limited to: buying likes or participating in like-for-like programs. You may not buy or acquire new followers for <%= @brand_name %>’s Instagram account in any non-organic way, including but not limited to: buying followers or participating in follow-for-follow programs. If you are found to be engaging in anything listed or anything related to what is listed above, your associated Instagram account and email address will be banned from Gramercy and participating in its program.
+               </td>
+            </tr>
+           </table>
+         </td>
+       </tr>
+       <tr>
+         <td bgcolor="#86C9D4" style="padding: 10px 15px 10px 15px;">
+           <table border="0" cellpadding="0" cellspacing="0" width="100%">
+             <td width="75%" style="font-size: 12px;">
+              <%= link_to "Privacy Policy", "http://www.gramercyapp.com/privacy_policy", style: "color: #DBDBDB!important;" %> |
+              <%= link_to "Terms of Service", "http://www.gramercyapp.com/terms_of_service", style: "color: #DBDBDB;" %>
+             </td>
+             <td align="right">
+              <table border="0" cellpadding="0" cellspacing="0">
+               <tr>
+                <td style="padding:0 0 0 10px;">
+                 <a href="http://www.instagram.com/gramercy">
+                  <img src="https://s3-us-west-2.amazonaws.com/gramercy-app-prod/email-images/instagram-email-icon.png" alt="Instagram" width="24" height="auto" style="display: block;" border="0" />
+                 </a>
+                </td>
+                <td style="padding: 0 0 0 10px;">
+                 <a href="http://www.twitter.com/gramercyapp">
+                  <img src="https://s3-us-west-2.amazonaws.com/gramercy-app-prod/email-images/twitter-email-icon.png" alt="Twitter" width="24" height="auto" style="display: block;" border="0" />
+                 </a>
+                </td>
+               </tr>
+              </table>
+             </td>
+           </table>
+         </td>
+       </tr>
+     </table>
+   </td>
+  </tr>
+ </table>
+</body>
+</html>

@@ -30,9 +30,9 @@ class BigcommerceCallbacksController < ApplicationController
 			when "store/order/created"
 				ReceiveNewBcOrderWorker.perform_async(params)
 			when "store/order/updated"
-
+				#TODO
 			when "store/order/statusUpdated"
-
+				#TODO
 			else
 			end
 

@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   devise_for :admins
   get 'admin_dashboard' => 'admins#admin_dashboard'
 
+  #No signing in through regular browser - only via ecommerce platform
+  get 'denied_request'       => 'pages#denied_request'
+  get '/shoppers/sign_in'    => 'pages#denied_request'
+  get '/brands/sign_in'      => 'pages#home'
+  get '/brands/sign_up'      => 'pages#home'
+  get '/brands/password/new' => 'pages#home'
+
   #Shoppers
   devise_for :shoppers
   get 'new_shopper_session'          => 'pages#denied_request'
@@ -19,7 +26,6 @@ Rails.application.routes.draw do
 
   #Brands
   devise_for :brands
-  resources :leads
   get 'load'                 => 'bigcommerce_callbacks#load'
   post 'webhook'             => 'bigcommerce_callbacks#webhook'
   get 'instagram_auth'       => 'brands#instagram_auth'
@@ -29,7 +35,7 @@ Rails.application.routes.draw do
   post 'send_stripe_info'    => 'brands#send_stripe_info'
   get 'dashboard'            => 'brands#dashboard'
   get 'settings'             => 'brands#settings'
-  get 'dashboard_test'       => 'brands#dashboard_test'
+  post 'update_settings'     => 'brands#update_settings'
 
   #dashboard UJS
   get 'sort_dashboard'       => 'brands#sort_dashboard'
@@ -46,17 +52,6 @@ Rails.application.routes.draw do
 
   #subscription to Brands' orders
   post "bigcommerce/receive_order" => 'bigcommerce_callbacks#receive_order'
-
-  #public pages
-  get 'benefits'                     => 'pages#benefits'
-  get 'payment_model'                => 'pages#payment_model'
-  get 'platforms'                    => 'pages#platforms'
-  get 'blog'                         => 'pages#home'
-  get 'faq'                          => 'pages#faq'
-  get 'terms_of_service'             => 'pages#terms_of_service'
-  get 'privacy_policy'               => 'pages#privacy_policy'
-  get 'thank_you'                    => 'pages#thank_you' #after lead sign up
-  get 'denied_request'               => 'pages#denied_request'
 
 
   # Sidekick

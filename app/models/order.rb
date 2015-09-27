@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
 		#find or create the shopper the order is linked to
 		shopper = Shopper.from_bc_order(customer_address, email)
 
-		Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
+		order = Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
 			o.shopper_id				= shopper.id
 
 			o.first_name				= new_order_address.first_name
@@ -65,9 +65,25 @@ class Order < ActiveRecord::Base
 			o.save!
 		end
 
-		# if shopper.uid.nil?
-		# 	ShopperMailer.delay.authorize_shopper_instagram(
-		# 		shopper.email,
-		# 		)
+		#send appropriate email to shopper
+		if shopper.uid.nil?
+			ShopperMailer.delay.authorize_shopper_instagram(
+				shopper.email,
+				shop.brand.name,
+				shop.brand.nickname,
+				order.cents_per_like,
+				order.dollars_per_follow,
+				shop.brand.days_to_post,
+				order.max_total_allowed)
+		else
+			ShopperMailer.delay.offer_from_order(
+				shopper.email,
+				shop.brand.name,
+				shop.brand.nickname,
+				order.cents_per_like,
+				order.dollars_per_follow,
+				shop.brand.days_to_post,
+				order.max_total_allowed)
+		end
 	end
 end

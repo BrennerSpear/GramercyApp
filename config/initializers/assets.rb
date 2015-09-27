@@ -9,16 +9,8 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w( custom_home.js )
 Rails.application.config.assets.precompile += %w( pages.css )
-Rails.application.config.assets.precompile += %w( home.css )
-Rails.application.config.assets.precompile += %w( payment_model.css )
-Rails.application.config.assets.precompile += %w( benefits.css )
-Rails.application.config.assets.precompile += %w( platforms.css )
-Rails.application.config.assets.precompile += %w( faq.css )
-Rails.application.config.assets.precompile += %w( privacy_policy.css )
-Rails.application.config.assets.precompile += %w( terms_of_service.css )
-Rails.application.config.assets.precompile += %w( thank_you.css )
-Rails.application.config.assets.precompile += %w( dashboard_test.css )
+Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( initial_settings.css )
+Rails.application.config.assets.precompile += %w( settings.css )
 # Rails.application.config.assets.precompile += %w( shopper.js )

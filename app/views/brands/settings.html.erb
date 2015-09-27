@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag "settings", media: "all", "data-turbolinks-track" => true %>
+<div class="settings-page">
+		<div id="page-wrapper">
+		<section class="settings-section">
+			<div class="text-area">
+				<h2 class="text-center">Rates & Limits</h2>
+				<p class="text-left">
+				Only shoppers that have purchased something from your online store may get credit for posting a picture. Once the transaction has occurred, they can post a picture whenever they want. Shoppers can only get credit from one post per purchase from your online store. 72 hours after a shopper posts the Instagram, we check how many likes the picture got and how many of their followers now follow you.
+				<br><br>
+				The rule-of-thumb we suggest is: if your brand sells, on average, relatively low-priced items, your rates should be relatively lower. If your brand sells, on average, relatively high-priced items, your rates should be relatively higher.
+				<br><br>
+				Your current rates & limits are shown in the selectors.</p>
+				
+				<% @brand = Brand.new %>
+				<%= simple_form_for @brand, url: update_settings_path, method: :post do |f| %>
+				<%= f.error_notification %>
+
+				<div class="form-group form-inline row">
+					<div class= "col-md-4"><%= f.label "cents per like:" %></div>
+					<div class= "col-md-8">
+						<%= f.input :cents_per_like, class: "form-control", required: "true", label: false, input_html: { min: '1', max: '10', step: '1', value: current_brand.cents_per_like}%>
+							&nbsp; Min: ¢1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max: ¢10
+					</div>
+				</div>
+
+				<div class="form-group form-inline row">
+					<div class= "col-md-4"><%= f.label "Dollars per New Follower:" %></div>
+					<div class= "col-md-8">
+						<%= f.input :dollars_per_follow, class: "form-control", selected: "5.00", required: "true", label: false, input_html: { min: '1', max: '10', step: '.01', value: current_brand.dollars_per_follow} %>
+							&nbsp; Min: $1.00 &nbsp;&nbsp;&nbsp;&nbsp; Max: $10.00
+					</div>
+				</div>
+				<br>
+				<p> ‘Max Dollars per Coupon’ is the highest amount an idividual shopper can get in return for a single post on Instagram. Shoppers may only get credit for one Instagram per purchase. If you would like remove the max of $500 on your max, please contact us directly and we can do so. </p>
+
+				<div class="form-group form-inline row">
+					<div class= "col-md-4"><%= f.label "Max Dollars per Coupon:" %></div>
+					<div class= "col-md-8">
+						<%= f.input :max_total_allowed, class: "form-control", selected: "100", required: "true", label: false, input_html: { min: '100', max: '500', step: '.01', value: current_brand.max_total_allowed}%>
+						&nbsp; Min: $100 &nbsp;&nbsp;&nbsp;&nbsp; Max: $500
+					</div>
+				</div>
+				<br>
+				<p>‘Days from Purchase to Post’ is the amount of days the shopper has from the date of purchase to get credit for an Instagram they post. Once the time period is up, the shopper would no longer get credit for tagging your brand in an Instagram. Once you’ve found the rates that work best, we suggest giving your shoppers 60 days to post, so they can find and capture a natural occurance of wearing your brand’s product.</p>
+				<div class="form-group form-inline row">
+					<div class= "col-md-4"><%= f.label "Days From Purchase to Post:" %></div>
+					<div class= "col-md-8">
+						<%= f.input :days_to_post, class: "form-control", selected: "5", required: "true", label: false, input_html: { min: '30', max: '365', value: current_brand.days_to_post}%>
+						&nbsp; Min: 30 days &nbsp;&nbsp;&nbsp;&nbsp; Max: 365 days
+					</div>
+				</div>
+				<br>
+				<p>As of right now, if you increased your rates/limits, it will not retroactively affect previous shoppers' offers. We will be builing in that functionality soon.</p>
+				<br>
+				<div class="text-center">
+					<%= link_to "Cancel", dashboard_path, class: "btn btn-primary", style: "background-color: #86C9D4; border-color: #86C9D4" %>
+					<%= f.submit "Save", class: "btn btn-primary", style: "background-color: #86C9D4; border-color: #86C9D4" %>
+				</div>
+				<% end %>
+
+			</div>
+		</section>
+		</div>
+</div>

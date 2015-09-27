@@ -63,6 +63,11 @@ class Shopper < ActiveRecord::Base
       InitiateGetFollowersWorker.perform_async(shopper.id, "Shopper")
     end
 
+    #send email letting shopper know they're set up with Instagram
+    ShopperMailer.delay.shopper_instagram_authorized(
+        shopper.email,
+        shopper.nickname)
+
     shopper
   end
 

@@ -1,8 +1,7 @@
 class AdminsController < ApplicationController
-	before_action :authenticate_admin!, only: [:admin_dashboard]
+	before_action :authenticate_admin!
 
 	def admin_dashboard
-		@leads        = Lead.all
 		@brands       = Brand.all
 		@shops        = Shop.all
 		@shoppers     = Shopper.all

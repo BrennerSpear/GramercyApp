@@ -1,150 +1,16 @@
-<%= stylesheet_link_tag "home", media: "all", "data-turbolinks-track" => true %>
+<div>
 
-<div class="home-page">
-
-	<div class="divider-top"></div>
-	
-	<section class="section title-section">
-		
+	<section class="generic-section">
 		<div class="text-area">
-			<%= image_tag "g-logo-off-white-xl.png", class: "title-img" %>
-			<h3>Turn your shoppers into Brand Advocates</h3>
+
+			<h3>You must be looking for the login page</h3>
 			<br>
+			<p>Head over to your <%= link_to "Bigcommerce Dashboard", "https://login.bigcommerce.com/" %>. Go to 'Apps' then 'Gramercy' </p>
 			<br>
-			<%= render '/leads/form', submit_text: 'Get Started »' %>
-		</div>
+			<p>If you're looking for Gramercy's home page, try <%= link_to "here", "http://gramercyapp.com", target: "_blank"%></p>
 
-	</section>
-
-	<div class="divider-dark"></div>
-
-
-	<section class="reason-section">
-		<div class="text-area">
-
-			<h2 class="text-center">Just saying thanks can help your brand</h2>
-			<br>
-			<br>
-			<div class="row">
-				<div class="col-md-4 reason">
-					<p class="reason-title">Get Shopper-generated ad content</p>
-					<%= image_tag "icon1.png", class: "reason-img" %>
-					<p class="reason-text">Shoppers can post appealing Insagrams of your brand in exchange for store credit</p>
-				</div>
-				<div class="col-md-4 reason">
-					<p class="reason-title">Increase repeat shoppers</p>
-					<%= image_tag "icon2.png", class: "reason-img" %>
-					<p class="reason-text">The store credit shoppers earn will bring them back to buy even more from your brand</p>
-				</div>
-				<div class="col-md-4 reason">
-					<p class="reason-title">Identify Influencers</p>
-					<%= image_tag "icon3.png", class: "reason-img" %>
-					<p class="reason-text">Find your brand's shoppers that truly influence their friends' style and buying choices</p>
-				</div>
-
-			</div>
 		</div>
 	</section>
 
-
-
-	<div class="divider"></div>
-
-
-
-	<section class="how-it-works-section" id="toggle"></section>
-
-
-	<div class="divider-dark"></div>
-
-
-
-	<section class="sign-up-section">
-
-		<div class="text-area">
-			<h4>Get notified when Gramercy goes live:</h4>
-			<%= render '/leads/form', submit_text: 'Sign up »' %>
-		</div>
-
-	</section>
-
-
-
-	<div class="divider-dark"></div>
-
-
-	<section class="platform-integrations-section">
-		<div class="text-area">
-			<h3>Coming first to:</h3>
-			<div class="current-platforms">
-				<%= link_to "https://www.bigcommerce.com/apps" do %>
-					<%= image_tag 'bigcommerce-logo.png' %>
-				<% end %>
-			</div>
-
-			<h3>Comming soon to:</h3>
-			<div class="future-platforms">
-				<% %w( woocommerce-logo.png magento-logo.png shopify-logo.png etsy-logo.png prestashop-logo.png ).each do |image| %>
-				<%= image_tag image %>
-				<% end %>
-			</div>
-		</div>
-	</section>
-
-	<div class="divider"></div>
-
-	<section class="team-section">
-		<div class="text-area">
-			<h2><stong>The Team</strong></h2>
-			<div class="row">
-			<div class="col-sm-6 team-member-profile">
-				<h4 class="team-member-name">Brenner Spear</h4>
-				<%= image_tag 'brenner-spear.jpg', class: 'team-member-photo' %>
-				<div class="team-member-contact">
-					<ul class="">
-						<li class="fa-stack fa-lg"><%= link_to "<i class='fa fa-circle-thin fa-stack-2x'></i><i class='fa fa-twitter fa-stack-1x'></i>".html_safe, "http://www.twitter.com/brennerspear", target: "_blank" %></li>
-						<li class="fa-stack fa-lg"><%= link_to "<i class='fa fa-circle-thin fa-stack-2x'></i><i class='fa fa-instagram fa-stack-1x'></i>".html_safe, "http://www.instagram.com/brennerspear", target: "_blank" %></li>
-						<li class="fa-stack fa-lg"><%= link_to "<i class='fa fa-circle-thin fa-stack-2x'></i><i class='fa fa-envelope fa-stack-1x'></i>".html_safe, "mailto:brenner@GramercyApp.com" %></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-sm-6 team-member-profile">
-				<h4 class="team-member-name">Your Name Here</h4>
-				<%= image_tag 'blank-female.jpg', class: 'team-member-photo' %>
-				<p style="margin-top: 5px; margin-bottom: 0px;">Interested in working for Gramcercy?</p>
-				<div class="team-member-contact">
-					<ul class="">
-						<li style="display: inline-block; color: #777777;">Email:</li>
-						<li class="fa-stack fa-lg"><%=link_to "<i class='fa fa-circle-thin fa-stack-2x'></i><i class='fa fa-envelope fa-stack-1x'></i>".html_safe, "mailto:admin@GramercyApp.com" %></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		</div>
-	</section>
-
-	<div class="divider"></div>
 
 </div>
-
-
-
-
-
-
-
-
-
-<!-- couldnt get it to reference the custom_home.js file so I just put the moble/desktop toggle in a script -->
-
-<script type="text/javascript">
-var width = window.innerWidth;
-
-if (width < 858)
-{
-	document.getElementById('toggle').innerHTML = "<%= escape_javascript render(partial: 'layouts/how_it_works_mobile') %>";
-} else {
-	document.getElementById('toggle').innerHTML = "<%= escape_javascript render(partial: 'layouts/how_it_works_desktop') %>";
-}
- 
-</script>

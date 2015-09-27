@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
 
 			#get just uid instead of converting to id
 			#some tagged_accounts might be friends - we don't have an ID for them
-			#and it doesn't make sense to make a 'follower' AC for them
+			#and it doesn't make sense to make a 'follower' ActiveRecord for them
 			media["users_in_photo"].each do |tag|
 				p.tagged_accounts << tag["user"]["id"]
 			end
@@ -49,6 +49,15 @@ class Post < ActiveRecord::Base
 				past_orders.each do |order|
 					if order.post.nil?
 						self.order_id = order.id
+
+						#Email shopper, thanks for post, we're tracking
+						ShopperMailer.delay.thanks_for_your_post(
+							shopper_email,
+							brand.name,
+							self.shopper.nickname,
+							brand.nickname,
+							self.link,
+							self.image)
 					end
 					break if order.post.nil?
 				end

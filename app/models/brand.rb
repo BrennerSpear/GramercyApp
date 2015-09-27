@@ -14,8 +14,8 @@ class Brand < ActiveRecord::Base
 	def self.from_bc_omniauth(auth)
 
 		brand = Brand.find_or_create_by(email: auth.info.email) do |b|
-			b.password = Devise.friendly_token[0,20]
-			b.name 	   = auth.info.name
+			b.password 	  = Devise.friendly_token[0,20]
+			b.owders_name = auth.info.name
 			b.save!
 		end
 
@@ -26,12 +26,11 @@ class Brand < ActiveRecord::Base
 		self.nickname = auth.info.nickname
 		self.image	  = auth.info.image
 		self.bio	  = auth.info.bio
-		s.website     = auth.info.website
+		self.website  = auth.info.website
 		self.token 	  = auth.credentials.token
 		self.uid	  = auth.uid
 		self.save!
 
-		binding.remote_pry
 		if self.followers.empty?
 			InitiateGetFollowersWorker.perform_async(self.id, "Brand")
 		end
