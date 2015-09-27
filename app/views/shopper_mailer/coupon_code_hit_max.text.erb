@@ -1,0 +1,21 @@
+Your coupon to <%= @brand_name %>
+
+<%= @brand_name %> has sent you a coupon for $<%= sprintf('%.2f' % @payable_total) %>!
+
+<%= @ig_link %>
+
+Here's the breakdown:
+
+<%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100)) %>
+<%= @followers_generated %> new followers at $<%= sprintf('%.2f' % @dpf) %> per follower = $<%= sprintf('%.2f' % (@followers_generated*@dpf)) %>
+Total Store Credit = $<%= sprintf('%.2f' % @payable_total) %>
+
+
+You hit <%= @brand_name %>'s max coupon amount of $<%= sprintf('%.2f' % @payable_total)%>! In the future, Gramercy will be creating a program that will enable some influential Instagrammers to get part of their coupon in cash. Since you are obviously influential, we will make sure to reach out to you about how you think that program should work. For now though, happy shopping!
+
+
+Coupon code:
+<%= @code %>
+
+
+<%= @brand_name %> appreciates your support!

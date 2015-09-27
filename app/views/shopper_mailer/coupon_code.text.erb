@@ -1,0 +1,17 @@
+Your coupon to <%= @brand_name %>
+<%= @brand_name %> has sent you a coupon for $<%= sprintf('%.2f' % @payable_total) %>!
+
+<%= @ig_link %>
+
+Here's the breakdown:
+
+<%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100)) %>
+<%= @followers_generated %> new followers at $<%= sprintf('%.2f' % @dpf) %> per follower = $<%= sprintf('%.2f' % (@followers_generated*@dpf)) %>
+Total Store Credit = $<%= sprintf('%.2f' % @payable_total) %>
+
+
+Coupon code:
+<%= @code %>
+
+
+<%= @brand_name %> appreciates your support!
