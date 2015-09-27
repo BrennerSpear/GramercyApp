@@ -15,7 +15,7 @@ class Brand < ActiveRecord::Base
 
 		brand = Brand.find_or_create_by(email: auth.info.email) do |b|
 			b.password 	  = Devise.friendly_token[0,20]
-			b.owders_name = auth.info.name
+			b.owners_name = auth.info.name
 			b.save!
 		end
 
