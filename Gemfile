@@ -55,6 +55,7 @@ gem 'celluloid', '0.16.0'
 gem 'json'
 gem 'local_time'
 gem 'stripe'
+gem 'seed_dump'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

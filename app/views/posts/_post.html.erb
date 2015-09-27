@@ -3,7 +3,8 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-8 bigger">
-                    <%= post.shopper.name %> (<%= link_to post.shopper.nickname, post.link, target: "_blank" %>)
+                    testing
+                    <%= post.shopper.first_name+" "+post.shopper.last_name  %> (<%= link_to ("@"+post.shopper.nickname), post.link, target: "_blank" %>)
                 </div>
                 <div class="col-xs-4">
                     <div class="pull-right smaller time-left">
@@ -62,7 +63,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-8 bigger">
-                    <%= post.shopper.name %> (<%= link_to post.shopper.nickname, post.link, target: "_blank" %>)
+                    <%= post.shopper.first_name+" "+post.shopper.last_name %> (<%= link_to ("@"+post.shopper.nickname), post.link, target: "_blank" %>)
                 </div>
                 <div class="col-xs-4">
                     <div class="pull-right smaller time-left">

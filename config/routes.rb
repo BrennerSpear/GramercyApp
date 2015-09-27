@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'admin_dashboard' => 'admins#admin_dashboard'
 
   #No signing in through regular browser - only via ecommerce platform
+  get 'home'                 => 'pages#home'
   get 'denied_request'       => 'pages#denied_request'
   get '/shoppers/sign_in'    => 'pages#denied_request'
   get '/brands/sign_in'      => 'pages#home'

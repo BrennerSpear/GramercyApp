@@ -269,6 +269,9 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    seed_dump (3.2.2)
+      activerecord (~> 4)
+      activesupport (~> 4)
     sidekiq (3.4.2)
       celluloid (~> 0.16.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -380,6 +383,7 @@ DEPENDENCIES
   redis
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  seed_dump
   sidekiq
   sidekiq-superworker
   sidekiq_monitor
