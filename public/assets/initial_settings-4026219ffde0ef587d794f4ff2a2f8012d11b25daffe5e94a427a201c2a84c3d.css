@@ -1,0 +1,17 @@
+/* line 1, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/initial_settings.scss */
+.settings-section {
+  margin-bottom: 125px;
+}
+
+/* line 4, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/initial_settings.scss */
+.text-area {
+  width: 700px;
+}
+
+/* line 10, /Users/BrennerSpear/work/GramercyApp/app/assets/stylesheets/initial_settings.scss */
+#brand_cents_per_like,
+#brand_dollars_per_follow,
+#brand_max_total_allowed,
+#brand_days_to_post {
+  width: 200px;
+}
