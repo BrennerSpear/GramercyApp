@@ -69,9 +69,11 @@ class Post < ActiveRecord::Base
 	def update_likes
 		shopper_uid = self.shopper.uid
 		media = Post.media(shopper_uid, self.media_id)
-		
 		self.likes = media["likes"]["count"].to_i
 		self.save
+
+	rescue Timeout::Error
+		flash[:notice] = "Instagram isn't responding - the like counts are probably off, for now"
 	end
 
 
