@@ -2,12 +2,13 @@ class Reward < ActiveRecord::Base
 	belongs_to :post
 
 	def self.from_post(post_id)
-		Reward.find_or_create_by(post_id: post_id) do |r|
+		reward = Reward.find_or_create_by(post_id: post_id) do |r|
 			r.payable_total = 0
 		end
+
+		reward
 	end
 
-	#DOTHIS
 	def calculate_total
 		self.followers_generated = self.post.followers_generated.count
 		self.likes 				 = self.post.likes

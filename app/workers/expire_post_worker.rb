@@ -11,7 +11,7 @@ class ExpirePostWorker
 		brand = shop.brand
 		brand.update_followers(post_id)
 
-		reward = post.reward
+                reward = Reward.from_post(post.id)
 		reward.calculate_total
 
 		if reward.payable_total < reward.calculated_total
