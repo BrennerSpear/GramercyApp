@@ -32,6 +32,11 @@ class BrandsController < ApplicationController
 			@total_new_follows = 0
 
 			@posts.each do |p|
+				#This has to get data from IG
+				#might take a while
+				#better to do on a scheduled worker
+				p.update_likes
+
 				@total_likes += p.likes
 				@total_new_follows += p.followers_generated.count
 			end

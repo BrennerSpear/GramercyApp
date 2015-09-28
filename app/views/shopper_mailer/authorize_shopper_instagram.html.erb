@@ -32,7 +32,7 @@
                 <br>
                 and
                 <br>
-                $<%= @dpf %> per new follower you refer to their Instagram from your post
+                $<%= sprintf('%.2f' % @dpf) %> per new follower you refer to their Instagram from your post
                 <br><br>
                 You will have <%= @dtp %> days from your date of purchase to post the Instagram.
                 <br><br>
@@ -47,7 +47,7 @@
            </tr>
             <tr>
              <td style="font-weight: bold; color: #86c9d4; padding: 0 30px 0 30px; text-align: center;">
-              <%= link_to "Authorize Instagram", "https://gramercy-app.herokuapp.com/auth/instagram?email=#{@email}&type=Shopper", style: "color: #86c9d4;" %>
+              <%= link_to "Authorize Instagram", "#{ENV['GRAMERCY_URL']}/auth/instagram?email=#{@email}&type=Shopper", style: "color: #86c9d4;" %>
              </td>
            </tr>
             <tr>
