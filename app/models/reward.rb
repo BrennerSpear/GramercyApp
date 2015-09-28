@@ -24,8 +24,6 @@ class Reward < ActiveRecord::Base
 		self.payable_total = totals.min.round(2)
 
 		self.save
-
-		binding.remote_pry
 	end
 
 end
