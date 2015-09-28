@@ -8,7 +8,6 @@ class Shop < ActiveRecord::Base
 
 
     def self.from_bc_omniauth(auth, brand_id)
-        binding.remote_pry
     	shop = Shop.find_or_create_by(provider: auth.provider, uid: auth.uid.to_s) do |s|
     		s.brand_id		= brand_id
     		s.token			= auth.credentials.token.token
