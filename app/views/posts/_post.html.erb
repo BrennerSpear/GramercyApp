@@ -1,4 +1,4 @@
-<% if post.created_at + 3.days <= Time.now %>
+<% if post.reward.present? %>
     <div class="panel panel-success">
         <div class="panel-heading">
             <div class="row">
