@@ -15,16 +15,16 @@
 			<%= f.error_notification %>
 
 			<div class="form-group form-inline row">
-				<div class= "col-md-4"><%= f.label "cents per like:" %></div>
-				<div class= "col-md-8">
+				<div class= "col-xs-4"><%= f.label "cents per like:" %></div>
+				<div class= "col-xs-8">
 					<%= f.input :cents_per_like, class: "form-control", selected: "5", required: "true", label: false, input_html: { min: '1', max: '10', step: '1', value: '5'}%>
 						&nbsp; Min: ¢1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max: ¢10
 				</div>
 			</div>
 
 			<div class="form-group form-inline row">
-				<div class= "col-md-4"><%= f.label "Dollars per New Follower:" %></div>
-				<div class= "col-md-8">
+				<div class= "col-xs-4"><%= f.label "Dollars per New Follower:" %></div>
+				<div class= "col-xs-8">
 					<%= f.input :dollars_per_follow, class: "form-control", selected: "5.00", required: "true", label: false, input_html: { min: '1', max: '10', step: '.01', value: '5.00'} %>
 						&nbsp; Min: $1.00 &nbsp;&nbsp;&nbsp;&nbsp; Max: $10.00
 				</div>
@@ -33,8 +33,8 @@
 			<p> ‘Max Dollars per Coupon’ is the highest amount an idividual shopper can get in return for a single post on Instagram. Shoppers may only get credit for one Instagram per purchase. We require brands set their maximum to at least $100 of store credit so that shoppers with highly engaged Instagram followings aren’t deterred from posting for fear of hitting the ceiling. We currently have a max for the maximum to protect your brand from issuing something like a $50,000 store credit to someone like Kim Kardashian if she bought something and tagged your brand. If you would like remove this max, please contact us directly and we can do so. </p>
 
 			<div class="form-group form-inline row">
-				<div class= "col-md-4"><%= f.label "Max Dollars per Coupon:" %></div>
-				<div class= "col-md-8">
+				<div class= "col-xs-4"><%= f.label "Max Dollars per Coupon:" %></div>
+				<div class= "col-xs-8">
 					<%= f.input :max_total_allowed, class: "form-control", selected: "100", required: "true", label: false, input_html: { min: '100', max: '500', step: '.01', value: '100'}%>
 					&nbsp; Min: $100 &nbsp;&nbsp;&nbsp;&nbsp; Max: $500
 				</div>
@@ -42,8 +42,8 @@
 			<br>
 			<p>‘Days from Purchase to Post’ is the amount of days the shopper has from the date of purchase to get credit for an Instagram they post. Once the time period is up, the shopper would no longer get credit for tagging your brand in an Instagram. We require your brand gives them at least 30 days to post. We set the maximum to 365 days to protect your brand from commiting to certain rates for too long in the event that your brand decides they want to lower their rates (because, remember, you can’t offer a shopper a certain rate and then suddenly lower the rate on them). When you first start using Gramercy, we suggest giving your shoppers 30 days to post as you figure out what rates work best for your brand so you don’t commit to any high rates that you may have previously offered for too long. Once you’ve found the rates that work best, we suggest giving your shoppers 60 days to post, so they can find and capture a natural occurance of wearing your brand’s product.</p>
 			<div class="form-group form-inline row">
-				<div class= "col-md-4"><%= f.label "Days From Purchase to Post:" %></div>
-				<div class= "col-md-8">
+				<div class= "col-xs-4"><%= f.label "Days From Purchase to Post:" %></div>
+				<div class= "col-xs-8">
 					<%= f.input :days_to_post, class: "form-control", selected: "5", required: "true", label: false, input_html: { min: '30', max: '365', value: '30'}%>
 					&nbsp; Min: 30 days &nbsp;&nbsp;&nbsp;&nbsp; Max: 365 days
 				</div>
