@@ -10,9 +10,13 @@ class SubscribeToBcOrdersWorker
 		end
 
 		Bigcommerce::Webhook.create(
-			scope: 'store/order/*',
-			destination: ENV['BC_SUBSCRIBE_URL']
+		scope: 'store/order/*',
+		destination: ENV['BC_SUBSCRIBE_URL']
 		)
+
+		#the webhook was being returned which was upsetting Bigcommerce::Webhook
+		a = {}
+		a
 
 	end
 end

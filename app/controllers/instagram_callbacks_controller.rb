@@ -9,7 +9,6 @@ class InstagramCallbacksController < ApplicationController
 			shopper = Shopper.from_ig_omniauth(auth, extras)
 
 			if shopper.present?
-				SubscribeToShopperWorker.perform_async(shopper.token)
 				redirect_to thank_you_authorized_shopper_path
 
 				#these else cases should never happen, but just in case

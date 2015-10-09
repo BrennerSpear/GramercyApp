@@ -32,10 +32,10 @@ class BrandsController < ApplicationController
 			@total_new_follows = 0
 
 			@posts.each do |p|
-				#This has to get data from IG
-				#might take a while
-				#better to do on a scheduled worker
-				p.update_likes
+
+				#TODO
+				#this needs to be scheduled, not done on all posts of that brand everytime they go to this page
+				UpdatePostLikesWorker.perform_async(p.id)
 
 				@total_likes += p.likes
 				@total_new_follows += p.followers_generated.count

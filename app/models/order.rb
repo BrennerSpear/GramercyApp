@@ -12,13 +12,35 @@ class Order < ActiveRecord::Base
 		shop.config_bc_client
 
 		new_order 		  = Bigcommerce::Order.find(uid)
-		new_order_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
-		customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
+
+		begin
+			new_order_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
+		rescue => e
+			AdminMailer.delay.error_email(e)
+		end
+
+		#there should be a customer ID but somehow it can be so that there's not...
+		if new_order.customer_id==0
+
+			customer_address = new_order_address
+
+			#this is the only thing missing from the order address. we have to pass it alone because
+			#wif the customer_id was 0 asking for the address_type will throw an error
+			address_type = "none"
+		else
+			begin
+				customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
+				address_type = customer_address.address_type
+			rescue => e
+				AdminMailer.delay.error_email(e)
+			end
+		end
+
 
 		email = new_order.billing_address[:email]
 
 		#find or create the shopper the order is linked to
-		shopper = Shopper.from_bc_order(customer_address, email)
+		shopper = Shopper.from_bc_order(customer_address, email, address_type)
 
 		order = Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
 			o.shopper_id				= shopper.id
@@ -68,22 +90,22 @@ class Order < ActiveRecord::Base
 		#send appropriate email to shopper
 		if shopper.uid.nil?
 			ShopperMailer.delay.authorize_shopper_instagram(
-				shopper.email,
-				shop.brand.name,
-				shop.brand.nickname,
-				order.cents_per_like,
-				order.dollars_per_follow,
-				shop.brand.days_to_post,
-				order.max_total_allowed)
+			shopper.email,
+			shop.brand.name,
+			shop.brand.nickname,
+			order.cents_per_like,
+			order.dollars_per_follow,
+			shop.brand.days_to_post,
+			order.max_total_allowed)
 		else
 			ShopperMailer.delay.offer_from_order(
-				shopper.email,
-				shop.brand.name,
-				shop.brand.nickname,
-				order.cents_per_like,
-				order.dollars_per_follow,
-				shop.brand.days_to_post,
-				order.max_total_allowed)
+			shopper.email,
+			shop.brand.name,
+			shop.brand.nickname,
+			order.cents_per_like,
+			order.dollars_per_follow,
+			shop.brand.days_to_post,
+			order.max_total_allowed)
 		end
 	end
 end

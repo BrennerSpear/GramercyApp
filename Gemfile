@@ -38,15 +38,11 @@ gem 'simple-navigation-bootstrap'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-turbolinks'
 gem 'redis'
-gem 'puma'
-gem 'rack-timeout'
-gem 'rack-timeout-puma'
 gem 'newrelic_rpm'
-gem 'sidekiq'
+
 gem 'sinatra', require: false
-gem 'devise-async'
-gem 'sidekiq_monitor'
-gem 'sidekiq-superworker'
+
+
 gem 'instagram'
 gem 'omniauth-instagram'
 gem 'omniauth-bigcommerce'
@@ -56,6 +52,17 @@ gem 'json'
 gem 'local_time'
 gem 'stripe'
 gem 'seed_dump'
+
+gem 'puma'
+gem 'unicorn'
+gem 'rack-timeout'
+gem 'rack-timeout-puma'
+
+gem 'sidekiq'
+gem 'sidekiq_monitor'
+gem 'sidekiq-superworker'
+gem 'devise-async'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

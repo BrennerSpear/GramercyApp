@@ -33,17 +33,21 @@ module InstagramAccountMethods
 
 	def get_more_followers(page, client, type)
 		page.each do |f|
-			#Create follower if it doesn't exist, but doesn't update it
-			follower = Follower.where(uid: f["id"]).first_or_create do |p|
-				p.username        = f["username"]
-				p.profile_picture = f["profile_picture"]
-				p.name            = f["full_name"]
-				p.save!
-			end
 
-			#Creates the follower - followable relation with timestamp
-			FollowedBy.where(followable_id: self.id, follower_id: follower.id, followable_type: type).first_or_create do |p|
-				p.save!
+			begin
+				#Create follower if it doesn't exist, but doesn't update it
+				follower = Follower.where(uid: f["id"]).first_or_create(
+				username: 		 f["username"],
+				profile_picture: f["profile_picture"],
+				name: 			 f["full_name"]
+				)
+
+				#Creates the follower-followable relation with timestamp
+				FollowedBy.where(followable_id: self.id, follower_id: follower.id, followable_type: type).first_or_create
+
+			rescue ActiveRecord::RecordNotUnique
+				#Do nothing. by the powers of the universe, the same IG account was being added
+				#twice at the exact same time. the index on uid protect this from actually happening
 			end
 		end
 

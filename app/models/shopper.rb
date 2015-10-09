@@ -11,27 +11,36 @@ class Shopper < ActiveRecord::Base
 
   devise :database_authenticatable, :async
 
-  def self.from_bc_order(customer_address, email)
+  def self.from_bc_order(customer_address, email, address_type)
     shopper = Shopper.find_or_create_by(email: email)
 
-    shopper.tap do |s|
-      s.password     = Devise.friendly_token[0,20]
-      s.first_name   = customer_address.first_name
-      s.last_name    = customer_address.last_name
-      s.city         = customer_address.city
-      s.state        = customer_address.state
-      s.zipcode      = customer_address.zip
-      s.country      = customer_address.country
-      s.country_code = customer_address.country_iso2
-      s.address_type = customer_address.address_type
-      s.save!
+    shopper.password = Devise.friendly_token[0,20]
+    shopper.save
+
+    begin
+      shopper.tap do |s|
+        s.first_name   = customer_address.first_name
+        s.last_name    = customer_address.last_name
+        s.city         = customer_address.city
+        s.state        = customer_address.state
+        s.zipcode      = customer_address.zip
+        s.country      = customer_address.country
+        s.country_code = customer_address.country_iso2
+        s.address_type = address_type
+        s.save!
+      end
+
+    rescue => e 
+      AdminMailer.delay.error_email(e)
+
     end
 
     shopper
   end
 
   def self.from_ig_omniauth(auth, extras)
-    
+
+
 
     #if they've auth'd via IG...
     shopper = Shopper.find_by_uid(auth.uid)
@@ -42,8 +51,8 @@ class Shopper < ActiveRecord::Base
       shopper.save!
     else
       #if they haven't IG Auth'd, find their email if they've ordered using it, and connect IG
-      shopper = Shopper.find_by(email: extras["email"].downcase)
-
+      shopper = Shopper.find_or_create_by(email: extras["email"].downcase)
+      binding.remote_pry
       shopper.tap do |s|
         s.uid       = auth.uid
         s.provider  = auth.provider
@@ -65,8 +74,8 @@ class Shopper < ActiveRecord::Base
 
     #send email letting shopper know they're set up with Instagram
     ShopperMailer.delay.shopper_instagram_authorized(
-        shopper.email,
-        shopper.nickname)
+    shopper.email,
+    shopper.nickname)
 
     shopper
   end
@@ -74,7 +83,7 @@ class Shopper < ActiveRecord::Base
 
   def update_followers
     client = self.get_counts_and_return_ig_client
-    
+
     initial_page = client.user_followed_by
 
     #checks deeper for accounts with more followers
