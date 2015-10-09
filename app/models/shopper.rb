@@ -52,7 +52,6 @@ class Shopper < ActiveRecord::Base
     else
       #if they haven't IG Auth'd, find their email if they've ordered using it, and connect IG
       shopper = Shopper.find_or_create_by(email: extras["email"].downcase)
-      binding.remote_pry
       shopper.tap do |s|
         s.uid       = auth.uid
         s.provider  = auth.provider
