@@ -5,7 +5,7 @@ Your coupon to <%= @brand_name %>
 
 Here's the breakdown:
 
-<%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100)) %>
+<%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100.0)) %>
 <%= @followers_generated %> new followers at $<%= sprintf('%.2f' % @dpf) %> per follower = $<%= sprintf('%.2f' % (@followers_generated*@dpf)) %>
 Total Store Credit = $<%= sprintf('%.2f' % @payable_total) %>
 

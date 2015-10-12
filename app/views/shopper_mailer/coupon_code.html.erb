@@ -36,7 +36,7 @@
              <td style="padding: 10px 30px 15px 30px;">
                 Here's the breakdown:
                 <br><br>
-                <%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100)) %>
+                <%= @likes %> likes at <%= @cpl %>¢ per like = $<%= sprintf('%.2f' % (@likes*@cpl/100.0)) %>
                 <br>
                 <%= @followers_generated %> new followers at $<%= sprintf('%.2f' % @dpf) %> per follower = $<%= sprintf('%.2f' % (@followers_generated*@dpf)) %>
                 <br><br>
