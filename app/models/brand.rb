@@ -114,7 +114,7 @@ class Brand < ActiveRecord::Base
 			end
 
 			#if they already follow the brand, skip it
-			if FollowedBy.exists?(followable_id: self.id, follower_id: follower.id)
+			if FollowedBy.exists?(followable_id: self.id, follower_id: follower.id, follower_type: "Brand")
 				count += 1
 				#if they don't follow the brand & follows the shopper that posted, attribute the follower
 			elsif FollowedBy.exists?(followable_id: post.shopper.id, follower_id: follower.id, followable_type: "Shopper")
