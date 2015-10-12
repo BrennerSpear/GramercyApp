@@ -88,5 +88,9 @@ class ShopperMailer < ApplicationMailer
 		mail to: @email, subject: "It looks like your instagram didn't get any likes =("
 	end
 
+	def renew_access_token(email)
+		@email = email
 
+		mail to: @email, subject: "Please re-authorize your Instagram with Gramercy"
+	end
 end

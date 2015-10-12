@@ -30,7 +30,7 @@ class Shopper < ActiveRecord::Base
         s.save!
       end
 
-    rescue => e 
+    rescue => e
       AdminMailer.delay.error_email(e)
 
     end
@@ -46,6 +46,7 @@ class Shopper < ActiveRecord::Base
     shopper = Shopper.find_by_uid(auth.uid)
 
     if shopper.present?
+      #TODO what if they've ordered something using the new email address? now you can't go
       #...allow update of email address
       shopper.email = extras["email"].downcase
       shopper.save!
@@ -64,6 +65,10 @@ class Shopper < ActiveRecord::Base
         s.token     = auth.credentials.token
         s.save!
       end
+
+      ShopperMailer.delay.shopper_instagram_authorized(
+      shopper.email,
+      shopper.nickname)
     end
 
     #get all followers only if there aren't any
@@ -72,11 +77,22 @@ class Shopper < ActiveRecord::Base
     end
 
     #send email letting shopper know they're set up with Instagram
-    ShopperMailer.delay.shopper_instagram_authorized(
-    shopper.email,
-    shopper.nickname)
 
     shopper
+  end
+
+  def self.reauth(auth)
+
+    shopper = Shopper.find_by_uid(auth.uid)
+
+    if shopper.present?
+      shopper.token = auth.credentials.token
+      shopper.save
+    else
+      e = "someone without a shopper account tried to reauth"
+      AdminMailer.delay.error_email(e)
+    end
+
   end
 
 

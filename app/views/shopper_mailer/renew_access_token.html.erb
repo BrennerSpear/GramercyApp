@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>You're all set up with Gramercy!</title>
+  <title>Please re-authorize your Instagram</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0;">
@@ -19,16 +19,22 @@
          <td bgcolor="#DBDBDB" style="padding: 40px 30px 40px 30px;">
            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FEFEFE" color="#777777" style= "border: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px;">
             <tr>
-             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">You're all set up with Gramercy!
+             <td bgcolor="#F4F4F4" style="padding: 15px; border-bottom: solid 1px #979797; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; text-align: center;">Please re-authorize your Instagram!!
              </td>
             </tr>
             <tr>
              <td style="padding: 20px 30px 15px 30px;">
-                Your Instagram account, @<%= @shopper_ig %>, has been connected to Gramercy! The associated email address is <%= @email %>.
-                <br><br>
-                More and more brands will start to offer store credit in exchange for Instagram posts using Gramercy. We will let you know when other brands start using Gramercy!
-                <br><br>
-                Feel free to let your favorite brands know about Gramercy by sending them an email directing them to <%= link_to "Gramercyapp.com", "www.gramercyapp.com" %>!
+                For some reason, your Instagram account's authorization with Gramercy expired. Please re-authorize your account so we can continue to be able to send you offers & store credit!
+             </td>
+           </tr>
+            <tr>
+             <td style="font-weight: bold; color: #86c9d4; padding: 0 30px 0 30px; text-align: center;">
+              <%= link_to "Authorize Instagram", "#{ENV['GRAMERCY_URL']}/auth/instagram?type=ReauthShopper", style: "color: #86c9d4;" %>
+             </td>
+           </tr>
+           <tr>
+             <td style="padding: 10px 30px 15px 30px;">
+              Please first check to make sure you're not logged into a different Instagram account in your browser before you re-authorize.
              </td>
            </tr>
            </table>

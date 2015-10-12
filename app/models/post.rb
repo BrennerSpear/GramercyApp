@@ -67,10 +67,17 @@ class Post < ActiveRecord::Base
 	end
 
 	def update_likes
+
+		begin
 		shopper_uid = self.shopper.uid
 		media = Post.media(shopper_uid, self.media_id)
 		self.likes = media["likes"]["count"].to_i
 		self.save
+		rescue Instagram::BadRequest
+			e = "#{self.shopper.uid} needs to renew their access token"
+			AdminMailer.delay.error_email(e)
+			ShopperMailer.delay.renew_access_token(self.shopper.email)
+		end
 
 	rescue Timeout::Error
 		flash[:notice] = "Instagram isn't responding - the like counts are probably off, for now"

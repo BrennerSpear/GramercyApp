@@ -16,12 +16,24 @@ class InstagramCallbacksController < ApplicationController
 				flash[:notice] = "You were not registered correctly. Try again"
 				redirect_to denied_request_path
 			end
+		elsif extras["type"] == "ReauthShopper"
+
+			shopper = Shopper.reauth(auth)
+
+			if shopper.present?
+				redirect_to thank_you_authorized_shopper_path
+
+				#these else cases should never happen, but just in case
+			else
+				flash[:notice] = "You were not registered correctly. Try again"
+				redirect_to denied_request_path
+			end
+
 		elsif extras["type"] == "Brand"
 
 			current_brand.add_instagram_info(auth)
 			
 			render text: '<script type="text/javascript"> window.close() </script>'
-
 		else
 			flash[:notice] = "You're not a brand OR a shopper...?"
 			redirect_to denied_request_path
