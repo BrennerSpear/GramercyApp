@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   #Admins
   devise_for :admins
   get 'admin_dashboard' => 'admins#admin_dashboard'
+  get 'brands/:id'      => 'admins#show_brand', :as => 'brand'
 
   #No signing in through regular browser - only via ecommerce platform
   get 'home'                 => 'pages#home'
