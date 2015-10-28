@@ -57,7 +57,15 @@
                 <div class="col-lg-4">
                   <% @brands.each do |brand| %>
                     <%= link_to brand.name, brand_path(brand) %>
+                    <br>
                   <% end %>
+                </div>
+                <div class="col-lg-8">
+                    <%= link_to "brands", admin_dash_brands_path %>
+                    <%= link_to "shoppers", admin_dash_shoppers_path %>
+                    <%= link_to "followers", admin_dash_followers_path %>
+                    <%= link_to "orders", admin_dash_orders_path %>
+                    <%= link_to "posts", admin_dash_posts_path %>
                 </div>
             </div>
             <div class="row">

@@ -1,0 +1,47 @@
+<div class="admin-dash-brands-page">
+	<div id="page-wrapper">
+		<div class="row admin-table">
+			<div class="col-lg-12">
+				<div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="data-table">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Brand</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>Instagram</th>
+                                <th>Followers</th>
+                                <th>Orders</th>
+                                <th>Posts</th>
+                                <th>¢/like</th>
+                                <th>$/follow</th>
+                                <th>Maxcoupon</th>
+                                <th>days2post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% @brands.each do |brand| %>
+                            <tr class="text-center">
+                                <td><%= brand.name %></td>
+                                <td><%= mail_to brand.email, "email" %></td>
+                                <td><%= link_to brand.website, brand.website, target: "_blank" %></td>
+                                <td><%= brand.nickname %></td>
+                                <td><%= brand.following_count %></td>
+                                <td><%= brand.orders.count %></td>
+                                <td><%= brand.posts.count %></td>
+                                <td><%= brand.cents_per_like %></td>
+                                <td><%= brand.dollars_per_follow %></td>
+                                <td><%= brand.max_total_allowed %></td>
+                                <td><%= brand.days_to_post %></td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+			</div>
+		</div>
+		<div class="row">
+			<%= link_to "Back", admin_dashboard_path %>
+		</div>
+	</div>
+</div>

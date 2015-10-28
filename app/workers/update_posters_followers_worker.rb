@@ -6,8 +6,8 @@ class UpdatePostersFollowersWorker
 
 		shopper_uid = new_post["object_id"]
 
-		shopper = Shopper.find_by_uid(shopper_uid)
-
-		shopper.update_followers
+		if shopper = Shopper.find_by_uid(shopper_uid)
+			shopper.update_followers
+		end
 	end
 end
