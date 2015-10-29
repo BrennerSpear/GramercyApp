@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
 
 		shop.config_bc_client
 
-		if Bigcommerce::Order.find(uid).status != "incomplete"
+		if Bigcommerce::Order.find(uid).status != "Incomplete"
 			new_order 		  = Bigcommerce::Order.find(uid)
 
 
