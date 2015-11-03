@@ -90,8 +90,11 @@ class Order < ActiveRecord::Base
 				o.save!
 			end
 
-			#rescue, mostly for the case of a " " email address from an in-person sale w/ no email address. Causes 
-			begin
+			#email address from an in-person sale w/ no email address is usually ""
+			#Causes ArgumentError
+			#This is a temporary fix
+			#TODO
+			if shopper.email != ""
 				#send appropriate email to shopper
 				if shopper.uid.nil?
 					ShopperMailer.delay.authorize_shopper_instagram(
@@ -112,9 +115,6 @@ class Order < ActiveRecord::Base
 					shop.brand.days_to_post,
 					order.max_total_allowed)
 				end
-
-			rescue => e
-				AdminMailer.delay.error_email(e)
 			end
 		end
 	end
