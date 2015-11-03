@@ -90,25 +90,31 @@ class Order < ActiveRecord::Base
 				o.save!
 			end
 
-			#send appropriate email to shopper
-			if shopper.uid.nil?
-				ShopperMailer.delay.authorize_shopper_instagram(
-				shopper.email,
-				shop.brand.name,
-				shop.brand.nickname,
-				order.cents_per_like,
-				order.dollars_per_follow,
-				shop.brand.days_to_post,
-				order.max_total_allowed)
-			else
-				ShopperMailer.delay.offer_from_order(
-				shopper.email,
-				shop.brand.name,
-				shop.brand.nickname,
-				order.cents_per_like,
-				order.dollars_per_follow,
-				shop.brand.days_to_post,
-				order.max_total_allowed)
+			#rescue, mostly for the case of a " " email address from an in-person sale w/ no email address. Causes 
+			begin
+				#send appropriate email to shopper
+				if shopper.uid.nil?
+					ShopperMailer.delay.authorize_shopper_instagram(
+					shopper.email,
+					shop.brand.name,
+					shop.brand.nickname,
+					order.cents_per_like,
+					order.dollars_per_follow,
+					shop.brand.days_to_post,
+					order.max_total_allowed)
+				else
+					ShopperMailer.delay.offer_from_order(
+					shopper.email,
+					shop.brand.name,
+					shop.brand.nickname,
+					order.cents_per_like,
+					order.dollars_per_follow,
+					shop.brand.days_to_post,
+					order.max_total_allowed)
+				end
+
+			rescue => e
+				AdminMailer.delay.error_email(e)
 			end
 		end
 	end
