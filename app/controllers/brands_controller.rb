@@ -247,6 +247,8 @@ class BrandsController < ApplicationController
 			shop.stripe_id = customer.id
 			shop.save!
 
+			SubscribeToBcOrdersWorker.perform_async(shop.token, shop.store_hash)
+
 		rescue Stripe::CardError => e
 
 			flash[:notice] = e

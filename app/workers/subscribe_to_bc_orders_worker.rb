@@ -14,7 +14,7 @@ class SubscribeToBcOrdersWorker
 		destination: ENV['BC_SUBSCRIBE_URL']
 		)
 
-		#the webhook was being returned which was upsetting Bigcommerce::Webhook
+		#the webhook was being returned which was upsetting Sidekiq-monitor
 		a = {}
 		a
 

@@ -11,7 +11,6 @@ class BigcommerceCallbacksController < ApplicationController
 
 		if shop.present?
 
-			SubscribeToBcOrdersWorker.perform_async(shop.token, shop.store_hash)
 			GetBcStoreInfoWorker.perform_async(shop.token, shop.store_hash)
 		end
 
