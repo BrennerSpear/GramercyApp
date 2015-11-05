@@ -14,23 +14,17 @@ class Order < ActiveRecord::Base
 		if Bigcommerce::Order.find(uid).status != "Incomplete"
 			new_order 		  = Bigcommerce::Order.find(uid)
 
-
-			#First, get this order_address in case
-			begin
-				new_order_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
-			rescue => e
-				AdminMailer.delay.error_email(e)
-			end
-
-			#there should be a customer ID but somehow it can be so that there's not...
-			if new_order.customer_id==0
-
-				customer_address = new_order_address
-
-				#this is the only thing missing from the order address. we have to pass it alone because
-				#wif the customer_id was 0 asking for the address_type will throw an error
-				address_type = "none"
+			if new_order.customer_id==0 || Bigcommerce::CustomerAddress.all(new_order.customer_id)[0].nil?
+				begin
+					new_order_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
+				rescue => e
+					AdminMailer.delay.error_email(e)
+				end		
+					customer_address = new_order_address
+					#this is the only thing missing from the order address (its in the customer address)
+					address_type = "none"
 			else
+
 				begin
 					customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
 					address_type = customer_address.address_type
