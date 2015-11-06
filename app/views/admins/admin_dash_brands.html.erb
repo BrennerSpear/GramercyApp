@@ -25,12 +25,12 @@
                             <tr class="text-center">
                                 <td><%= brand.name %></td>
                                 <td><%= mail_to brand.email, "email" %></td>
-                                <td><%= link_to brand.shop.url, "site", target: "_blank" %></td>
+                                <td><%= link_to "site", "http://#{brand.shop.url}", target: "_blank" %></td>
                             <% if brand.shop.stripe_id.nil? %>
-                                <td><%= No %></td><% else %>
-                                <td><%= Yes %></td>
+                                <td>No</td><% else %>
+                                <td>Yes</td>
                             <% end %>
-                                <td><%= link_to "wwww.instagram.com/#{brand.nickname}", brand.nickname, target: "_blank" %></td>
+                                <td><%= link_to brand.nickname, "http://wwww.instagram.com/#{brand.nickname}", target: "_blank" %></td>
                                 <td><%= brand.follower_count %></td>
                                 <td><%= brand.orders.count %></td>
                                 <td><%= brand.posts.count %></td>
