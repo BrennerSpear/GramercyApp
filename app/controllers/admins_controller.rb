@@ -44,11 +44,14 @@ class AdminsController < ApplicationController
 	end
 
 	def admin_dash_followers
-		@followers = Follower.all
-		@followed_bys = FollowedBy.all
-		@shoppers = Shopper.all
-		@brands = Brand.all
+		# @followers = Follower.all
+		# @followed_bys = FollowedBy.all
+		# @shoppers = Shopper.all
+		# @brands = Brand.all
 	end
 
+	def admin_dash_orders
+		@orders = Order.all
+	end
 
 end
