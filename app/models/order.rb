@@ -120,6 +120,11 @@ class Order < ActiveRecord::Base
 			order.status 		 = new_order.status
 			order.payment_method = new_order.payment_method
 			order.payment_status = new_order.payment_status
+
+			if new_order.date_shipped.present?
+				order.date_shipped	= DateTime.parse(new_order.date_shipped)
+			end
+
 			order.save
 
 		end
