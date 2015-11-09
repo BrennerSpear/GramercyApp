@@ -25,15 +25,21 @@ class BigcommerceCallbacksController < ApplicationController
 	def receive_order		
 
 		if params[:data][:type] == "order"
-			case params[:scope]
-			when "store/order/created"
-				ReceiveNewBcOrderWorker.perform_async(params)
-			when "store/order/updated"
-				#TODO
-			when "store/order/statusUpdated"
-				#TODO
-			else
-			end
+
+			#Too inconsistent on when a non-incomplete order gets created vs updated
+			#So I use if statements in Order.new_from_bc_live to filter correctly
+			ReceiveNewBcOrderWorker.perform_async(params)
+
+			#In case we figure out if we want to differentiate on incoming
+			# case params[:scope]
+			# when "store/order/created"
+			# 	ReceiveNewBcOrderWorker.perform_async(params)
+			# when "store/order/updated"
+			# 	#TODO
+			# when "store/order/statusUpdated"
+			# 	#TODO
+			# else
+			# end
 
 		end
 
