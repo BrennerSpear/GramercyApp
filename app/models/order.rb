@@ -43,8 +43,8 @@ class Order < ActiveRecord::Base
 				order = Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
 					o.shopper_id				= shopper.id
 
-					o.first_name				= new_order_address.first_name
-					o.last_name					= new_order_address.last_name
+					o.first_name				= customer_address.first_name
+					o.last_name					= customer_address.last_name
 
 					o.status 					= new_order.status
 					#should be able to figure out S&H cost from the difference
@@ -67,11 +67,11 @@ class Order < ActiveRecord::Base
 
 					o.email						= new_order.billing_address[:email].downcase
 
-					o.city						= new_order_address.city
-					o.state 					= new_order_address.state
-					o.zipcode					= new_order_address.zip
-					o.country					= new_order_address.country
-					o.country_code				= new_order_address.country_iso2
+					o.city						= customer_address.city
+					o.state 					= customer_address.state
+					o.zipcode					= customer_address.zip
+					o.country					= customer_address.country
+					o.country_code				= customer_address.country_iso2
 
 					o.cents_per_like			= shop.brand.cents_per_like
 					o.dollars_per_follow		= shop.brand.dollars_per_follow
