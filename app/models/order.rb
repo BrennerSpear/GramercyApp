@@ -12,16 +12,19 @@ class Order < ActiveRecord::Base
 		shop.config_bc_client
 
 		if Order.find_by(shop_id: shop.id, uid: uid).nil?
-			if Bigcommerce::Order.find(uid).status != "Incomplete"
+			if (Bigcommerce::Order.find(uid).status != "Incomplete" &&
+				Bigcommerce::Order.find(uid).status != "Cancelled" &&
+				Bigcommerce::Order.find(uid).status != "Refunded" &&
+				Bigcommerce::Order.find(uid).status != "Disputed")
+
 				new_order 		  = Bigcommerce::Order.find(uid)
 
 				if new_order.customer_id==0 || Bigcommerce::CustomerAddress.all(new_order.customer_id)[0].nil?
 					begin
-						new_order_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
+						customer_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
 					rescue => e
 						AdminMailer.delay.error_email(e)
 					end
-					customer_address = new_order_address
 					#this is the only thing missing from the order address (its in the customer address)
 					address_type = "none"
 				else
@@ -30,7 +33,7 @@ class Order < ActiveRecord::Base
 						customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
 						address_type = customer_address.address_type
 					rescue => e
-						AdminMailer.delay.error_email(e)
+						AdminMailer.delay.error_email("There was a problem with customer address")
 					end
 				end
 

@@ -31,7 +31,7 @@ class Shopper < ActiveRecord::Base
       end
 
     rescue => e
-      AdminMailer.delay.error_email(e)
+      AdminMailer.delay.error_email(e + "There was a problem with Shopper.from_bc_order")
 
     end
 
@@ -75,8 +75,6 @@ class Shopper < ActiveRecord::Base
     if shopper.followers.empty?
       InitiateGetFollowersWorker.perform_async(shopper.id, "Shopper")
     end
-
-    #send email letting shopper know they're set up with Instagram
 
     shopper
   end
