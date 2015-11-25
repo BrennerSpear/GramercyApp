@@ -33,7 +33,8 @@ class Order < ActiveRecord::Base
 						customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
 						address_type = customer_address.address_type
 					rescue => e
-						AdminMailer.delay.error_email("There was a problem with customer address")
+						e = e + " There was a problem with customer address"
+						AdminMailer.delay.error_email(e)
 					end
 				end
 

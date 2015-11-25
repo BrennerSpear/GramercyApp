@@ -17,7 +17,7 @@ class Shopper < ActiveRecord::Base
     shopper.password = Devise.friendly_token[0,20]
     shopper.save
 
-    begin
+    #begin
       shopper.tap do |s|
         s.first_name   = customer_address.first_name
         s.last_name    = customer_address.last_name
@@ -27,13 +27,14 @@ class Shopper < ActiveRecord::Base
         s.country      = customer_address.country
         s.country_code = customer_address.country_iso2
         s.address_type = address_type
-        s.save!
+        s.save
       end
 
-    rescue => e
-      AdminMailer.delay.error_email(e + "There was a problem with Shopper.from_bc_order")
+    # rescue => e
+    #   e = e + " There was a problem with Shopper.from_bc_order"
+    #   AdminMailer.delay.error_email(e)
 
-    end
+    # end
 
     shopper
   end
