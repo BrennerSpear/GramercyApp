@@ -243,6 +243,7 @@ class BrandsController < ApplicationController
 			email: 		 email
 			)
 
+			#Should this be done in the shop.rb file, not directly in the brands_controller?
 			shop = current_brand.shop
 			shop.stripe_id = customer.id
 			shop.save!

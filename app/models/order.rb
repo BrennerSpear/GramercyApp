@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
 					begin
 						customer_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
 					rescue => e
+						e = e + " There was a problem with customer address"
 						AdminMailer.delay.error_email(e)
 					end
 					#this is the only thing missing from the order address (its in the customer address)
