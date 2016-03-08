@@ -1,10 +1,20 @@
 class Brand < ActiveRecord::Base
+	enforce_migration_validations
 	include InstagramAccountMethods
+	#validates_presence_of :email
+	#validates_presence_of :password
+	#validates_presence_of :follower_count
+	#validates_presence_of :following_count
+	#validates_presence_of :media_count
 
 	has_one  :shop, inverse_of: :brand
 	has_many :orders,  -> {uniq}, through: :shop,  source: :orders
 	has_many :posts,   -> {uniq}, through: :orders, source: :post
 	has_many :rewards, -> {uniq}, through: :posts,  source: :reward
+
+	# These two are in the InstagramAccountMethods
+    # has_many :followed_bys, :as => :followable
+    # has_many :followers, :through => :followed_bys
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable

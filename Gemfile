@@ -65,6 +65,8 @@ gem 'devise-async'
 
 gem 'rbtrace'
 
+gem 'mv-postgresql'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

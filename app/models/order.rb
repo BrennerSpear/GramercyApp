@@ -5,6 +5,35 @@ class Order < ActiveRecord::Base
 	has_one    :post
 	has_one    :reward, -> {uniq}, through: :post,  source: :reward
 
+
+
+	def self.create_order
+
+		shop = Shop.find(3)
+
+		shop.config_bc_client
+
+		@order = Bigcommerce::Order.create(
+		  billing_address: {
+		    first_name: Faker::Name.first_name,
+		    last_name: Faker::Name.last_name,
+		    street_1: Faker::Address.street_name,
+		    city: Faker::Address.city,
+		    state: Faker::Address.state,
+		    zip: Faker::Address.zip,
+		    country: Faker::Address.country,
+		    email: 'blspear@gmail.com'
+		  },
+		  products: [
+		    {
+		      product_id: Faker::Number.between(32, 72),
+		      quantity: 1
+		    }
+		  ]
+		)
+
+	end
+
 	def self.new_from_bc_live(store_hash, uid)
 
 		shop = Shop.find_by(provider: "bigcommerce", store_hash: store_hash)

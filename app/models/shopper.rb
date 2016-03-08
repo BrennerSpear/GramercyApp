@@ -1,4 +1,5 @@
 class Shopper < ActiveRecord::Base
+  enforce_migration_validations
   include InstagramAccountMethods
 
   has_many :posts
@@ -40,8 +41,6 @@ class Shopper < ActiveRecord::Base
   end
 
   def self.from_ig_omniauth(auth, extras)
-
-
 
     #if they've auth'd via IG...
     shopper = Shopper.find_by_uid(auth.uid)
