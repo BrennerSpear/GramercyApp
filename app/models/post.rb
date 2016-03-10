@@ -1,5 +1,4 @@
 class Post < ActiveRecord::Base
-	enforce_migration_validations
 	belongs_to :shopper
 	belongs_to :order
 	has_one    :reward

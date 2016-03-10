@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
 	has_one    :post
 	has_one    :reward, -> {uniq}, through: :post,  source: :reward
 
-
+	validates_uniqueness_of :uid, scope: :shop_id
 
 	def self.create_order
 
@@ -21,15 +21,16 @@ class Order < ActiveRecord::Base
 		    city: Faker::Address.city,
 		    state: Faker::Address.state,
 		    zip: Faker::Address.zip,
-		    country: Faker::Address.country,
-		    email: 'blspear@gmail.com'
+		    country: 'Congo',
+		    email: 'gramercy1@sharklasers.com'
 		  },
 		  products: [
 		    {
-		      product_id: Faker::Number.between(32, 72),
+		      product_id: 70,
 		      quantity: 1
 		    }
-		  ]
+		  ],
+		  status_id: 9
 		)
 
 	end
@@ -116,7 +117,13 @@ class Order < ActiveRecord::Base
 						o.date_shipped			= DateTime.parse(new_order.date_shipped)
 					end
 
-					o.save!
+					begin
+						o.save
+					rescue ActiveRecord::RecordNotUnique
+						#Do Nothing. This happens all the damn time since Bigcommerce double&triple sends
+						#their POST and it causes this error 
+					end
+					
 				end
 
 				#email address from an in-person sale w/ no email address is usually ""

@@ -1,11 +1,10 @@
 class Brand < ActiveRecord::Base
-	enforce_migration_validations
 	include InstagramAccountMethods
-	#validates_presence_of :email
-	#validates_presence_of :password
-	#validates_presence_of :follower_count
-	#validates_presence_of :following_count
-	#validates_presence_of :media_count
+	validates_presence_of :email
+	validates_presence_of :password
+	validates_presence_of :follower_count
+	validates_presence_of :following_count
+	validates_presence_of :media_count
 
 	has_one  :shop, inverse_of: :brand
 	has_many :orders,  -> {uniq}, through: :shop,  source: :orders

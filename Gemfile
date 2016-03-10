@@ -46,6 +46,7 @@ gem 'sinatra', require: false
 gem 'instagram'
 gem 'omniauth-instagram'
 gem 'omniauth-bigcommerce'
+gem 'omniauth-oauth2', '1.3.1'
 gem 'bigcommerce', '>= 1.0.0.beta'
 gem 'celluloid', '0.16.0'
 gem 'json'
@@ -65,7 +66,7 @@ gem 'devise-async'
 
 gem 'rbtrace'
 
-gem 'mv-postgresql'
+#gem 'mv-postgresql'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

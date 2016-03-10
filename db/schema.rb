@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007012850) do
+ActiveRecord::Schema.define(version: 20160307012850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 20151007012850) do
 
   add_index "followers", ["uid"], name: "index_followers_on_uid", unique: true, using: :btree
 
+  create_table "migration_validators", force: :cascade do |t|
+    t.string "table_name",      null: false
+    t.string "column_name",     null: false
+    t.string "validation_type", null: false
+    t.string "options"
+  end
+
+  add_index "migration_validators", ["table_name", "column_name", "validation_type"], name: "unique_idx_on_migration_validators", using: :btree
+
   create_table "orders", force: :cascade do |t|
     t.integer  "shop_id",                 null: false
     t.integer  "cents_per_like",          null: false
@@ -124,6 +133,7 @@ ActiveRecord::Schema.define(version: 20151007012850) do
   add_index "orders", ["created_at"], name: "index_orders_on_created_at", using: :btree
   add_index "orders", ["shop_id"], name: "index_orders_on_shop_id", using: :btree
   add_index "orders", ["shopper_id"], name: "index_orders_on_shopper_id", using: :btree
+  add_index "orders", ["uid", "shop_id"], name: "index_orders_on_uid_and_shop_id", unique: true, using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.integer  "shopper_id",                       null: false
