@@ -42,7 +42,8 @@ class Post < ActiveRecord::Base
 
 				#get all orders this shopper has made at this specific brand
 				#that is still eligble to get a reward
-				past_orders = brand.orders.where('email = ? AND  expires_at > ?', shopper_email, Time.now)
+				#TODO TEST THIS
+				past_orders = brand.orders.where('email = ? AND  expires_at > ? AND reward_eligible = ?', shopper_email, Time.now, true)
 				
 				# find an order without a post connected to it, if it exists
 				# it will take the first one it finds, then break
