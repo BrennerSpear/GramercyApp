@@ -15,12 +15,15 @@ class Shopper < ActiveRecord::Base
   devise :database_authenticatable, :async
 
   def self.from_bc_order(customer_address, email, address_type)
-    shopper = Shopper.find_or_create_by(email: email)
 
-    shopper.password = Devise.friendly_token[0,20]
-    shopper.save
+    #Shopper w/ id=1 is hardcoded in for in-store purchases where the shopper
+    #doesn't have an email. But we want to track offline purchases too.
+    if email.present?
+      shopper = Shopper.find_or_create_by(email: email)
 
-    #begin
+      shopper.password = Devise.friendly_token[0,20]
+      shopper.save
+
       shopper.tap do |s|
         s.first_name   = customer_address.first_name
         s.last_name    = customer_address.last_name
@@ -32,14 +35,11 @@ class Shopper < ActiveRecord::Base
         s.address_type = address_type
         s.save
       end
+    else
+      shopper = Shopper.find(1)
+    end
 
-    # rescue => e
-    #   e = e + " There was a problem with Shopper.from_bc_order"
-    #   AdminMailer.delay.error_email(e)
-
-    # end
-
-    shopper
+    return shopper
   end
 
   def self.from_ig_omniauth(auth, extras)

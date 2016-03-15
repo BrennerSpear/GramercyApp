@@ -38,136 +38,165 @@ class Order < ActiveRecord::Base
 	def self.new_from_bc_live(store_hash, uid)
 
 		shop = Shop.find_by(provider: "bigcommerce", store_hash: store_hash)
-
 		shop.config_bc_client
 
 		if Order.find_by(shop_id: shop.id, uid: uid).nil?
-			if (Bigcommerce::Order.find(uid).status != "Incomplete" &&
-				Bigcommerce::Order.find(uid).status != "Cancelled" &&
-				Bigcommerce::Order.find(uid).status != "Refunded" &&
-				Bigcommerce::Order.find(uid).status != "Disputed")
 
-				new_order 		  = Bigcommerce::Order.find(uid)
+			new_order 		 = Bigcommerce::Order.find(uid)
 
-				if new_order.customer_id==0 || Bigcommerce::CustomerAddress.all(new_order.customer_id)[0].nil?
-					begin
-						customer_address = Bigcommerce::OrderShippingAddress.all(uid)[0]
-					rescue => e
-						e = e + " There was a problem with customer address"
-						AdminMailer.delay.error_email(e)
-					end
-					#this is the only thing missing from the order address (its in the customer address)
-					address_type = "none"
-				else
+			positive_order_status = ["Pending","Shipped","Partially Shipped","Awaiting Payment","Awaiting Pickup","Awaiting Shipment","Completed","Awaiting Fulfillment"]
+			#don't need this but nice to have here to show all positible 
+			#negative_order_status = ["Incomplete","Refunded","Cancelled","Declined","Manual Verification Required","Disputed"]
 
-					begin
-						customer_address  = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
-						address_type = customer_address.address_type
-					rescue => e
-						e = e + " There was a problem with customer address"
-						AdminMailer.delay.error_email(e)
-					end
-				end
+			if (positive_order_status.include? new_order.status)
 
+				address_array 		= Order.get_address_from_bc(new_order, uid)
+				customer_address 	= address_array[0]
+				order_address		= address_array[1]
+				address_type 		= address_array[2]
 
+				#pull out email
 				email = new_order.billing_address[:email]
 
 				#find or create the shopper the order is linked to
 				shopper = Shopper.from_bc_order(customer_address, email, address_type)
 
-				order = Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
-					o.shopper_id				= shopper.id
+				#create the new order
+				order = Order.create_from_bc(shop, shopper, uid, new_order, order_address)
 
-					o.first_name				= customer_address.first_name
-					o.last_name					= customer_address.last_name
+				#send offer to shopper (shoppers w/o IG info get an Auth link included)
+				#don't send an email if it's the hardcoded in-store shopper w/ no email
 
-					o.status 					= new_order.status
-					#should be able to figure out S&H cost from the difference
-					#this is all excluding-tax
-					o.subtotal 					= new_order.subtotal_ex_tax.to_f
-					o.discount_amount			= new_order.discount_amount.to_f
-					o.coupon_amount 			= new_order.coupon_discount.to_f
-					o.store_credit_amount 		= new_order.store_credit_amount.to_f
-					o.gift_certificate_amount	= new_order.gift_certificate_amount.to_f
-					o.total						= new_order.total_ex_tax.to_f
-
-					o.item_count				= new_order.items_total.to_i
-
-					o.payment_method			= new_order.payment_method
-					o.payment_status			= new_order.payment_status
-
-					o.notes						= new_order.staff_notes
-					o.message					= new_order.customer_message
-					o.source					= new_order.order_source
-
-					o.email						= new_order.billing_address[:email].downcase
-
-					o.city						= customer_address.city
-					o.state 					= customer_address.state
-					o.zipcode					= customer_address.zip
-					o.country					= customer_address.country
-					o.country_code				= customer_address.country_iso2
-
-					o.cents_per_like			= shop.brand.cents_per_like
-					o.dollars_per_follow		= shop.brand.dollars_per_follow
-					o.max_total_allowed			= shop.brand.max_total_allowed
-					o.expires_at				= Time.now + shop.brand.days_to_post.days
-
-					if new_order.date_shipped.present?
-						o.date_shipped			= DateTime.parse(new_order.date_shipped)
-					end
-
-					begin
-						o.save
-					rescue ActiveRecord::RecordNotUnique
-						#Do Nothing. This happens all the damn time since Bigcommerce double&triple sends
-						#their POST and it causes this error 
-					end
-					
-				end
-
-				#email address from an in-person sale w/ no email address is usually ""
-				#Causes ArgumentError
-				#This is a temporary fix
-				#TODO
-				if shopper.email != ""
-					#send appropriate email to shopper
-					if shopper.uid.nil?
-						ShopperMailer.delay.authorize_shopper_instagram(
-						shopper.email,
-						shop.brand.name,
-						shop.brand.nickname,
-						order.cents_per_like,
-						order.dollars_per_follow,
-						shop.brand.days_to_post,
-						order.max_total_allowed)
-					else
-						ShopperMailer.delay.offer_from_order(
-						shopper.email,
-						shop.brand.name,
-						shop.brand.nickname,
-						order.cents_per_like,
-						order.dollars_per_follow,
-						shop.brand.days_to_post,
-						order.max_total_allowed)
-					end
+				if shopper.id != 1
+					Order.send_offer_to_shopper(shop, shopper, order)
 				end
 			end
+		end
 
-		else
-			new_order = Bigcommerce::Order.find(uid)
-			order     = Order.find_by(shop_id: shop.id, uid: uid)
+		return "Order.new_from_bc_live has run"
+	end
 
-			order.status 		 = new_order.status
-			order.payment_method = new_order.payment_method
-			order.payment_status = new_order.payment_status
+	def self.update_from_bc_live(store_hash, uid)
 
-			if new_order.date_shipped.present?
-				order.date_shipped	= DateTime.parse(new_order.date_shipped)
-			end
+		shop = Shop.find_by(provider: "bigcommerce", store_hash: store_hash)
+		shop.config_bc_client
 
+		new_order = Bigcommerce::Order.find(uid)
+		order     = Order.find_by(shop_id: shop.id, uid: uid)
+
+		order.status 		 = new_order.status
+		order.payment_method = new_order.payment_method
+		order.payment_status = new_order.payment_status
+
+		if new_order.date_shipped.present?
+			order.date_shipped	= DateTime.parse(new_order.date_shipped)
+		end
+		order.save
+
+		#To prevent people from ordering then cancelling
+		#TODO it should disconnect from the post, delete a reward if connected, and notify someone if they still try to get a coupon
+		negative_order_status = ["Incomplete","Refunded","Cancelled","Declined","Manual Verification Required","Disputed"]
+
+		if (negative_order_status.include? new_order.status)
+			order.reward_eligible = false;
 			order.save
-
 		end
 	end
+
+	def self.create_from_bc(shop, shopper, uid, new_order, customer_address)
+		order = Order.find_or_create_by(shop_id: shop.id, uid: uid) do |o|
+			
+
+			o.shopper_id				= shopper.id
+
+			o.first_name				= customer_address.first_name
+			o.last_name					= customer_address.last_name
+
+			o.status 					= new_order.status
+			#should be able to figure out S&H cost from the difference
+			#this is all excluding-tax
+			o.subtotal 					= new_order.subtotal_ex_tax.to_f
+			o.discount_amount			= new_order.discount_amount.to_f
+			o.coupon_amount 			= new_order.coupon_discount.to_f
+			o.store_credit_amount 		= new_order.store_credit_amount.to_f
+			o.gift_certificate_amount	= new_order.gift_certificate_amount.to_f
+			o.total						= new_order.total_ex_tax.to_f
+
+			o.item_count				= new_order.items_total.to_i
+
+			o.payment_method			= new_order.payment_method
+			o.payment_status			= new_order.payment_status
+
+			o.notes						= new_order.staff_notes
+			o.message					= new_order.customer_message
+			o.source					= new_order.order_source
+
+			o.email						= new_order.billing_address[:email].downcase
+
+			o.city						= customer_address.city
+			o.state 					= customer_address.state
+			o.zipcode					= customer_address.zip
+			o.country					= customer_address.country
+			o.country_code				= customer_address.country_iso2
+
+			o.cents_per_like			= shop.brand.cents_per_like
+			o.dollars_per_follow		= shop.brand.dollars_per_follow
+			o.max_total_allowed			= shop.brand.max_total_allowed
+			o.expires_at				= Time.now + shop.brand.days_to_post.days
+
+			if new_order.date_shipped.present?
+				o.date_shipped			= DateTime.parse(new_order.date_shipped)
+			end
+
+			begin
+				o.save
+			rescue ActiveRecord::RecordNotUnique
+				#Do Nothing. This happens all the damn time since Bigcommerce double&triple sends
+				#their POST and it causes this error 
+			end
+			
+		end
+
+		return order
+	end
+
+	def self.get_address_from_bc(new_order, uid)
+		#If the customer is a guest, their bc id == 0
+		#so we just set their address to their order's address
+		order_address    = Bigcommerce::OrderShippingAddress.all(uid)[0]
+
+		if new_order.customer_id==0
+			customer_address = order_address
+			address_type 	 = "none"
+		else
+			customer_address = Bigcommerce::CustomerAddress.all(new_order.customer_id)[0]
+			address_type	 = customer_address.address_type
+		end
+
+		return customer_address, order_address, address_type
+	end
+
+	def self.send_offer_to_shopper(shop, shopper, order)
+		if shopper.uid.nil?
+			ShopperMailer.delay.authorize_shopper_instagram(
+			shopper.email,
+			shop.brand.name,
+			shop.brand.nickname,
+			order.cents_per_like,
+			order.dollars_per_follow,
+			shop.brand.days_to_post,
+			order.max_total_allowed)
+		else
+			ShopperMailer.delay.offer_from_order(
+			shopper.email,
+			shop.brand.name,
+			shop.brand.nickname,
+			order.cents_per_like,
+			order.dollars_per_follow,
+			shop.brand.days_to_post,
+			order.max_total_allowed)
+		end
+	end
+
+
 end
