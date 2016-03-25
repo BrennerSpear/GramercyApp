@@ -82,6 +82,8 @@ class Order < ActiveRecord::Base
 		shop.config_bc_client
 
 		new_order = Bigcommerce::Order.find(uid)
+
+		## catch this cuz race condtions - it doesn't exist when it's called
 		order     = Order.find_by(shop_id: shop.id, uid: uid)
 
 		order.status 		 = new_order.status

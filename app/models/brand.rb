@@ -1,7 +1,6 @@
 class Brand < ActiveRecord::Base
 	include InstagramAccountMethods
 	validates_presence_of :email
-	validates_presence_of :password
 	validates_presence_of :follower_count
 	validates_presence_of :following_count
 	validates_presence_of :media_count
