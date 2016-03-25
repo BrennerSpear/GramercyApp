@@ -83,7 +83,7 @@ class Order < ActiveRecord::Base
 
 		new_order = Bigcommerce::Order.find(uid)
 
-		## catch this cuz race condtions - it doesn't exist when it's called
+		##TODO catch this cuz race condtions - it doesn't exist when it's called
 		order     = Order.find_by(shop_id: shop.id, uid: uid)
 
 		order.status 		 = new_order.status
@@ -167,7 +167,8 @@ class Order < ActiveRecord::Base
 		#so we just set their address to their order's address
 		order_address    = Bigcommerce::OrderShippingAddress.all(uid)[0]
 
-		if new_order.customer_id==0
+		#Sometimes the customer does have a bc account, but no address, hence the second check added as an OR
+		if (new_order.customer_id==0 || Bigcommerce::CustomerAddress.all(new_order.customer_id)[0].nil?)
 			customer_address = order_address
 			address_type 	 = "none"
 		else
