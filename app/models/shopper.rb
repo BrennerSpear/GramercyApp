@@ -18,6 +18,11 @@ class Shopper < ActiveRecord::Base
     #Shopper w/ id=1 is hardcoded in for in-store purchases where the shopper
     #doesn't have an email. But we want to track offline purchases too.
     if email.present?
+
+      #find is sensitive so it doesn't find a capitalized email
+      #create then finds a record w/ different capitilization, and 
+      email = email.downcase
+
       shopper = Shopper.find_or_create_by(email: email)
 
       shopper.tap do |s|
