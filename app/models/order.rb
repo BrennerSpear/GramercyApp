@@ -79,29 +79,34 @@ class Order < ActiveRecord::Base
 	def self.update_from_bc_live(store_hash, uid)
 
 		shop = Shop.find_by(provider: "bigcommerce", store_hash: store_hash)
-		shop.config_bc_client
+		
+		#orders are put into our DB if they're incomplete. Some incomplete orders get updated to a valid status
+		#If the order doesn't exist but it's being updated, it doesn't exist in our DB yet, so we send it back to new_from_bc_live
+		if Order.find_by(shop_id: shop.id, uid: uid).nil?
+			Order.new_from_bc_live(store_hash, uid)
+		else
+			shop.config_bc_client
+			new_order = Bigcommerce::Order.find(uid)
 
-		new_order = Bigcommerce::Order.find(uid)
+			order     = Order.find_by(shop_id: shop.id, uid: uid)
 
-		##TODO catch this cuz race condtions - it doesn't exist when it's called
-		order     = Order.find_by(shop_id: shop.id, uid: uid)
+			order.status 		 = new_order.status
+			order.payment_method = new_order.payment_method
+			order.payment_status = new_order.payment_status
 
-		order.status 		 = new_order.status
-		order.payment_method = new_order.payment_method
-		order.payment_status = new_order.payment_status
-
-		if new_order.date_shipped.present?
-			order.date_shipped	= DateTime.parse(new_order.date_shipped)
-		end
-		order.save
-
-		#To prevent people from ordering then cancelling
-		#TODO it should disconnect from the post, delete a reward if connected, and notify someone if they still try to get a coupon
-		negative_order_status = ["Incomplete","Refunded","Cancelled","Declined","Manual Verification Required","Disputed"]
-
-		if (negative_order_status.include? new_order.status)
-			order.reward_eligible = false;
+			if new_order.date_shipped.present?
+				order.date_shipped	= DateTime.parse(new_order.date_shipped)
+			end
 			order.save
+
+			#To prevent people from ordering then cancelling
+			#TODO it should disconnect from the post, delete a reward if connected, and notify someone if they still try to get a coupon
+			negative_order_status = ["Incomplete","Refunded","Cancelled","Declined","Manual Verification Required","Disputed"]
+
+			if (negative_order_status.include? new_order.status)
+				order.reward_eligible = false;
+				order.save
+			end
 		end
 	end
 
