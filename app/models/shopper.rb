@@ -9,7 +9,6 @@ class Shopper < ActiveRecord::Base
   # has_many :followed_bys, :as => :followable
   # has_many :followers, :through => :followed_bys
 
-  validates_uniqueness_of :email
   validates_presence_of :email
 
   devise :database_authenticatable, :async
