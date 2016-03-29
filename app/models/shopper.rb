@@ -21,8 +21,6 @@ class Shopper < ActiveRecord::Base
     if email.present?
       shopper = Shopper.find_or_create_by(email: email)
 
-      shopper.save!
-
       shopper.tap do |s|
         s.first_name   = customer_address.first_name
         s.last_name    = customer_address.last_name
