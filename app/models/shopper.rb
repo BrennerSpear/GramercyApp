@@ -21,8 +21,7 @@ class Shopper < ActiveRecord::Base
     if email.present?
       shopper = Shopper.find_or_create_by(email: email)
 
-      shopper.password = Devise.friendly_token[0,20]
-      shopper.save
+      shopper.save!
 
       shopper.tap do |s|
         s.first_name   = customer_address.first_name
@@ -33,7 +32,7 @@ class Shopper < ActiveRecord::Base
         s.country      = customer_address.country
         s.country_code = customer_address.country_iso2
         s.address_type = address_type
-        s.save
+        s.save!
       end
     else
       shopper = Shopper.find(1)
