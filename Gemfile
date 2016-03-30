@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '4.2.6'
+
 # changed to pgsql
 gem 'pg'
 # Use SCSS for stylesheets
@@ -42,7 +43,6 @@ gem 'newrelic_rpm'
 
 gem 'sinatra', require: false
 
-
 gem 'instagram'
 gem 'omniauth-instagram'
 gem 'omniauth-bigcommerce'
@@ -53,32 +53,15 @@ gem 'json'
 gem 'local_time'
 gem 'stripe'
 gem 'seed_dump'
-
 gem 'puma'
-gem 'unicorn'
 gem 'rack-timeout'
-#gem 'rack-timeout-puma'
-
 gem 'sidekiq'
 gem 'sidekiq_monitor'
 gem 'sidekiq-superworker'
 gem 'devise-async'
-
 gem 'rbtrace'
 
-#gem 'mv-postgresql'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
 
@@ -98,7 +81,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
-
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -107,5 +90,4 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers', require: false
   gem 'database_cleaner'
-
 end
