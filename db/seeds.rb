@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 Admin.create(email: 'admin@gramercyapp.com', password: 'gramercy')
 
 Brand.create(
@@ -99,4 +91,3 @@ Post.create(
 	media_id: "2222222222",
 	tagged_accounts: ["22268966"],
 	created_at: Time.now)
-
