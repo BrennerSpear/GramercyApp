@@ -40,26 +40,28 @@ class Post < ActiveRecord::Base
 			if Brand.exists?(uid: uid) && self.order_id.nil?
 				brand = Brand.find_by_uid(uid)
 
-				#get all orders this shopper has made at this specific brand
-				#that is still eligble to get a reward
-				past_orders = brand.orders.where('email = ? AND  expires_at > ? AND reward_eligible = ?', shopper_email, Time.now, true)
-				
-				# find an order without a post connected to it, if it exists
-				# it will take the first one it finds, then break
-				past_orders.each do |order|
-					if order.post.nil?
-						self.order_id = order.id
+				if brand.shop.currently_installed?
+					#get all orders this shopper has made at this specific brand
+					#that is still eligble to get a reward
+					past_orders = brand.orders.where('email = ? AND  expires_at > ? AND reward_eligible = ?', shopper_email, Time.now, true)
+					
+					# find an order without a post connected to it, if it exists
+					# it will take the first one it finds, then break
+					past_orders.each do |order|
+						if order.post.nil?
+							self.order_id = order.id
 
-						#Email shopper, thanks for post, we're tracking
-						ShopperMailer.delay.thanks_for_your_post(
-							shopper_email,
-							brand.name,
-							self.shopper.nickname,
-							brand.nickname,
-							self.link,
-							self.image)
+							#Email shopper, thanks for post, we're tracking
+							ShopperMailer.delay.thanks_for_your_post(
+								shopper_email,
+								brand.name,
+								self.shopper.nickname,
+								brand.nickname,
+								self.link,
+								self.image)
+						end
+						break if order.post.nil?
 					end
-					break if order.post.nil?
 				end
 			end
 		end	

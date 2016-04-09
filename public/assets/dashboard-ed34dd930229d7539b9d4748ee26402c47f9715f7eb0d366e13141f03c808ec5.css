@@ -1,0 +1,29 @@
+/* line 1, /Users/BrennerSpear/work/Gramercyapp/app/assets/stylesheets/dashboard.scss */
+.dashboard-page {
+  margin-bottom: 30px;
+  margin-top: -20px;
+}
+
+/* line 7, /Users/BrennerSpear/work/Gramercyapp/app/assets/stylesheets/dashboard.scss */
+.bigger {
+  font-size: 1.25em;
+}
+
+/* line 11, /Users/BrennerSpear/work/Gramercyapp/app/assets/stylesheets/dashboard.scss */
+.smaller {
+  font-size: .75em;
+}
+
+/* line 15, /Users/BrennerSpear/work/Gramercyapp/app/assets/stylesheets/dashboard.scss */
+.time-left {
+  padding: 5px;
+}
+
+/* line 19, /Users/BrennerSpear/work/Gramercyapp/app/assets/stylesheets/dashboard.scss */
+.select-filter {
+  color: #777777;
+  height: 39px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}

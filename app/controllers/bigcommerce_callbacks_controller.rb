@@ -42,6 +42,21 @@ class BigcommerceCallbacksController < ApplicationController
 
 	end
 
+	def uninstall
+		if params[:signed_payload].present?
+			payload = parse_signed_payload
+
+			current_store_hash = payload[:store_hash]
+
+			shop = Shop.find_by(provider: "bigcommerce", store_hash: current_store_hash)
+
+
+			UnsubscribeBcShopWorker.perform_async(shop.id)			
+		end
+
+		render nothing: true, status: :ok
+	end
+
 	def load
 		if params[:signed_payload].present?
 			payload = parse_signed_payload

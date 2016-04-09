@@ -60,6 +60,9 @@ Rails.application.routes.draw do
   #subscription to Brands' orders
   post "bigcommerce/receive_order" => 'bigcommerce_callbacks#receive_order'
 
+  #when someone uninstalls from Gramercy
+  get "bigcommerce/uninstall" => 'bigcommerce_callbacks#uninstall'
+
 
   # Sidekick
   authenticate :admin do
