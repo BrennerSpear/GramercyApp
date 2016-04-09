@@ -17,12 +17,16 @@ class Shop < ActiveRecord::Base
 
     	#it seems they switch the token (maybe when you uninstall?) so we have to always update
     	shop.token = auth.credentials.token.token
-        shop.currently_installed = true
+        shop.save!
 
         #TODO - there should be a specific flow for re-installation, including re-activating
         #orders that got made ineligible, but are should now be eligible again
 
-        shop.save!
+        unless shop.currently_installed?
+            SubscribeToBcOrdersWorker.perform_async(shop.token, shop.store_hash)
+            shop.currently_installed = true
+            shop.save
+        end
 
         shop
     end
