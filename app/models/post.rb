@@ -76,7 +76,7 @@ class Post < ActiveRecord::Base
 		self.likes = media["likes"]["count"].to_i
 		self.save
 		rescue Instagram::BadRequest
-			e = "#{self.shopper.uid} needs to renew their access token"
+			e = "#{self.shopper.nickname} (#{self.shopper.uid}) needs to renew their access token. We've sent an email to #{self.shopper.email}"
 			AdminMailer.delay.error_email(e)
 			ShopperMailer.delay.renew_access_token(self.shopper.email)
 		end

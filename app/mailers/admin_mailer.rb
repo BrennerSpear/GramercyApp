@@ -3,7 +3,6 @@ class AdminMailer < ApplicationMailer
 
 	def error_email(error)
 		@error = error
-
 		mail to: "admin@gramercyapp.com", subject: "There's been an error"
 	end
 

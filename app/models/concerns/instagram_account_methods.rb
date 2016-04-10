@@ -46,8 +46,9 @@ module InstagramAccountMethods
 				FollowedBy.where(followable_id: self.id, follower_id: follower.id, followable_type: type).first_or_create
 
 			rescue ActiveRecord::RecordNotUnique
-				#Do nothing. by the powers of the universe, the same IG account was being added
-				#twice at the exact same time. the index on uid protect this from actually happening
+				#Do nothing. by the powers of the universe, if the same IG account was being added
+				#twice at the exact same time, you'd get this error
+				#the index on uid protect this from actually happening
 			end
 		end
 
