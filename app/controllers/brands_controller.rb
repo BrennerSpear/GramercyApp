@@ -35,7 +35,11 @@ class BrandsController < ApplicationController
 
 				#TODO
 				#this needs to be scheduled, not done on all posts of that brand everytime they go to this page
-				UpdatePostLikesWorker.perform_async(p.id)
+				
+				#Only update posts that have been posted in the last 3 days
+				if p.created_at + Rails.configuration.expire_time > Time.now
+					UpdatePostLikesWorker.perform_async(p.id)
+				end
 
 				@total_likes += p.likes
 				@total_new_follows += p.followers_generated.count
