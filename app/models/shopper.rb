@@ -19,13 +19,15 @@ class Shopper < ActiveRecord::Base
     #doesn't have an email. But we want to track offline purchases too.
     if email.present?
 
-      #find is sensitive so it doesn't find a capitalized email
-      #create then finds a record w/ different capitilization, and 
+      #find is case-sensitive, so if a new email is capitalized (and previous one is not), it doesn't find it
+      #create isn't case-sensitive, so it then tries to create one, but if it already exists
+      #(just in a different case), then it throws an error. this prevents that
       email = email.downcase
 
       shopper = Shopper.find_or_create_by(email: email)
 
       shopper.tap do |s|
+        s.password     = Devise.friendly_token[0,20]
         s.first_name   = customer_address.first_name
         s.last_name    = customer_address.last_name
         s.city         = customer_address.city
