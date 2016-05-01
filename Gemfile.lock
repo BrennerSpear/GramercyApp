@@ -368,6 +368,8 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    skylight (0.10.3)
+      activesupport (>= 3.0.0)
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -473,6 +475,7 @@ DEPENDENCIES
   simple-navigation-bootstrap
   simple_form
   sinatra
+  skylight
   spring
   stripe
   therubyracer

@@ -66,6 +66,8 @@ gem 'devise-async'
 
 gem 'rbtrace'
 
+gem 'skylight'
+
 #gem 'mv-postgresql'
 
 # Use ActiveModel has_secure_password
