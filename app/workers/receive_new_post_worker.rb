@@ -15,8 +15,7 @@ class ReceiveNewPostWorker
 
 			#set expiration worker timer
 			if post.order.present?
-				#TODO
-				#ContinueUpdatingPostWorker.perform_in(1.minute, post.id)
+				ContinueUpdatingPostWorker.perform_async(post.id, 101)
 				ExpirePostWorker.perform_in(Rails.configuration.expire_time, post.id)
 			end
 		end
