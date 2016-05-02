@@ -76,9 +76,18 @@ class Post < ActiveRecord::Base
 		self.likes = media["likes"]["count"].to_i
 		self.save
 		rescue Instagram::BadRequest
-			e = "#{self.shopper.nickname} (#{self.shopper.uid}) needs to renew their access token. We've sent an email to #{self.shopper.email}"
-			AdminMailer.delay.error_email(e)
-			ShopperMailer.delay.renew_access_token(self.shopper.email)
+
+			last_email_date = self.shopper.last_reauth_email_sent_at
+
+			if (last_email_date == nil || last_email_date < Time.now - 1.week)
+				e = "#{self.shopper.nickname} (#{self.shopper.uid}) needs to renew their access token. We've sent an email to #{self.shopper.email}"
+				AdminMailer.delay.error_email(e)
+				ShopperMailer.delay.renew_access_token(self.shopper.email)
+				self.shopper.last_reauth_email_sent_at = Time.now
+				self.shopper.token = "needs renewal"
+				self.shopper.save
+			end
+
 		end
 
 	rescue Timeout::Error
