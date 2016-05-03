@@ -67,7 +67,7 @@ class Order < ActiveRecord::Base
 				#send offer to shopper (shoppers w/o IG info get an Auth link included)
 				#don't send an email if it's the hardcoded in-store shopper w/ no email
 
-				if shopper.id != 1
+				if (shopper.id != 1 && new_order.status == ("Shipped" || "Completed") && order.email_queued == false)
 					Order.send_offer_to_shopper(shop, shopper, order)
 				end
 			end
@@ -103,10 +103,23 @@ class Order < ActiveRecord::Base
 			#TODO it should disconnect from the post, delete a reward if connected, and notify someone if they still try to get a coupon
 			negative_order_status = ["Incomplete","Refunded","Cancelled","Declined","Manual Verification Required","Disputed"]
 
+			#I could just make this half an 'else' statement, but I'm just being explicit. Idk if that's the right thing to do or not
+			positive_order_status = ["Pending","Shipped","Partially Shipped","Awaiting Payment","Awaiting Pickup","Awaiting Shipment","Completed","Awaiting Fulfillment"]
+			
 			if (negative_order_status.include? new_order.status)
-				order.reward_eligible = false;
+				order.reward_eligible = false
+				order.save
+			elsif (positive_order_status.include? new_order.status)
+				order.reward_eligible = true
 				order.save
 			end
+
+			shopper = order.shopper
+			
+			if (shopper.id != 1 && new_order.status == ("Shipped" || "Completed") && order.email_queued == false)
+					Order.send_offer_to_shopper(shop, shopper, order)
+			end
+
 		end
 	end
 
@@ -149,7 +162,6 @@ class Order < ActiveRecord::Base
 			o.cents_per_like			= shop.brand.cents_per_like
 			o.dollars_per_follow		= shop.brand.dollars_per_follow
 			o.max_total_allowed			= shop.brand.max_total_allowed
-			o.expires_at				= Time.now + shop.brand.days_to_post.days
 
 			if new_order.date_shipped.present?
 				o.date_shipped			= DateTime.parse(new_order.date_shipped)
@@ -186,7 +198,7 @@ class Order < ActiveRecord::Base
 
 	def self.send_offer_to_shopper(shop, shopper, order)
 		if shopper.uid.nil?
-			ShopperMailer.delay.authorize_shopper_instagram(
+			ShopperMailer.delay_for(Rails.configuration.offer_email_delay).authorize_shopper_instagram(
 			shopper.email,
 			shop.brand.name,
 			shop.brand.nickname,
@@ -195,7 +207,7 @@ class Order < ActiveRecord::Base
 			shop.brand.days_to_post,
 			order.max_total_allowed)
 		else
-			ShopperMailer.delay.offer_from_order(
+			ShopperMailer.delay_for(Rails.configuration.offer_email_delay).offer_from_order(
 			shopper.email,
 			shop.brand.name,
 			shop.brand.nickname,
@@ -204,6 +216,9 @@ class Order < ActiveRecord::Base
 			shop.brand.days_to_post,
 			order.max_total_allowed)
 		end
+		order.email_queued = true
+		order.expires_at   = Time.now + shop.brand.days_to_post.days + Rails.configuration.offer_email_delay
+		order.save
 	end
 
 

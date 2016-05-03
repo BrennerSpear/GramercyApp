@@ -31,6 +31,7 @@ module GramercyApp
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     config.expire_time = 3.days
+    config.offer_email_delay = 5.days
 
     config.action_dispatch.default_headers = {'X-Frame-Options' => 'ALLOWALL'}
 

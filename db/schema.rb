@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501012850) do
+ActiveRecord::Schema.define(version: 20160502022850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,15 +97,15 @@ ActiveRecord::Schema.define(version: 20160501012850) do
   add_index "migration_validators", ["table_name", "column_name", "validation_type"], name: "unique_idx_on_migration_validators", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "shop_id",                                null: false
-    t.integer  "cents_per_like",                         null: false
-    t.float    "dollars_per_follow",                     null: false
-    t.float    "max_total_allowed",                      null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "shop_id",                                 null: false
+    t.integer  "cents_per_like",                          null: false
+    t.float    "dollars_per_follow",                      null: false
+    t.float    "max_total_allowed",                       null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "email"
-    t.datetime "expires_at",                             null: false
-    t.integer  "shopper_id",                             null: false
+    t.datetime "expires_at"
+    t.integer  "shopper_id",                              null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "status"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160501012850) do
     t.string   "country_code"
     t.string   "uid"
     t.boolean  "reward_eligible",         default: true
+    t.boolean  "email_queued",            default: false
   end
 
   add_index "orders", ["created_at"], name: "index_orders_on_created_at", using: :btree
