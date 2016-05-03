@@ -79,6 +79,8 @@ class Post < ActiveRecord::Base
 
 			last_email_date = self.shopper.last_reauth_email_sent_at
 
+
+			#only send an email up to once a week about reauth-ing their IG account per person
 			if (last_email_date == nil || last_email_date < Time.now - 1.week)
 				e = "#{self.shopper.nickname} (#{self.shopper.uid}) needs to renew their access token. We've sent an email to #{self.shopper.email}"
 				AdminMailer.delay.error_email(e)
