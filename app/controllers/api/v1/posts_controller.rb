@@ -1,7 +1,7 @@
 module Api
 	module V1
 		class PostsController < ApplicationController
-			skip_before_filter :verify_authenticity_token
+			before_action :authenticate_clientapp
 			respond_to :json
 
 			def index

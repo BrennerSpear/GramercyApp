@@ -170,6 +170,10 @@ GEM
     json (1.8.3)
     jwt (1.5.1)
     kgio (2.10.0)
+    knock (1.5)
+      bcrypt (~> 3.1)
+      jwt (~> 1.5)
+      rails (>= 4.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     less (2.6.0)
@@ -442,6 +446,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   json
+  knock
   launchy
   letter_opener
   local_time

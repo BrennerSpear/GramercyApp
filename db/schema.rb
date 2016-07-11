@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502022850) do
+ActiveRecord::Schema.define(version: 20160710180744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20160502022850) do
   add_index "brands", ["email"], name: "index_brands_on_email", unique: true, using: :btree
   add_index "brands", ["reset_password_token"], name: "index_brands_on_reset_password_token", unique: true, using: :btree
   add_index "brands", ["uid"], name: "index_brands_on_uid", unique: true, using: :btree
+
+  create_table "clientapps", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "followed_bys", force: :cascade do |t|
     t.integer  "followable_id",   null: false
