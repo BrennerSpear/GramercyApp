@@ -68,6 +68,8 @@ gem 'rbtrace'
 
 gem 'skylight'
 
+gem 'knock'
+
 #gem 'mv-postgresql'
 
 # Use ActiveModel has_secure_password

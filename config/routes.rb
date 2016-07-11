@@ -2,8 +2,6 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  root to: 'pages#home'
-
   #Admins
   devise_for :admins
   get 'admin_dashboard' => 'admins#admin_dashboard'
@@ -64,17 +62,22 @@ Rails.application.routes.draw do
   get "bigcommerce/uninstall" => 'bigcommerce_callbacks#uninstall'
 
 
-  # Sidekick
-  authenticate :admin do
-    mount Sidekiq::Web => '/sidekiq'
-    mount Sidekiq::Monitor::Engine => '/sidekiq-monitor'
-  end
+
+  #API / Client related routes
+  post 'clientapp_token' => 'clientapp_token#create'
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :posts
     end
   end
+
+  # Sidekick
+  authenticate :admin do
+    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Monitor::Engine => '/sidekiq-monitor'
+  end
+
 
 
 
