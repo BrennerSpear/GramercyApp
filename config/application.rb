@@ -35,6 +35,12 @@ module GramercyApp
 
     config.action_dispatch.default_headers = {'X-Frame-Options' => 'ALLOWALL'}
 
+    # @TODO change this from * to just the frontend app's domain
+    config.action_dispatch.default_headers.merge!({
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Request-Method' => '*'
+        })
+
     config.generators do |g|
         g.test_framework :rspec,
             fixtures: true,
