@@ -69,6 +69,7 @@ gem 'rbtrace'
 gem 'skylight'
 
 gem 'knock'
+gem 'rack-cors', require: 'rack/cors'
 
 #gem 'mv-postgresql'
 
