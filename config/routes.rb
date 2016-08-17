@@ -68,9 +68,23 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :posts
+      
+      resources :brands, only: [] do
+        collection do
+          get :from_store_hash
+        end
+        member do
+          get :info
+          get :counts
+          post :update
+          get :posts
+          get :rewards
+        end
+      end
     end
+
   end
+
 
   # Sidekick
   authenticate :admin do
