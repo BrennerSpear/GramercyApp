@@ -2,4 +2,4 @@ Get notified as brands start using Gramercy!
 We'll email you when brands start offering store credit in return for an Instagram.
 Please double check that the Instagram you are authorizing is the account you post from, as this email address will be linked to only this Instagram account.
 If you have any questions, please don't hesitate to respond to this email!
-<%=  "#{ENV['GRAMERCY_URL']}/auth/instagram?email=#{@email}&type=Shopper" %>
+<%=  "#{ENV['GRAMERCY_URL']}/auth/instagram?email=#{@email}&type=Shopper&scope=follower_list" %>
