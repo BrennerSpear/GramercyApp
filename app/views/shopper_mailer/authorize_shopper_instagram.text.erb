@@ -14,11 +14,11 @@ You will need to tag <%= @brand_ig %> in your post to receive the coupon. (This 
 
 72 hours after you post, we will send you the coupon!
 
-You may only receive a coupon from the first Instagram you post that tags <%= @brand_name %>. You may only receive one coupon per online purchase from <%= @brand_name %>.
+You may only receive a coupon from the first Instagram you post that tags <%= @brand_name %>. You may only receive one coupon per online order from <%= @brand_name %>.
 
-Please authorize your Instagram with Gramercy so we may generate your coupon for you. The Instagram account you authorize will be associated with this email address for all future uses with Gramercy and brands that use Gramercy’s service.
+Please authorize your Instagram with Gramercy so we can generate your coupon for you. The Instagram account you authorize will be associated with this email address for all future uses with Gramercy and brands that use Gramercy’s service.
 
-<%= "#{ENV['GRAMERCY_URL']}/auth/instagram?email=#{@email}&type=Shopper" %>
+<%= "#{ENV['GRAMERCY_URL']}/auth/instagram?email=#{@email}&type=Shopper&scope=follower_list" %>
 
 Details:
 - <%= @brand_name %> has set the maximum for a single coupon at $<%= @max_coupon %>. No matter the amount of engagement you get on your Instagram post, the coupon amount will not exceed $<%= @max_coupon %>.
